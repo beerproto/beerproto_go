@@ -20,7 +20,7 @@ jobs:
       - name: Install Protoc
         uses: arduino/setup-protoc@master
       - name: Build go 
-        run:  protoc -I=${{ GITHUB_WORKSPACE	}}/proto --go_out=. beer.proto
+        run:  protoc -I=$GITHUB_WORKSPACE/proto --go_out=. beer.proto
       - name: Move files 
         run:  mv github.com/beerproto/beerproto.go/beer.pb.go .
       - name: Cleanup
