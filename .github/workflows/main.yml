@@ -17,8 +17,12 @@ jobs:
         with: 
           repository: beerproto/beerproto
           path: proto
+      - name: Setup Go environment
+        uses: actions/setup-go@v2.0.3
       - name: Install Protoc
         uses: arduino/setup-protoc@master
+      - name: Install Go Plugin for Protoc
+        run: go install github.com/golang/protobuf/protoc-gen-go
       - name: Build go 
         run:  protoc -I=$GITHUB_WORKSPACE/proto --go_out=. beer.proto
       - name: Move files 
