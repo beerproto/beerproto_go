@@ -25,10 +25,8 @@ jobs:
         run: go install github.com/golang/protobuf/protoc-gen-go
       - name: Build go 
         run:  protoc -I=$GITHUB_WORKSPACE/proto --go_out=. beer.proto
-      - name: Move files 
-        run:  mv github.com/beerproto/beerproto/beer.pb.go .
       - name: Cleanup
-        run:  rm -r github.com/ proto             
+        run:  rm -r proto             
       - name: Git Commit on Workflow
         uses: matheusalbino/git-commit@v1.0.1
         with:
