@@ -7,3 +7,4 @@ Go generated version of the BeerProto spec
 ```bash
 go get github.com/beerproto/beerproto.go
 ```
+
