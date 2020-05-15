@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  docs:
+  proto:
     runs-on: ubuntu-latest   
     steps:  
       - name: checkout
@@ -17,11 +17,11 @@ jobs:
         with: 
           repository: beerproto/beerproto
           path: proto
-      - name: build go
-        uses: PxyUp/protoc-actions@v2.0.9
-        with:
-          # Path and arguments for protoc
-          path: -I./proto --go_out=:. proto/beerproto.proto
+
+
+      - name: Install Protoc
+        uses: arduino/setup-protoc@master
+
       - name: git commit on workflow
         uses: matheusalbino/git-commit@v1.0.1
         with:
