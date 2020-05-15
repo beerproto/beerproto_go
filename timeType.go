@@ -1,4 +1,4 @@
-package beerproto
+package beerproto_go
 
 import "time"
 
