@@ -4,17 +4,17 @@ import "time"
 
 // Seconds returns the duration as a floating point number of seconds.
 func (t *TimeType) Seconds() int64 {
-	switch m.Unit {
+	switch t.Unit {
 	case TimeType_SEC:
-		return m.Value
+		return t.Value
 	case TimeType_MIN:
-		return int64(m.Value * 60)
+		return t.Value * 60
 	case TimeType_HR:
-		return int64(m.Value * 60 * 60)
+		return t.Value * 60 * 60
 	case TimeType_DAY:
-		return int64(m.Value * 60 * 60 * 24)
+		return t.Value * 60 * 60 * 24
 	case TimeType_WEEK:
-		return int64(m.Value * 60 * 60 * 24 * 7)
+		return t.Value * 60 * 60 * 24 * 7
 	}
 
 	return 0
@@ -22,5 +22,5 @@ func (t *TimeType) Seconds() int64 {
 
 // Milliseconds returns the duration as an integer millisecond count.
 func (t *TimeType) Milliseconds() int64 {
-	return m.Seconds() * int64(time.Millisecond)
+	return t.Seconds() * int64(time.Millisecond)
 }
