@@ -7,22 +7,25 @@ on:
     branches: [ master ]
 
 jobs:
-  proto:
+  Proto:
     runs-on: ubuntu-latest   
     steps:  
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v2
-      - name: checkout beerproto
+      - name: Checkout beerproto
         uses: actions/checkout@v2        
         with: 
           repository: beerproto/beerproto
           path: proto
-
-
       - name: Install Protoc
         uses: arduino/setup-protoc@master
-
-      - name: git commit on workflow
+      - name: Build go 
+        run:  protoc -I=${{ GITHUB_WORKSPACE	}}/proto --go_out=. beer.proto
+      - name: Move files 
+        run:  mv github.com/beerproto/beerproto.go/beer.pb.go .
+      - name: Cleanup
+        run:  rm -r github.com/             
+      - name: Git Commit on Workflow
         uses: matheusalbino/git-commit@v1.0.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
