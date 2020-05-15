@@ -24,7 +24,7 @@ jobs:
       - name: Move files 
         run:  mv github.com/beerproto/beerproto.go/beer.pb.go .
       - name: Cleanup
-        run:  rm -r github.com/             
+        run:  rm -r github.com/ proto             
       - name: Git Commit on Workflow
         uses: matheusalbino/git-commit@v1.0.1
         with:
