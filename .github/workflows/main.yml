@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest   
+    steps:  
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: checkout beerproto
+        uses: actions/checkout@v2        
+        with: 
+          repository: beerproto/beerproto
+          path: proto
+      - name: build go
+        uses: PxyUp/protoc-actions@v2.0.9
+        with:
+          # Path and arguments for protoc
+          path: -I./proto --go_out=:. proto/beerproto.proto
+      - name: git commit on workflow
+        uses: matheusalbino/git-commit@v1.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          message: Updating Protocol Documentation 
+
