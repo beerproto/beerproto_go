@@ -6,7 +6,7 @@ import "time"
 func (t *TimeType) Seconds() int64 {
 	switch m.Unit {
 	case TimeType_SEC:
-		return int64(m.Value)
+		return m.Value
 	case TimeType_MIN:
 		return int64(m.Value * 60)
 	case TimeType_HR:
@@ -15,10 +15,6 @@ func (t *TimeType) Seconds() int64 {
 		return int64(m.Value * 60 * 60 * 24)
 	case TimeType_WEEK:
 		return int64(m.Value * 60 * 60 * 24 * 7)
-	case TimeType_MONTH:
-		return int64(m.Value * 60 * 60 * 24 * 30)
-	case TimeType_YEAR:
-		return int64(m.Value * 60 * 60 * 24 * 365)
 	}
 
 	return 0
