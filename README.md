@@ -8,3 +8,4 @@ Go generated version of the BeerProto spec
 go get github.com/beerproto/beerproto.go
 ```
 
+
