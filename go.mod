@@ -1,4 +1,4 @@
-module github.com/beerproto/beerproto.go
+module github.com/beerproto/beerproto_go
 
 go 1.14
 
