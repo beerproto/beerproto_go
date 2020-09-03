@@ -38,8 +38,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: CI_Release_$GITHUB_REF
-          release_name: v$GITHUB_RUN_NUMBER
+          tag_name: v${{ GITHUB_RUN_NUMBER }}
+          body: Release ${{ github.ref }}
           draft: false
           prerelease: false
 
