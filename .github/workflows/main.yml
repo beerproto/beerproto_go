@@ -22,7 +22,9 @@ jobs:
         uses: actions/setup-go@v2
         with: 
           go-version: '1.17.1'
-      - name: Install Go Protoc
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v1          
+      - name: Install Go Plugin for Protoc
         run: go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
       - name: Build go 
         run:  protoc -I=$GITHUB_WORKSPACE/proto --go_out=. beer.proto
