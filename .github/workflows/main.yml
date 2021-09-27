@@ -27,7 +27,7 @@ jobs:
       - name: Install Go Plugin for Protoc
         run: go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
       - name: Build go 
-        run:  protoc -I=$GITHUB_WORKSPACE/proto --go_out=. beer.proto
+        run:  protoc -I=$GITHUB_WORKSPACE/proto --go_out=. beer.proto grain.proto
       - name: Move file
         run: mv github.com/beerproto/beerproto_go/beer.pb.go beer.pb.go 
       - name: Cleanup
