@@ -31,7 +31,7 @@ jobs:
       - name: Move beer file
         run: mv github.com/beerproto/beerproto_go/beer.pb.go beer.pb.go 
       - name: Move grain file        
-        run: mv github.com/beerproto/beerproto_go/grain.pb.go grain.pb.go         
+        run: mv github.com/beerproto/beerproto_go/fermentables/grain.pb.go fermentables/grain.pb.go         
       - name: Cleanup
         run:  rm -r proto             
       - name: Git Commit on Workflow
