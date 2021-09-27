@@ -28,8 +28,10 @@ jobs:
         run: go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
       - name: Build go 
         run:  protoc -I=$GITHUB_WORKSPACE/proto --go_out=. beer.proto grain.proto
-      - name: Move file
+      - name: Move beer file
         run: mv github.com/beerproto/beerproto_go/beer.pb.go beer.pb.go 
+      - name: Move grain file        
+        run: mv github.com/beerproto/beerproto_go/grain.pb.go grain.pb.go         
       - name: Cleanup
         run:  rm -r proto             
       - name: Git Commit on Workflow
