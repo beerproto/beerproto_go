@@ -17,6 +17,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: beerproto/beerproto
+          path: proto
       - uses: actions/setup-go@v2.0.3
       - run: go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
       - run: go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
@@ -24,7 +25,7 @@ jobs:
       - uses: bufbuild/buf-setup-action@v1
       - name: Buf generate
         run: buf generate beerprotoapis --template=buf.gen.go.yaml
-
+        working-directory: ./proto
       - run: ls
       - name: Git Commit on Workflow
         uses: github-actions-x/commit@v2.9
