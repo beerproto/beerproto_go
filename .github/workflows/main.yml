@@ -25,6 +25,7 @@ jobs:
       - name: Buf generate
         run: buf generate beerprotoapis --template=buf.gen.go.yaml
 
+      - run: ls
       - name: Git Commit on Workflow
         uses: github-actions-x/commit@v2.9
         with:
