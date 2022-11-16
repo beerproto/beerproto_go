@@ -26,7 +26,9 @@ jobs:
       - name: Buf generate
         run: buf generate beerprotoapis --template=buf.gen.go.yaml
         working-directory: ./proto
-      - run: ls ./proto
+      - run: ls ./proto/gen/
+      - name: Move beer file
+        run: mv proto/gen/github.com/beerproto/beerproto_go/beerproto/v1/ ./
       - name: Git Commit on Workflow
         uses: github-actions-x/commit@v2.9
         with:
