@@ -18,8 +18,8 @@ jobs:
         with:
           repository: beerproto/beerproto
           path: proto
+      - uses: bufbuild/buf-setup-action@v1
       - name: Buf generate
-        uses: bufbuild/buf-setup-action@v1
         working-directory: ./proto
         run: buf generate beerprotoapis --template=buf.gen.go.yaml
       - name: Git Commit on Workflow
