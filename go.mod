@@ -1,8 +1,5 @@
 module github.com/beerproto/beerproto_go
 
-go 1.18
+go 1.19
 
-require (
-	github.com/golang/protobuf v1.4.2
-	google.golang.org/protobuf v1.25.0
-)
+require google.golang.org/protobuf v1.23.0

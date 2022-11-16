@@ -9,15 +9,15 @@ import (
 // Seconds returns the duration as a floating point number of seconds.
 func Seconds(t *beerprotov1.TimeType) int64 {
 	switch t.Unit {
-	case beerprotov1.TimeType_TIME_UNIT_SEC:
+	case beerprotov1.TimeUnit_TIME_UNIT_SEC:
 		return t.Value
-	case beerprotov1.TimeType_TIME_UNIT_MIN:
+	case beerprotov1.TimeUnit_TIME_UNIT_MIN:
 		return t.Value * 60
-	case beerprotov1.TimeType_TIME_UNIT_HR:
+	case beerprotov1.TimeUnit_TIME_UNIT_HR:
 		return t.Value * 60 * 60
-	case beerprotov1.TimeType_TIME_UNIT_DAY:
+	case beerprotov1.TimeUnit_TIME_UNIT_DAY:
 		return t.Value * 60 * 60 * 24
-	case beerprotov1.TimeType_TIME_UNIT_WEEK:
+	case beerprotov1.TimeUnit_TIME_UNIT_WEEK:
 		return t.Value * 60 * 60 * 24 * 7
 	}
 
