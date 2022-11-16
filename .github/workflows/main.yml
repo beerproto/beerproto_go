@@ -24,6 +24,8 @@ jobs:
         run: go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
       - name: Install Go Plugin for GRPC
         run: go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+      - name: Update path
+        run: export PATH="$PATH:$(go env GOPATH)/bin"
       - uses: bufbuild/buf-setup-action@v1
       - name: Buf version
         run: buf --version
