@@ -18,8 +18,7 @@ jobs:
         with:
           repository: beerproto/beerproto
           path: proto
-      - name: test
-        uses: docker/build-push-action@v3.2.0
+      - uses: docker-practice/actions-setup-docker@master
       - name: Buf generate
         working-directory: ./proto
         run: docker run --volume "$(pwd):/workspace" --workdir /workspace bufbuild/buf generate beerprotoapis --template=buf.gen.go.yaml
