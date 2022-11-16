@@ -30,13 +30,10 @@ jobs:
         run: mv ./proto/gen/proto/go/github.com/beerproto/beerproto/v1 ./
       - run: ls
       - name: Push
-        uses: github-actions-x/commit@v2.9
+        uses: actions-x/commit@v6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          push-branch: "master"
-          commit-message: Updating beer.pb.go
-          force-add: "true"
-          files: v1/
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: "master"
       - name: Create Release
         uses: actions/create-release@v1
         env:
