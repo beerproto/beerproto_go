@@ -1,0 +1,54 @@
+/**
+ * BeerProto
+ *
+ * Another beer format, written in protocol buffer.
+ *
+ * Copyright (c) 2020 Ross Merrigan
+ */
+syntax = "proto3";
+
+package beerproto.v1;
+
+import "beerproto/v1/mash.proto";
+import "beerproto/v1/recipe.proto";
+import "beerproto/v1/misc.proto";
+import "beerproto/v1/style.proto";
+import "beerproto/v1/fermentation.proto";
+import "beerproto/v1/boil.proto";
+import "beerproto/v1/fermentable.proto";
+import "beerproto/v1/culture.proto";
+import "beerproto/v1/equipment.proto";
+import "beerproto/v1/packaging.proto";
+import "beerproto/v1/hop.proto";
+import "beerproto/v1/water.proto";
+
+
+message Recipe {
+  string id = 1;
+  // A collection of steps providing process information for common mashing procedures
+  repeated MashProcedureType mashes = 2;
+  // Records containing a minimal collection of the description of ingredients, procedures and other required parameters necessary to recreate a batch of beer
+  repeated RecipeType recipes = 3;
+  // Records for adjuncts which do not contribute to the gravity of the beer
+  repeated MiscellaneousType miscellaneous_ingredients = 4;
+  // Records detailing the characteristics of the beer styles for which judging guidelines have been established
+  repeated StyleType styles = 5;
+  // A collection of steps providing process information for common fermentation procedures
+  repeated FermentationProcedureType fermentations = 6;
+  // A collection of steps providing process information for common boil procedures
+  repeated BoilProcedureType boil = 7;
+  // Explicitly encode version within list of records
+  double version = 8;
+  // Records for any ingredient that contributes to the gravity of the beer
+  repeated FermentableType fermentables = 9;
+  // Records detailing the wide array of unique cultures
+  repeated CultureInformation cultures = 10;
+  // Provides necessary information for brewing equipment
+  repeated EquipmentType equipments = 11;
+  // A collection of steps providing process information for common packaging procedures
+  repeated PackagingProcedureType packaging = 12;
+  // Records detailing the many properties of unique hop varieties
+  repeated VarietyInformation hop_varieties = 13;
+  // Records for water profiles used in brewing
+  repeated WaterBase profiles = 14;
+}
