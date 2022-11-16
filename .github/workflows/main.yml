@@ -2,43 +2,30 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
   workflow_dispatch:
-  
+
 jobs:
   Proto:
-    runs-on: ubuntu-latest   
-    steps:  
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Checkout beerproto
-        uses: actions/checkout@v2        
-        with: 
+        uses: actions/checkout@v2
+        with:
           repository: beerproto/beerproto
           path: proto
-      - name: Setup Go environment
-        uses: actions/setup-go@v2
-        with: 
-          go-version: '1.17.1'
-      - name: Install Protoc
-        uses: arduino/setup-protoc@v1          
-      - name: Install Go Plugin for Protoc
-        run: go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-      - name: Build go 
-        run:  protoc -I=$GITHUB_WORKSPACE/proto --go_out=. beer.proto grain.proto
-      - name: Move beer file
-        run: mv github.com/beerproto/beerproto_go/beer.pb.go beer.pb.go 
-      - name: Move grain file        
-        run: mkdir -p fermentables && mv github.com/beerproto/beerproto_go/fermentables/grain.pb.go fermentables/grain.pb.go         
-      - name: Cleanup
-        run:  rm -r proto             
+      - uses: bufbuild/buf-setup-action@v1
+      - run: buf --version
+      - run: buf generate beerprotoapis --template=buf.gen.go.yaml
       - name: Git Commit on Workflow
         uses: matheusalbino/git-commit@v1.0.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          message: Updating beer.pb.go 
+          message: Updating beer.pb.go
       - name: Create Release
         uses: actions/create-release@v1
         env:
@@ -48,4 +35,3 @@ jobs:
           body: CI Release ${{ github.ref }}
           draft: false
           prerelease: false
-
