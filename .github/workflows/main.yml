@@ -27,6 +27,7 @@ jobs:
         run: buf generate beerprotoapis --template=buf.gen.go.yaml
         working-directory: ./proto
       - run: rm -R ./v1
+      - run: ls -R ./proto
       - name: Move beer file
         run: mv ./proto/gen/proto/go/github.com/beerproto/beerproto_go/v1 ./
       - run: rm -R ./proto
