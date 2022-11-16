@@ -1,19 +1,23 @@
 package beerproto_go
 
-import "time"
+import (
+	"time"
+
+	beerprotov1 "github.com/beerproto/beerproto_go/v1"
+)
 
 // Seconds returns the duration as a floating point number of seconds.
-func (t *TimeType) Seconds() int64 {
+func Seconds(t *beerprotov1.TimeType) int64 {
 	switch t.Unit {
-	case TimeType_SEC:
+	case beerprotov1.TimeType_TIME_UNIT_SEC:
 		return t.Value
-	case TimeType_MIN:
+	case beerprotov1.TimeType_TIME_UNIT_MIN:
 		return t.Value * 60
-	case TimeType_HR:
+	case beerprotov1.TimeType_TIME_UNIT_HR:
 		return t.Value * 60 * 60
-	case TimeType_DAY:
+	case beerprotov1.TimeType_TIME_UNIT_DAY:
 		return t.Value * 60 * 60 * 24
-	case TimeType_WEEK:
+	case beerprotov1.TimeType_TIME_UNIT_WEEK:
 		return t.Value * 60 * 60 * 24 * 7
 	}
 
@@ -21,6 +25,6 @@ func (t *TimeType) Seconds() int64 {
 }
 
 // Milliseconds returns the duration as an integer millisecond count.
-func (t *TimeType) Milliseconds() int64 {
-	return t.Seconds() * int64(time.Millisecond)
+func Milliseconds(t *beerprotov1.TimeType) int64 {
+	return Seconds(t) * int64(time.Millisecond)
 }
