@@ -18,20 +18,11 @@ jobs:
         with:
           repository: beerproto/beerproto
           path: proto
-      - name: Setup Go environment
-        uses: actions/setup-go@v2.0.3
-      - name: Install Go Plugin for Protoc
-        run: go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-      - name: Install Go Plugin for GRPC
-        run: go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-      - name: Update path
-        run: export PATH="$PATH:$(go env GOPATH)/bin"
-      - uses: bufbuild/buf-setup-action@v1
-      - name: Buf version
-        run: buf --version
+      - name: test
+        uses: docker/build-push-action@v3.2.0
       - name: Buf generate
         working-directory: ./proto
-        run: buf generate beerprotoapis --template=buf.gen.go.yaml
+        run: docker run --volume "$(pwd):/workspace" --workdir /workspace bufbuild/buf generate beerprotoapis --template=buf.gen.go.yaml
       - name: Git Commit on Workflow
         uses: github-actions-x/commit@v2.9
         with:
