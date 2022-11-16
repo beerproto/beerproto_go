@@ -28,7 +28,7 @@ jobs:
         working-directory: ./proto
       - name: Move beer file
         run: mv ./proto/gen/proto/go/github.com/beerproto/beerproto/v1 ./
-      - run: ls
+      - run: rm -R ./proto
       - name: Push
         uses: actions-x/commit@v6
         with:
