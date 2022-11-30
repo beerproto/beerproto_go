@@ -24,5 +24,5 @@ func (t *TimeType) Seconds() int64 {
 
 // Milliseconds returns the duration as an integer millisecond count.
 func (t *TimeType) Milliseconds() int64 {
-	return Seconds(t) * int64(time.Millisecond)
+	return t.Seconds() * int64(time.Millisecond)
 }
