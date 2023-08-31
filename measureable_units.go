@@ -193,3 +193,34 @@ func (x ViscosityUnit) DisplayName() string {
 	tt := proto.GetExtension(test, E_DisplayName)
 	return tt.(string)
 }
+
+func (x *VolumeType) Convert(unit VolumeUnit) *VolumeType {
+	test := x.Unit.Descriptor().Values().ByNumber(x.Unit.Number()).Options()
+	tt := proto.GetExtension(test, E_ConversionVolumeUnit)
+	response := &VolumeType{
+		Unit:  unit,
+		Value: x.Value,
+	}
+	c, ok := tt.(*ConversionVolumeUnit)
+	if ok {
+		for _, r := range c.Rates {
+			if r.Target == unit {
+				switch r.Operator {
+				case ArithmeticOperators_ARITHMETIC_OPERATORS_ADDITION:
+					response.Value = x.Value + r.Value
+				case ArithmeticOperators_ARITHMETIC_OPERATORS_SUBTRACTION:
+					response.Value = x.Value - r.Value
+				case ArithmeticOperators_ARITHMETIC_OPERATORS_MULTIPLICATION:
+					response.Value = x.Value * r.Value
+				case ArithmeticOperators_ARITHMETIC_OPERATORS_DIVISION:
+					response.Value = x.Value / r.Value
+				case ArithmeticOperators_ARITHMETIC_OPERATORS_UNSPECIFIED:
+					response.Value = x.Value
+				}
+				break
+			}
+		}
+	}
+
+	return response
+}
