@@ -206,17 +206,70 @@ func (x *VolumeType) Convert(unit VolumeUnit) *VolumeType {
 		for _, r := range c.Rates {
 			if r.Target == unit {
 				switch r.Operator {
-				case ArithmeticOperators_ARITHMETIC_OPERATORS_ADDITION:
+				case BinaryArithmetic_BINARY_ARITHMETIC_ADDITION:
 					response.Value = x.Value + r.Value
-				case ArithmeticOperators_ARITHMETIC_OPERATORS_SUBTRACTION:
+				case BinaryArithmetic_BINARY_ARITHMETIC_SUBTRACTION:
 					response.Value = x.Value - r.Value
-				case ArithmeticOperators_ARITHMETIC_OPERATORS_MULTIPLICATION:
+				case BinaryArithmetic_BINARY_ARITHMETIC_MULTIPLICATION:
 					response.Value = x.Value * r.Value
-				case ArithmeticOperators_ARITHMETIC_OPERATORS_DIVISION:
+				case BinaryArithmetic_BINARY_ARITHMETIC_DIVISION:
 					response.Value = x.Value / r.Value
-				case ArithmeticOperators_ARITHMETIC_OPERATORS_UNSPECIFIED:
+				case BinaryArithmetic_BINARY_ARITHMETIC_UNSPECIFIED:
 					response.Value = x.Value
 				}
+				break
+			}
+		}
+	}
+
+	return response
+}
+
+func (x *MassType) Convert(unit MassUnit) *MassType {
+	test := x.Unit.Descriptor().Values().ByNumber(x.Unit.Number()).Options()
+	tt := proto.GetExtension(test, E_ConversionMassUnit)
+	response := &MassType{
+		Unit:  unit,
+		Value: x.Value,
+	}
+	c, ok := tt.(*ConversionMassUnit)
+	if ok {
+		for _, r := range c.Rates {
+			if r.Target == unit {
+				switch r.Operator {
+				case BinaryArithmetic_BINARY_ARITHMETIC_ADDITION:
+					response.Value = x.Value + r.Value
+				case BinaryArithmetic_BINARY_ARITHMETIC_SUBTRACTION:
+					response.Value = x.Value - r.Value
+				case BinaryArithmetic_BINARY_ARITHMETIC_MULTIPLICATION:
+					response.Value = x.Value * r.Value
+				case BinaryArithmetic_BINARY_ARITHMETIC_DIVISION:
+					response.Value = x.Value / r.Value
+				case BinaryArithmetic_BINARY_ARITHMETIC_UNSPECIFIED:
+					response.Value = x.Value
+				}
+				break
+			}
+		}
+	}
+
+	return response
+}
+
+func (x *DiastaticPowerType) Convert(unit DiastaticPowerUnit) *DiastaticPowerType {
+	test := x.Unit.Descriptor().Values().ByNumber(x.Unit.Number()).Options()
+	tt := proto.GetExtension(test, E_ConversionDiastaticPowerUnit)
+	response := &DiastaticPowerType{
+		Unit:  unit,
+		Value: x.Value,
+	}
+	c, ok := tt.(*ConversionDiastaticPowerUnit)
+	if ok {
+		for _, r := range c.Rates {
+			if r.Target == unit {
+
+				variables := map[string]float64{"x": x.Value}
+				response.Value = r.Tree.Evaluate(variables)
 				break
 			}
 		}
