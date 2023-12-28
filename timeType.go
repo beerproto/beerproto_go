@@ -29,5 +29,8 @@ func (t *TimeType) Milliseconds() int64 {
 }
 
 func (x *TimeType) DisplayName() string {
+	if x == nil {
+		return ""
+	}
 	return fmt.Sprintf("%v %v", x.Value, x.Unit.DisplayName())
 }

@@ -1,6 +1,10 @@
 package beerprotov1
 
 func (x *MiscellaneousAdditionType) DisplayName() string {
+	if x == nil {
+		return ""
+	}
+
 	mass := x.GetMass()
 	if mass != nil {
 		return mass.DisplayName()

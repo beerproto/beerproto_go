@@ -1,6 +1,9 @@
 package beerprotov1
 
 func (x *CultureAdditionType) DisplayName() string {
+	if x == nil {
+		return ""
+	}
 	mass := x.GetMass()
 	if mass != nil {
 		return mass.DisplayName()
