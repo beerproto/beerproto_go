@@ -1,7 +1,6 @@
 package beerprotov1
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -26,11 +25,4 @@ func (t *TimeType) Seconds() int64 {
 // Milliseconds returns the duration as an integer millisecond count.
 func (t *TimeType) Milliseconds() int64 {
 	return t.Seconds() * int64(time.Millisecond)
-}
-
-func (x *TimeType) DisplayName() string {
-	if x == nil {
-		return ""
-	}
-	return fmt.Sprintf("%v %v", x.Value, x.Unit.DisplayName())
 }
