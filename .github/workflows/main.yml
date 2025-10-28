@@ -29,7 +29,7 @@ jobs:
         run: buf generate beerprotoapis --template=buf.gen.go.yaml
         working-directory: ./proto
       - name: Move beer file
-        run: mv ./proto/gen/proto/go/github.com/beerproto/v1/* ./
+        run: mv ./proto/gen/beerproto/v1/* ./
       - run: rm -R ./proto
       - name: Push
         uses: actions-x/commit@v6
