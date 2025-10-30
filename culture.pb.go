@@ -346,7 +346,6 @@ type CultureInformation struct {
 	// Recommended styles for a particular culture.
 	BestFor   string                `protobuf:"bytes,5,opt,name=best_for,json=bestFor,proto3" json:"best_for,omitempty"`
 	Inventory *CultureInventoryType `protobuf:"bytes,6,opt,name=inventory,proto3" json:"inventory,omitempty"`
-	Name      string                `protobuf:"bytes,7,opt,name=name,proto3" json:"name,omitempty"`
 	// The recommended limit of abv by the culture producer before attenuation stops.
 	AlcoholTolerance *PercentType `protobuf:"bytes,8,opt,name=alcohol_tolerance,json=alcoholTolerance,proto3" json:"alcohol_tolerance,omitempty"`
 	// A glucoamylase positive culture is capable of producing glucoamylase, the enzyme produced through expression of the diastatic gene, which allows yeast to attenuate dextrins and starches leading to a very low FG. This is positive in some saison/brett yeasts as well as the new gulo hybrid by Omega yeast labs.
@@ -434,13 +433,6 @@ func (x *CultureInformation) GetInventory() *CultureInventoryType {
 		return x.Inventory
 	}
 	return nil
-}
-
-func (x *CultureInformation) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
 }
 
 func (x *CultureInformation) GetAlcoholTolerance() *PercentType {
@@ -813,15 +805,14 @@ const file_beerproto_v1_culture_proto_rawDesc = "" +
 	"\x04form\x18\x03 \x01(\x0e2\x1d.beerproto.v1.CultureBaseFormB\v\xbaH\b\xc8\x01\x01\x82\x01\x02 \x00R\x04form\x12\x1a\n" +
 	"\bproducer\x18\x04 \x01(\tR\bproducer\x12\x1d\n" +
 	"\n" +
-	"product_id\x18\x05 \x01(\tR\tproductId\"\xd7\x05\n" +
+	"product_id\x18\x05 \x01(\tR\tproductId\"\xc3\x05\n" +
 	"\x12CultureInformation\x125\n" +
 	"\x04base\x18\x01 \x01(\v2\x19.beerproto.v1.CultureBaseB\x06\xbaH\x03\xc8\x01\x01R\x04base\x12\x1b\n" +
 	"\x02id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x12O\n" +
 	"\x11temperature_range\x18\x03 \x01(\v2\".beerproto.v1.TemperatureRangeTypeR\x10temperatureRange\x12\x14\n" +
 	"\x05notes\x18\x04 \x01(\tR\x05notes\x12\x19\n" +
 	"\bbest_for\x18\x05 \x01(\tR\abestFor\x12@\n" +
-	"\tinventory\x18\x06 \x01(\v2\".beerproto.v1.CultureInventoryTypeR\tinventory\x12\x12\n" +
-	"\x04name\x18\a \x01(\tR\x04name\x12F\n" +
+	"\tinventory\x18\x06 \x01(\v2\".beerproto.v1.CultureInventoryTypeR\tinventory\x12F\n" +
 	"\x11alcohol_tolerance\x18\b \x01(\v2\x19.beerproto.v1.PercentTypeR\x10alcoholTolerance\x12\"\n" +
 	"\fglucoamylase\x18\t \x01(\bR\fglucoamylase\x121\n" +
 	"\x04type\x18\n" +
