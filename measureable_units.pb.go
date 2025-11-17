@@ -961,6 +961,77 @@ func (ViscosityUnit) EnumDescriptor() ([]byte, []int) {
 	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{15}
 }
 
+type RateUnit int32
+
+const (
+	RateUnit_RATE_UNIT_UNSPECIFIED RateUnit = 0
+	// Volume-based rates
+	RateUnit_RATE_UNIT_L_PER_HOUR   RateUnit = 1
+	RateUnit_RATE_UNIT_L_PER_MINUTE RateUnit = 2
+	RateUnit_RATE_UNIT_GAL_PER_HOUR RateUnit = 3
+	// Percent-based rates (useful for boil-off)
+	RateUnit_RATE_UNIT_PERCENT_PER_HOUR RateUnit = 4
+	// Mass absorption (common in brewing calculations)
+	RateUnit_RATE_UNIT_L_PER_KG   RateUnit = 5
+	RateUnit_RATE_UNIT_GAL_PER_LB RateUnit = 6
+	// Temperature change rates (useful for step mashes)
+	RateUnit_RATE_UNIT_C_PER_MINUTE RateUnit = 7
+	RateUnit_RATE_UNIT_F_PER_MINUTE RateUnit = 8
+)
+
+// Enum value maps for RateUnit.
+var (
+	RateUnit_name = map[int32]string{
+		0: "RATE_UNIT_UNSPECIFIED",
+		1: "RATE_UNIT_L_PER_HOUR",
+		2: "RATE_UNIT_L_PER_MINUTE",
+		3: "RATE_UNIT_GAL_PER_HOUR",
+		4: "RATE_UNIT_PERCENT_PER_HOUR",
+		5: "RATE_UNIT_L_PER_KG",
+		6: "RATE_UNIT_GAL_PER_LB",
+		7: "RATE_UNIT_C_PER_MINUTE",
+		8: "RATE_UNIT_F_PER_MINUTE",
+	}
+	RateUnit_value = map[string]int32{
+		"RATE_UNIT_UNSPECIFIED":      0,
+		"RATE_UNIT_L_PER_HOUR":       1,
+		"RATE_UNIT_L_PER_MINUTE":     2,
+		"RATE_UNIT_GAL_PER_HOUR":     3,
+		"RATE_UNIT_PERCENT_PER_HOUR": 4,
+		"RATE_UNIT_L_PER_KG":         5,
+		"RATE_UNIT_GAL_PER_LB":       6,
+		"RATE_UNIT_C_PER_MINUTE":     7,
+		"RATE_UNIT_F_PER_MINUTE":     8,
+	}
+)
+
+func (x RateUnit) Enum() *RateUnit {
+	p := new(RateUnit)
+	*p = x
+	return p
+}
+
+func (x RateUnit) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (RateUnit) Descriptor() protoreflect.EnumDescriptor {
+	return file_beerproto_v1_measureable_units_proto_enumTypes[16].Descriptor()
+}
+
+func (RateUnit) Type() protoreflect.EnumType {
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[16]
+}
+
+func (x RateUnit) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use RateUnit.Descriptor instead.
+func (RateUnit) EnumDescriptor() ([]byte, []int) {
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{16}
+}
+
 type VolumeType struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Value         float64                `protobuf:"fixed64,1,opt,name=value,proto3" json:"value,omitempty"`
@@ -2421,6 +2492,58 @@ func (x *ConcentrationRangeType) GetMaximum() *ConcentrationType {
 	return nil
 }
 
+type RateType struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         float64                `protobuf:"fixed64,1,opt,name=value,proto3" json:"value,omitempty"`
+	Unit          RateUnit               `protobuf:"varint,2,opt,name=unit,proto3,enum=beerproto.v1.RateUnit" json:"unit,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RateType) Reset() {
+	*x = RateType{}
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RateType) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RateType) ProtoMessage() {}
+
+func (x *RateType) ProtoReflect() protoreflect.Message {
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RateType.ProtoReflect.Descriptor instead.
+func (*RateType) Descriptor() ([]byte, []int) {
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *RateType) GetValue() float64 {
+	if x != nil {
+		return x.Value
+	}
+	return 0
+}
+
+func (x *RateType) GetUnit() RateUnit {
+	if x != nil {
+		return x.Unit
+	}
+	return RateUnit_RATE_UNIT_UNSPECIFIED
+}
+
 var File_beerproto_v1_measureable_units_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_measureable_units_proto_rawDesc = "" +
@@ -2510,7 +2633,10 @@ const file_beerproto_v1_measureable_units_proto_rawDesc = "" +
 	"\amaximum\x18\x02 \x01(\v2\x19.beerproto.v1.AcidityTypeR\amaximum\"\x8e\x01\n" +
 	"\x16ConcentrationRangeType\x129\n" +
 	"\aminimum\x18\x01 \x01(\v2\x1f.beerproto.v1.ConcentrationTypeR\aminimum\x129\n" +
-	"\amaximum\x18\x02 \x01(\v2\x1f.beerproto.v1.ConcentrationTypeR\amaximum*\xe5\x02\n" +
+	"\amaximum\x18\x02 \x01(\v2\x1f.beerproto.v1.ConcentrationTypeR\amaximum\"L\n" +
+	"\bRateType\x12\x14\n" +
+	"\x05value\x18\x01 \x01(\x01R\x05value\x12*\n" +
+	"\x04unit\x18\x02 \x01(\x0e2\x16.beerproto.v1.RateUnitR\x04unit*\xe5\x02\n" +
 	"\n" +
 	"VolumeUnit\x12\x1b\n" +
 	"\x17VOLUME_UNIT_UNSPECIFIED\x10\x00\x12\x12\n" +
@@ -2606,7 +2732,17 @@ const file_beerproto_v1_measureable_units_proto_rawDesc = "" +
 	"\rViscosityUnit\x12\x1e\n" +
 	"\x1aVISCOSITY_UNIT_UNSPECIFIED\x10\x00\x12\x15\n" +
 	"\x11VISCOSITY_UNIT_CP\x10\x01\x12\x17\n" +
-	"\x13VISCOSITY_UNIT_MPAS\x10\x02B\xb6\x01\n" +
+	"\x13VISCOSITY_UNIT_MPAS\x10\x02*\x81\x02\n" +
+	"\bRateUnit\x12\x19\n" +
+	"\x15RATE_UNIT_UNSPECIFIED\x10\x00\x12\x18\n" +
+	"\x14RATE_UNIT_L_PER_HOUR\x10\x01\x12\x1a\n" +
+	"\x16RATE_UNIT_L_PER_MINUTE\x10\x02\x12\x1a\n" +
+	"\x16RATE_UNIT_GAL_PER_HOUR\x10\x03\x12\x1e\n" +
+	"\x1aRATE_UNIT_PERCENT_PER_HOUR\x10\x04\x12\x16\n" +
+	"\x12RATE_UNIT_L_PER_KG\x10\x05\x12\x18\n" +
+	"\x14RATE_UNIT_GAL_PER_LB\x10\x06\x12\x1a\n" +
+	"\x16RATE_UNIT_C_PER_MINUTE\x10\a\x12\x1a\n" +
+	"\x16RATE_UNIT_F_PER_MINUTE\x10\bB\xb6\x01\n" +
 	"\x10com.beerproto.v1B\x15MeasureableUnitsProtoP\x01Z:github.com/beerproto/beerproto_go/beerproto/v1;beerprotov1\xa2\x02\x03BXX\xaa\x02\fBeerproto.V1\xca\x02\fBeerproto\\V1\xe2\x02\x18Beerproto\\V1\\GPBMetadata\xea\x02\rBeerproto::V1b\x06proto3"
 
 var (
@@ -2621,8 +2757,8 @@ func file_beerproto_v1_measureable_units_proto_rawDescGZIP() []byte {
 	return file_beerproto_v1_measureable_units_proto_rawDescData
 }
 
-var file_beerproto_v1_measureable_units_proto_enumTypes = make([]protoimpl.EnumInfo, 16)
-var file_beerproto_v1_measureable_units_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
+var file_beerproto_v1_measureable_units_proto_enumTypes = make([]protoimpl.EnumInfo, 17)
+var file_beerproto_v1_measureable_units_proto_msgTypes = make([]protoimpl.MessageInfo, 29)
 var file_beerproto_v1_measureable_units_proto_goTypes = []any{
 	(VolumeUnit)(0),                 // 0: beerproto.v1.VolumeUnit
 	(MassUnit)(0),                   // 1: beerproto.v1.MassUnit
@@ -2640,34 +2776,36 @@ var file_beerproto_v1_measureable_units_proto_goTypes = []any{
 	(UnitUnit)(0),                   // 13: beerproto.v1.UnitUnit
 	(PercentUnit)(0),                // 14: beerproto.v1.PercentUnit
 	(ViscosityUnit)(0),              // 15: beerproto.v1.ViscosityUnit
-	(*VolumeType)(nil),              // 16: beerproto.v1.VolumeType
-	(*MassType)(nil),                // 17: beerproto.v1.MassType
-	(*DiastaticPowerType)(nil),      // 18: beerproto.v1.DiastaticPowerType
-	(*TemperatureType)(nil),         // 19: beerproto.v1.TemperatureType
-	(*AcidityType)(nil),             // 20: beerproto.v1.AcidityType
-	(*TimeType)(nil),                // 21: beerproto.v1.TimeType
-	(*ColorType)(nil),               // 22: beerproto.v1.ColorType
-	(*CarbonationType)(nil),         // 23: beerproto.v1.CarbonationType
-	(*BitternessType)(nil),          // 24: beerproto.v1.BitternessType
-	(*GravityType)(nil),             // 25: beerproto.v1.GravityType
-	(*SpecificHeatType)(nil),        // 26: beerproto.v1.SpecificHeatType
-	(*ConcentrationType)(nil),       // 27: beerproto.v1.ConcentrationType
-	(*SpecificVolumeType)(nil),      // 28: beerproto.v1.SpecificVolumeType
-	(*UnitType)(nil),                // 29: beerproto.v1.UnitType
-	(*PercentType)(nil),             // 30: beerproto.v1.PercentType
-	(*ViscosityType)(nil),           // 31: beerproto.v1.ViscosityType
-	(*CarbonationRangeType)(nil),    // 32: beerproto.v1.CarbonationRangeType
-	(*BitternessRangeType)(nil),     // 33: beerproto.v1.BitternessRangeType
-	(*TemperatureRangeType)(nil),    // 34: beerproto.v1.TemperatureRangeType
-	(*ColorRangeType)(nil),          // 35: beerproto.v1.ColorRangeType
-	(*GravityRangeType)(nil),        // 36: beerproto.v1.GravityRangeType
-	(*PercentRangeType)(nil),        // 37: beerproto.v1.PercentRangeType
-	(*TimeRangeType)(nil),           // 38: beerproto.v1.TimeRangeType
-	(*ViscosityRangeType)(nil),      // 39: beerproto.v1.ViscosityRangeType
-	(*DiastaticPowerRangeType)(nil), // 40: beerproto.v1.DiastaticPowerRangeType
-	(*SpecificVolumeRangeType)(nil), // 41: beerproto.v1.SpecificVolumeRangeType
-	(*AcidityRangeType)(nil),        // 42: beerproto.v1.AcidityRangeType
-	(*ConcentrationRangeType)(nil),  // 43: beerproto.v1.ConcentrationRangeType
+	(RateUnit)(0),                   // 16: beerproto.v1.RateUnit
+	(*VolumeType)(nil),              // 17: beerproto.v1.VolumeType
+	(*MassType)(nil),                // 18: beerproto.v1.MassType
+	(*DiastaticPowerType)(nil),      // 19: beerproto.v1.DiastaticPowerType
+	(*TemperatureType)(nil),         // 20: beerproto.v1.TemperatureType
+	(*AcidityType)(nil),             // 21: beerproto.v1.AcidityType
+	(*TimeType)(nil),                // 22: beerproto.v1.TimeType
+	(*ColorType)(nil),               // 23: beerproto.v1.ColorType
+	(*CarbonationType)(nil),         // 24: beerproto.v1.CarbonationType
+	(*BitternessType)(nil),          // 25: beerproto.v1.BitternessType
+	(*GravityType)(nil),             // 26: beerproto.v1.GravityType
+	(*SpecificHeatType)(nil),        // 27: beerproto.v1.SpecificHeatType
+	(*ConcentrationType)(nil),       // 28: beerproto.v1.ConcentrationType
+	(*SpecificVolumeType)(nil),      // 29: beerproto.v1.SpecificVolumeType
+	(*UnitType)(nil),                // 30: beerproto.v1.UnitType
+	(*PercentType)(nil),             // 31: beerproto.v1.PercentType
+	(*ViscosityType)(nil),           // 32: beerproto.v1.ViscosityType
+	(*CarbonationRangeType)(nil),    // 33: beerproto.v1.CarbonationRangeType
+	(*BitternessRangeType)(nil),     // 34: beerproto.v1.BitternessRangeType
+	(*TemperatureRangeType)(nil),    // 35: beerproto.v1.TemperatureRangeType
+	(*ColorRangeType)(nil),          // 36: beerproto.v1.ColorRangeType
+	(*GravityRangeType)(nil),        // 37: beerproto.v1.GravityRangeType
+	(*PercentRangeType)(nil),        // 38: beerproto.v1.PercentRangeType
+	(*TimeRangeType)(nil),           // 39: beerproto.v1.TimeRangeType
+	(*ViscosityRangeType)(nil),      // 40: beerproto.v1.ViscosityRangeType
+	(*DiastaticPowerRangeType)(nil), // 41: beerproto.v1.DiastaticPowerRangeType
+	(*SpecificVolumeRangeType)(nil), // 42: beerproto.v1.SpecificVolumeRangeType
+	(*AcidityRangeType)(nil),        // 43: beerproto.v1.AcidityRangeType
+	(*ConcentrationRangeType)(nil),  // 44: beerproto.v1.ConcentrationRangeType
+	(*RateType)(nil),                // 45: beerproto.v1.RateType
 }
 var file_beerproto_v1_measureable_units_proto_depIdxs = []int32{
 	0,  // 0: beerproto.v1.VolumeType.unit:type_name -> beerproto.v1.VolumeUnit
@@ -2686,35 +2824,36 @@ var file_beerproto_v1_measureable_units_proto_depIdxs = []int32{
 	13, // 13: beerproto.v1.UnitType.unit:type_name -> beerproto.v1.UnitUnit
 	14, // 14: beerproto.v1.PercentType.unit:type_name -> beerproto.v1.PercentUnit
 	15, // 15: beerproto.v1.ViscosityType.unit:type_name -> beerproto.v1.ViscosityUnit
-	23, // 16: beerproto.v1.CarbonationRangeType.minimum:type_name -> beerproto.v1.CarbonationType
-	23, // 17: beerproto.v1.CarbonationRangeType.maximum:type_name -> beerproto.v1.CarbonationType
-	24, // 18: beerproto.v1.BitternessRangeType.minimum:type_name -> beerproto.v1.BitternessType
-	24, // 19: beerproto.v1.BitternessRangeType.maximum:type_name -> beerproto.v1.BitternessType
-	19, // 20: beerproto.v1.TemperatureRangeType.minimum:type_name -> beerproto.v1.TemperatureType
-	19, // 21: beerproto.v1.TemperatureRangeType.maximum:type_name -> beerproto.v1.TemperatureType
-	22, // 22: beerproto.v1.ColorRangeType.minimum:type_name -> beerproto.v1.ColorType
-	22, // 23: beerproto.v1.ColorRangeType.maximum:type_name -> beerproto.v1.ColorType
-	25, // 24: beerproto.v1.GravityRangeType.minimum:type_name -> beerproto.v1.GravityType
-	25, // 25: beerproto.v1.GravityRangeType.maximum:type_name -> beerproto.v1.GravityType
-	30, // 26: beerproto.v1.PercentRangeType.minimum:type_name -> beerproto.v1.PercentType
-	30, // 27: beerproto.v1.PercentRangeType.maximum:type_name -> beerproto.v1.PercentType
-	21, // 28: beerproto.v1.TimeRangeType.minimum:type_name -> beerproto.v1.TimeType
-	21, // 29: beerproto.v1.TimeRangeType.maximum:type_name -> beerproto.v1.TimeType
-	31, // 30: beerproto.v1.ViscosityRangeType.minimum:type_name -> beerproto.v1.ViscosityType
-	31, // 31: beerproto.v1.ViscosityRangeType.maximum:type_name -> beerproto.v1.ViscosityType
-	18, // 32: beerproto.v1.DiastaticPowerRangeType.minimum:type_name -> beerproto.v1.DiastaticPowerType
-	18, // 33: beerproto.v1.DiastaticPowerRangeType.maximum:type_name -> beerproto.v1.DiastaticPowerType
-	28, // 34: beerproto.v1.SpecificVolumeRangeType.minimum:type_name -> beerproto.v1.SpecificVolumeType
-	28, // 35: beerproto.v1.SpecificVolumeRangeType.maximum:type_name -> beerproto.v1.SpecificVolumeType
-	20, // 36: beerproto.v1.AcidityRangeType.minimum:type_name -> beerproto.v1.AcidityType
-	20, // 37: beerproto.v1.AcidityRangeType.maximum:type_name -> beerproto.v1.AcidityType
-	27, // 38: beerproto.v1.ConcentrationRangeType.minimum:type_name -> beerproto.v1.ConcentrationType
-	27, // 39: beerproto.v1.ConcentrationRangeType.maximum:type_name -> beerproto.v1.ConcentrationType
-	40, // [40:40] is the sub-list for method output_type
-	40, // [40:40] is the sub-list for method input_type
-	40, // [40:40] is the sub-list for extension type_name
-	40, // [40:40] is the sub-list for extension extendee
-	0,  // [0:40] is the sub-list for field type_name
+	24, // 16: beerproto.v1.CarbonationRangeType.minimum:type_name -> beerproto.v1.CarbonationType
+	24, // 17: beerproto.v1.CarbonationRangeType.maximum:type_name -> beerproto.v1.CarbonationType
+	25, // 18: beerproto.v1.BitternessRangeType.minimum:type_name -> beerproto.v1.BitternessType
+	25, // 19: beerproto.v1.BitternessRangeType.maximum:type_name -> beerproto.v1.BitternessType
+	20, // 20: beerproto.v1.TemperatureRangeType.minimum:type_name -> beerproto.v1.TemperatureType
+	20, // 21: beerproto.v1.TemperatureRangeType.maximum:type_name -> beerproto.v1.TemperatureType
+	23, // 22: beerproto.v1.ColorRangeType.minimum:type_name -> beerproto.v1.ColorType
+	23, // 23: beerproto.v1.ColorRangeType.maximum:type_name -> beerproto.v1.ColorType
+	26, // 24: beerproto.v1.GravityRangeType.minimum:type_name -> beerproto.v1.GravityType
+	26, // 25: beerproto.v1.GravityRangeType.maximum:type_name -> beerproto.v1.GravityType
+	31, // 26: beerproto.v1.PercentRangeType.minimum:type_name -> beerproto.v1.PercentType
+	31, // 27: beerproto.v1.PercentRangeType.maximum:type_name -> beerproto.v1.PercentType
+	22, // 28: beerproto.v1.TimeRangeType.minimum:type_name -> beerproto.v1.TimeType
+	22, // 29: beerproto.v1.TimeRangeType.maximum:type_name -> beerproto.v1.TimeType
+	32, // 30: beerproto.v1.ViscosityRangeType.minimum:type_name -> beerproto.v1.ViscosityType
+	32, // 31: beerproto.v1.ViscosityRangeType.maximum:type_name -> beerproto.v1.ViscosityType
+	19, // 32: beerproto.v1.DiastaticPowerRangeType.minimum:type_name -> beerproto.v1.DiastaticPowerType
+	19, // 33: beerproto.v1.DiastaticPowerRangeType.maximum:type_name -> beerproto.v1.DiastaticPowerType
+	29, // 34: beerproto.v1.SpecificVolumeRangeType.minimum:type_name -> beerproto.v1.SpecificVolumeType
+	29, // 35: beerproto.v1.SpecificVolumeRangeType.maximum:type_name -> beerproto.v1.SpecificVolumeType
+	21, // 36: beerproto.v1.AcidityRangeType.minimum:type_name -> beerproto.v1.AcidityType
+	21, // 37: beerproto.v1.AcidityRangeType.maximum:type_name -> beerproto.v1.AcidityType
+	28, // 38: beerproto.v1.ConcentrationRangeType.minimum:type_name -> beerproto.v1.ConcentrationType
+	28, // 39: beerproto.v1.ConcentrationRangeType.maximum:type_name -> beerproto.v1.ConcentrationType
+	16, // 40: beerproto.v1.RateType.unit:type_name -> beerproto.v1.RateUnit
+	41, // [41:41] is the sub-list for method output_type
+	41, // [41:41] is the sub-list for method input_type
+	41, // [41:41] is the sub-list for extension type_name
+	41, // [41:41] is the sub-list for extension extendee
+	0,  // [0:41] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_measureable_units_proto_init() }
@@ -2727,8 +2866,8 @@ func file_beerproto_v1_measureable_units_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_beerproto_v1_measureable_units_proto_rawDesc), len(file_beerproto_v1_measureable_units_proto_rawDesc)),
-			NumEnums:      16,
-			NumMessages:   28,
+			NumEnums:      17,
+			NumMessages:   29,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
