@@ -2492,6 +2492,7 @@ func (x *ConcentrationRangeType) GetMaximum() *ConcentrationType {
 	return nil
 }
 
+// use for things like evaporation rate, grain absorption rate, lauter flow rate, etc.
 type RateType struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Value         float64                `protobuf:"fixed64,1,opt,name=value,proto3" json:"value,omitempty"`
