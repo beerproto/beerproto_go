@@ -918,6 +918,8 @@ const (
 	ViscosityUnit_VISCOSITY_UNIT_CP ViscosityUnit = 1
 	// mPa-s
 	ViscosityUnit_VISCOSITY_UNIT_MPAS ViscosityUnit = 2
+	// P
+	ViscosityUnit_VISCOSITY_UNIT_POISE ViscosityUnit = 3
 )
 
 // Enum value maps for ViscosityUnit.
@@ -926,11 +928,13 @@ var (
 		0: "VISCOSITY_UNIT_UNSPECIFIED",
 		1: "VISCOSITY_UNIT_CP",
 		2: "VISCOSITY_UNIT_MPAS",
+		3: "VISCOSITY_UNIT_POISE",
 	}
 	ViscosityUnit_value = map[string]int32{
 		"VISCOSITY_UNIT_UNSPECIFIED": 0,
 		"VISCOSITY_UNIT_CP":          1,
 		"VISCOSITY_UNIT_MPAS":        2,
+		"VISCOSITY_UNIT_POISE":       3,
 	}
 )
 
@@ -2729,11 +2733,12 @@ const file_beerproto_v1_measureable_units_proto_rawDesc = "" +
 	"\rUNIT_UNIT_PKG\x10\x05*J\n" +
 	"\vPercentUnit\x12\x1c\n" +
 	"\x18PERCENT_UNIT_UNSPECIFIED\x10\x00\x12\x1d\n" +
-	"\x19PERCENT_UNIT_PERCENT_SIGN\x10\x01*_\n" +
+	"\x19PERCENT_UNIT_PERCENT_SIGN\x10\x01*y\n" +
 	"\rViscosityUnit\x12\x1e\n" +
 	"\x1aVISCOSITY_UNIT_UNSPECIFIED\x10\x00\x12\x15\n" +
 	"\x11VISCOSITY_UNIT_CP\x10\x01\x12\x17\n" +
-	"\x13VISCOSITY_UNIT_MPAS\x10\x02*\x81\x02\n" +
+	"\x13VISCOSITY_UNIT_MPAS\x10\x02\x12\x18\n" +
+	"\x14VISCOSITY_UNIT_POISE\x10\x03*\x81\x02\n" +
 	"\bRateUnit\x12\x19\n" +
 	"\x15RATE_UNIT_UNSPECIFIED\x10\x00\x12\x18\n" +
 	"\x14RATE_UNIT_L_PER_HOUR\x10\x01\x12\x1a\n" +
