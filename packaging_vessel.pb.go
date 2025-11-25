@@ -111,7 +111,7 @@ type PackagingVesselType struct {
 	StepTime          *TimeType               `protobuf:"bytes,6,opt,name=step_time,json=stepTime,proto3" json:"step_time,omitempty"`
 	EndGravity        *GravityType            `protobuf:"bytes,7,opt,name=end_gravity,json=endGravity,proto3" json:"end_gravity,omitempty"`
 	VesselVolume      *VolumeType             `protobuf:"bytes,8,opt,name=vessel_volume,json=vesselVolume,proto3" json:"vessel_volume,omitempty"`
-	VesselQuantity    float64                 `protobuf:"fixed64,9,opt,name=vessel_quantity,json=vesselQuantity,proto3" json:"vessel_quantity,omitempty"`
+	VesselQuantity    int32                   `protobuf:"varint,9,opt,name=vessel_quantity,json=vesselQuantity,proto3" json:"vessel_quantity,omitempty"`
 	Description       string                  `protobuf:"bytes,10,opt,name=description,proto3" json:"description,omitempty"`
 	StartPh           *AcidityType            `protobuf:"bytes,11,opt,name=start_ph,json=startPh,proto3" json:"start_ph,omitempty"`
 	Carbonation       *CarbonationType        `protobuf:"bytes,12,opt,name=carbonation,proto3" json:"carbonation,omitempty"`
@@ -210,7 +210,7 @@ func (x *PackagingVesselType) GetVesselVolume() *VolumeType {
 	return nil
 }
 
-func (x *PackagingVesselType) GetVesselQuantity() float64 {
+func (x *PackagingVesselType) GetVesselQuantity() int32 {
 	if x != nil {
 		return x.VesselQuantity
 	}
@@ -289,7 +289,7 @@ const file_beerproto_v1_packaging_vessel_proto_rawDesc = "" +
 	"\vend_gravity\x18\a \x01(\v2\x19.beerproto.v1.GravityTypeR\n" +
 	"endGravity\x12=\n" +
 	"\rvessel_volume\x18\b \x01(\v2\x18.beerproto.v1.VolumeTypeR\fvesselVolume\x12'\n" +
-	"\x0fvessel_quantity\x18\t \x01(\x01R\x0evesselQuantity\x12 \n" +
+	"\x0fvessel_quantity\x18\t \x01(\x05R\x0evesselQuantity\x12 \n" +
 	"\vdescription\x18\n" +
 	" \x01(\tR\vdescription\x124\n" +
 	"\bstart_ph\x18\v \x01(\v2\x19.beerproto.v1.AcidityTypeR\astartPh\x12?\n" +
