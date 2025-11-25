@@ -31,13 +31,13 @@ const (
 
 // Describes the procedure for packaging your beverage
 type PackagingProcedureType struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	Id               string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name             string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	PackagedVolume   *VolumeType            `protobuf:"bytes,3,opt,name=packaged_volume,json=packagedVolume,proto3" json:"packaged_volume,omitempty"`
-	Description      string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
-	Notes            string                 `protobuf:"bytes,5,opt,name=notes,proto3" json:"notes,omitempty"`
-	PackagingVessels []*PackagingVesselType `protobuf:"bytes,6,rep,name=packaging_vessels,json=packagingVessels,proto3" json:"packaging_vessels,omitempty"`
+	state            protoimpl.MessageState     `protogen:"open.v1"`
+	Id               string                     `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name             string                     `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	PackagedVolume   *VolumeType                `protobuf:"bytes,3,opt,name=packaged_volume,json=packagedVolume,proto3" json:"packaged_volume,omitempty"`
+	Description      string                     `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	Notes            string                     `protobuf:"bytes,5,opt,name=notes,proto3" json:"notes,omitempty"`
+	PackagingVessels []*PackagingVesselStepType `protobuf:"bytes,6,rep,name=packaging_vessels,json=packagingVessels,proto3" json:"packaging_vessels,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -107,7 +107,7 @@ func (x *PackagingProcedureType) GetNotes() string {
 	return ""
 }
 
-func (x *PackagingProcedureType) GetPackagingVessels() []*PackagingVesselType {
+func (x *PackagingProcedureType) GetPackagingVessels() []*PackagingVesselStepType {
 	if x != nil {
 		return x.PackagingVessels
 	}
@@ -118,15 +118,15 @@ var File_beerproto_v1_packaging_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_packaging_proto_rawDesc = "" +
 	"\n" +
-	"\x1cbeerproto/v1/packaging.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a#beerproto/v1/packaging_vessel.proto\x1a\x1bbuf/validate/validate.proto\"\xa0\x02\n" +
+	"\x1cbeerproto/v1/packaging.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a#beerproto/v1/packaging_vessel.proto\x1a\x1bbuf/validate/validate.proto\"\xa4\x02\n" +
 	"\x16PackagingProcedureType\x12\x1b\n" +
 	"\x02id\x18\x01 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x12\x1e\n" +
 	"\x04name\x18\x02 \x01(\tB\n" +
 	"\xbaH\a\xc8\x01\x01r\x02\x10\x03R\x04name\x12A\n" +
 	"\x0fpackaged_volume\x18\x03 \x01(\v2\x18.beerproto.v1.VolumeTypeR\x0epackagedVolume\x12 \n" +
 	"\vdescription\x18\x04 \x01(\tR\vdescription\x12\x14\n" +
-	"\x05notes\x18\x05 \x01(\tR\x05notes\x12N\n" +
-	"\x11packaging_vessels\x18\x06 \x03(\v2!.beerproto.v1.PackagingVesselTypeR\x10packagingVesselsB\xaf\x01\n" +
+	"\x05notes\x18\x05 \x01(\tR\x05notes\x12R\n" +
+	"\x11packaging_vessels\x18\x06 \x03(\v2%.beerproto.v1.PackagingVesselStepTypeR\x10packagingVesselsB\xaf\x01\n" +
 	"\x10com.beerproto.v1B\x0ePackagingProtoP\x01Z:github.com/beerproto/beerproto_go/beerproto/v1;beerprotov1\xa2\x02\x03BXX\xaa\x02\fBeerproto.V1\xca\x02\fBeerproto\\V1\xe2\x02\x18Beerproto\\V1\\GPBMetadata\xea\x02\rBeerproto::V1b\x06proto3"
 
 var (
@@ -143,13 +143,13 @@ func file_beerproto_v1_packaging_proto_rawDescGZIP() []byte {
 
 var file_beerproto_v1_packaging_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_beerproto_v1_packaging_proto_goTypes = []any{
-	(*PackagingProcedureType)(nil), // 0: beerproto.v1.PackagingProcedureType
-	(*VolumeType)(nil),             // 1: beerproto.v1.VolumeType
-	(*PackagingVesselType)(nil),    // 2: beerproto.v1.PackagingVesselType
+	(*PackagingProcedureType)(nil),  // 0: beerproto.v1.PackagingProcedureType
+	(*VolumeType)(nil),              // 1: beerproto.v1.VolumeType
+	(*PackagingVesselStepType)(nil), // 2: beerproto.v1.PackagingVesselStepType
 }
 var file_beerproto_v1_packaging_proto_depIdxs = []int32{
 	1, // 0: beerproto.v1.PackagingProcedureType.packaged_volume:type_name -> beerproto.v1.VolumeType
-	2, // 1: beerproto.v1.PackagingProcedureType.packaging_vessels:type_name -> beerproto.v1.PackagingVesselType
+	2, // 1: beerproto.v1.PackagingProcedureType.packaging_vessels:type_name -> beerproto.v1.PackagingVesselStepType
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

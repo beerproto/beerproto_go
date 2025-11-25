@@ -100,33 +100,102 @@ func (PackagingVesselUnit) EnumDescriptor() ([]byte, []int) {
 	return file_beerproto_v1_packaging_vessel_proto_rawDescGZIP(), []int{0}
 }
 
+type PackagingVesselBase struct {
+	state          protoimpl.MessageState  `protogen:"open.v1"`
+	Name           string                  `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Type           PackagingVesselUnit     `protobuf:"varint,2,opt,name=type,proto3,enum=beerproto.v1.PackagingVesselUnit" json:"type,omitempty"`
+	VesselVolume   *VolumeType             `protobuf:"bytes,3,opt,name=vessel_volume,json=vesselVolume,proto3" json:"vessel_volume,omitempty"`
+	VesselQuantity int32                   `protobuf:"varint,4,opt,name=vessel_quantity,json=vesselQuantity,proto3" json:"vessel_quantity,omitempty"`
+	Description    string                  `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
+	Graphics       []*PackagingGraphicType `protobuf:"bytes,6,rep,name=graphics,proto3" json:"graphics,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *PackagingVesselBase) Reset() {
+	*x = PackagingVesselBase{}
+	mi := &file_beerproto_v1_packaging_vessel_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PackagingVesselBase) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PackagingVesselBase) ProtoMessage() {}
+
+func (x *PackagingVesselBase) ProtoReflect() protoreflect.Message {
+	mi := &file_beerproto_v1_packaging_vessel_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PackagingVesselBase.ProtoReflect.Descriptor instead.
+func (*PackagingVesselBase) Descriptor() ([]byte, []int) {
+	return file_beerproto_v1_packaging_vessel_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *PackagingVesselBase) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *PackagingVesselBase) GetType() PackagingVesselUnit {
+	if x != nil {
+		return x.Type
+	}
+	return PackagingVesselUnit_PACKAGING_VESSEL_UNIT_UNSPECIFIED
+}
+
+func (x *PackagingVesselBase) GetVesselVolume() *VolumeType {
+	if x != nil {
+		return x.VesselVolume
+	}
+	return nil
+}
+
+func (x *PackagingVesselBase) GetVesselQuantity() int32 {
+	if x != nil {
+		return x.VesselQuantity
+	}
+	return 0
+}
+
+func (x *PackagingVesselBase) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *PackagingVesselBase) GetGraphics() []*PackagingGraphicType {
+	if x != nil {
+		return x.Graphics
+	}
+	return nil
+}
+
 // PackagingVesselType - a per vessel representation of a packaging process
 type PackagingVesselType struct {
-	state             protoimpl.MessageState  `protogen:"open.v1"`
-	Id                string                  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Type              PackagingVesselUnit     `protobuf:"varint,2,opt,name=type,proto3,enum=beerproto.v1.PackagingVesselUnit" json:"type,omitempty"`
-	StartGravity      *GravityType            `protobuf:"bytes,3,opt,name=start_gravity,json=startGravity,proto3" json:"start_gravity,omitempty"`
-	Name              string                  `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
-	PackageDate       string                  `protobuf:"bytes,5,opt,name=package_date,json=packageDate,proto3" json:"package_date,omitempty"`
-	StepTime          *TimeType               `protobuf:"bytes,6,opt,name=step_time,json=stepTime,proto3" json:"step_time,omitempty"`
-	EndGravity        *GravityType            `protobuf:"bytes,7,opt,name=end_gravity,json=endGravity,proto3" json:"end_gravity,omitempty"`
-	VesselVolume      *VolumeType             `protobuf:"bytes,8,opt,name=vessel_volume,json=vesselVolume,proto3" json:"vessel_volume,omitempty"`
-	VesselQuantity    int32                   `protobuf:"varint,9,opt,name=vessel_quantity,json=vesselQuantity,proto3" json:"vessel_quantity,omitempty"`
-	Description       string                  `protobuf:"bytes,10,opt,name=description,proto3" json:"description,omitempty"`
-	StartPh           *AcidityType            `protobuf:"bytes,11,opt,name=start_ph,json=startPh,proto3" json:"start_ph,omitempty"`
-	Carbonation       *CarbonationType        `protobuf:"bytes,12,opt,name=carbonation,proto3" json:"carbonation,omitempty"`
-	StartTemperature  *TemperatureType        `protobuf:"bytes,13,opt,name=start_temperature,json=startTemperature,proto3" json:"start_temperature,omitempty"`
-	EndPh             *AcidityType            `protobuf:"bytes,14,opt,name=end_ph,json=endPh,proto3" json:"end_ph,omitempty"`
-	EndTemperature    *TemperatureType        `protobuf:"bytes,15,opt,name=end_temperature,json=endTemperature,proto3" json:"end_temperature,omitempty"`
-	Graphics          []*PackagingGraphicType `protobuf:"bytes,16,rep,name=graphics,proto3" json:"graphics,omitempty"`
-	CarbonationMethod CarbonationMethod       `protobuf:"varint,17,opt,name=carbonation_method,json=carbonationMethod,proto3,enum=beerproto.v1.CarbonationMethod" json:"carbonation_method,omitempty"`
-	unknownFields     protoimpl.UnknownFields
-	sizeCache         protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Base          *PackagingVesselBase   `protobuf:"bytes,1,opt,name=base,proto3" json:"base,omitempty"`
+	Id            string                 `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PackagingVesselType) Reset() {
 	*x = PackagingVesselType{}
-	mi := &file_beerproto_v1_packaging_vessel_proto_msgTypes[0]
+	mi := &file_beerproto_v1_packaging_vessel_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -138,7 +207,7 @@ func (x *PackagingVesselType) String() string {
 func (*PackagingVesselType) ProtoMessage() {}
 
 func (x *PackagingVesselType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_packaging_vessel_proto_msgTypes[0]
+	mi := &file_beerproto_v1_packaging_vessel_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -151,7 +220,14 @@ func (x *PackagingVesselType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PackagingVesselType.ProtoReflect.Descriptor instead.
 func (*PackagingVesselType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_packaging_vessel_proto_rawDescGZIP(), []int{0}
+	return file_beerproto_v1_packaging_vessel_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *PackagingVesselType) GetBase() *PackagingVesselBase {
+	if x != nil {
+		return x.Base
+	}
+	return nil
 }
 
 func (x *PackagingVesselType) GetId() string {
@@ -161,144 +237,231 @@ func (x *PackagingVesselType) GetId() string {
 	return ""
 }
 
-func (x *PackagingVesselType) GetType() PackagingVesselUnit {
-	if x != nil {
-		return x.Type
-	}
-	return PackagingVesselUnit_PACKAGING_VESSEL_UNIT_UNSPECIFIED
+type PackagingVesselStepType struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	Base  *PackagingVesselBase   `protobuf:"bytes,1,opt,name=base,proto3" json:"base,omitempty"`
+	// Unique within the recipe
+	Id          string `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	PackageDate string `protobuf:"bytes,3,opt,name=package_date,json=packageDate,proto3" json:"package_date,omitempty"`
+	// Process step duration at packaging
+	StepTime         *TimeType        `protobuf:"bytes,4,opt,name=step_time,json=stepTime,proto3" json:"step_time,omitempty"`
+	StartGravity     *GravityType     `protobuf:"bytes,5,opt,name=start_gravity,json=startGravity,proto3" json:"start_gravity,omitempty"`
+	EndGravity       *GravityType     `protobuf:"bytes,6,opt,name=end_gravity,json=endGravity,proto3" json:"end_gravity,omitempty"`
+	StartPh          *AcidityType     `protobuf:"bytes,7,opt,name=start_ph,json=startPh,proto3" json:"start_ph,omitempty"`
+	EndPh            *AcidityType     `protobuf:"bytes,8,opt,name=end_ph,json=endPh,proto3" json:"end_ph,omitempty"`
+	StartTemperature *TemperatureType `protobuf:"bytes,9,opt,name=start_temperature,json=startTemperature,proto3" json:"start_temperature,omitempty"`
+	EndTemperature   *TemperatureType `protobuf:"bytes,10,opt,name=end_temperature,json=endTemperature,proto3" json:"end_temperature,omitempty"`
+	// What carbonation method is used for THIS recipe/vessel
+	CarbonationMethod CarbonationMethod `protobuf:"varint,11,opt,name=carbonation_method,json=carbonationMethod,proto3,enum=beerproto.v1.CarbonationMethod" json:"carbonation_method,omitempty"`
+	// Target carbonation for this vessel (vols or g/L)
+	TargetCarbonation *CarbonationType `protobuf:"bytes,12,opt,name=target_carbonation,json=targetCarbonation,proto3" json:"target_carbonation,omitempty"`
+	// Computed / logged residual carbonation before packaging (optional)
+	ResidualCarbonation *CarbonationType `protobuf:"bytes,13,opt,name=residual_carbonation,json=residualCarbonation,proto3" json:"residual_carbonation,omitempty"`
+	// How much extra we're adding (target - residual)
+	AdditionalCarbonation *CarbonationType `protobuf:"bytes,14,opt,name=additional_carbonation,json=additionalCarbonation,proto3" json:"additional_carbonation,omitempty"`
+	// Force-carb specific
+	ForceCarbPressure *PressureType `protobuf:"bytes,15,opt,name=force_carb_pressure,json=forceCarbPressure,proto3" json:"force_carb_pressure,omitempty"`
+	ForceCarbDuration *TimeType     `protobuf:"bytes,16,opt,name=force_carb_duration,json=forceCarbDuration,proto3" json:"force_carb_duration,omitempty"`
+	// Priming specific
+	PrimingSugar     *MassType `protobuf:"bytes,17,opt,name=priming_sugar,json=primingSugar,proto3" json:"priming_sugar,omitempty"`
+	PrimingSugarType string    `protobuf:"bytes,18,opt,name=priming_sugar_type,json=primingSugarType,proto3" json:"priming_sugar_type,omitempty"` // or an enum later
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
 }
 
-func (x *PackagingVesselType) GetStartGravity() *GravityType {
+func (x *PackagingVesselStepType) Reset() {
+	*x = PackagingVesselStepType{}
+	mi := &file_beerproto_v1_packaging_vessel_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PackagingVesselStepType) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PackagingVesselStepType) ProtoMessage() {}
+
+func (x *PackagingVesselStepType) ProtoReflect() protoreflect.Message {
+	mi := &file_beerproto_v1_packaging_vessel_proto_msgTypes[2]
 	if x != nil {
-		return x.StartGravity
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PackagingVesselStepType.ProtoReflect.Descriptor instead.
+func (*PackagingVesselStepType) Descriptor() ([]byte, []int) {
+	return file_beerproto_v1_packaging_vessel_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *PackagingVesselStepType) GetBase() *PackagingVesselBase {
+	if x != nil {
+		return x.Base
 	}
 	return nil
 }
 
-func (x *PackagingVesselType) GetName() string {
+func (x *PackagingVesselStepType) GetId() string {
 	if x != nil {
-		return x.Name
+		return x.Id
 	}
 	return ""
 }
 
-func (x *PackagingVesselType) GetPackageDate() string {
+func (x *PackagingVesselStepType) GetPackageDate() string {
 	if x != nil {
 		return x.PackageDate
 	}
 	return ""
 }
 
-func (x *PackagingVesselType) GetStepTime() *TimeType {
+func (x *PackagingVesselStepType) GetStepTime() *TimeType {
 	if x != nil {
 		return x.StepTime
 	}
 	return nil
 }
 
-func (x *PackagingVesselType) GetEndGravity() *GravityType {
+func (x *PackagingVesselStepType) GetStartGravity() *GravityType {
+	if x != nil {
+		return x.StartGravity
+	}
+	return nil
+}
+
+func (x *PackagingVesselStepType) GetEndGravity() *GravityType {
 	if x != nil {
 		return x.EndGravity
 	}
 	return nil
 }
 
-func (x *PackagingVesselType) GetVesselVolume() *VolumeType {
-	if x != nil {
-		return x.VesselVolume
-	}
-	return nil
-}
-
-func (x *PackagingVesselType) GetVesselQuantity() int32 {
-	if x != nil {
-		return x.VesselQuantity
-	}
-	return 0
-}
-
-func (x *PackagingVesselType) GetDescription() string {
-	if x != nil {
-		return x.Description
-	}
-	return ""
-}
-
-func (x *PackagingVesselType) GetStartPh() *AcidityType {
+func (x *PackagingVesselStepType) GetStartPh() *AcidityType {
 	if x != nil {
 		return x.StartPh
 	}
 	return nil
 }
 
-func (x *PackagingVesselType) GetCarbonation() *CarbonationType {
-	if x != nil {
-		return x.Carbonation
-	}
-	return nil
-}
-
-func (x *PackagingVesselType) GetStartTemperature() *TemperatureType {
-	if x != nil {
-		return x.StartTemperature
-	}
-	return nil
-}
-
-func (x *PackagingVesselType) GetEndPh() *AcidityType {
+func (x *PackagingVesselStepType) GetEndPh() *AcidityType {
 	if x != nil {
 		return x.EndPh
 	}
 	return nil
 }
 
-func (x *PackagingVesselType) GetEndTemperature() *TemperatureType {
+func (x *PackagingVesselStepType) GetStartTemperature() *TemperatureType {
+	if x != nil {
+		return x.StartTemperature
+	}
+	return nil
+}
+
+func (x *PackagingVesselStepType) GetEndTemperature() *TemperatureType {
 	if x != nil {
 		return x.EndTemperature
 	}
 	return nil
 }
 
-func (x *PackagingVesselType) GetGraphics() []*PackagingGraphicType {
-	if x != nil {
-		return x.Graphics
-	}
-	return nil
-}
-
-func (x *PackagingVesselType) GetCarbonationMethod() CarbonationMethod {
+func (x *PackagingVesselStepType) GetCarbonationMethod() CarbonationMethod {
 	if x != nil {
 		return x.CarbonationMethod
 	}
 	return CarbonationMethod_CARBONATION_METHOD_UNSPECIFIED
 }
 
+func (x *PackagingVesselStepType) GetTargetCarbonation() *CarbonationType {
+	if x != nil {
+		return x.TargetCarbonation
+	}
+	return nil
+}
+
+func (x *PackagingVesselStepType) GetResidualCarbonation() *CarbonationType {
+	if x != nil {
+		return x.ResidualCarbonation
+	}
+	return nil
+}
+
+func (x *PackagingVesselStepType) GetAdditionalCarbonation() *CarbonationType {
+	if x != nil {
+		return x.AdditionalCarbonation
+	}
+	return nil
+}
+
+func (x *PackagingVesselStepType) GetForceCarbPressure() *PressureType {
+	if x != nil {
+		return x.ForceCarbPressure
+	}
+	return nil
+}
+
+func (x *PackagingVesselStepType) GetForceCarbDuration() *TimeType {
+	if x != nil {
+		return x.ForceCarbDuration
+	}
+	return nil
+}
+
+func (x *PackagingVesselStepType) GetPrimingSugar() *MassType {
+	if x != nil {
+		return x.PrimingSugar
+	}
+	return nil
+}
+
+func (x *PackagingVesselStepType) GetPrimingSugarType() string {
+	if x != nil {
+		return x.PrimingSugarType
+	}
+	return ""
+}
+
 var File_beerproto_v1_packaging_vessel_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_packaging_vessel_proto_rawDesc = "" +
 	"\n" +
-	"#beerproto/v1/packaging_vessel.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a$beerproto/v1/packaging_graphic.proto\x1a\x1bbuf/validate/validate.proto\"\xb4\a\n" +
-	"\x13PackagingVesselType\x12\x1b\n" +
-	"\x02id\x18\x01 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x125\n" +
-	"\x04type\x18\x02 \x01(\x0e2!.beerproto.v1.PackagingVesselUnitR\x04type\x12>\n" +
-	"\rstart_gravity\x18\x03 \x01(\v2\x19.beerproto.v1.GravityTypeR\fstartGravity\x12\x1e\n" +
-	"\x04name\x18\x04 \x01(\tB\n" +
-	"\xbaH\a\xc8\x01\x01r\x02\x10\x03R\x04name\x12!\n" +
-	"\fpackage_date\x18\x05 \x01(\tR\vpackageDate\x123\n" +
-	"\tstep_time\x18\x06 \x01(\v2\x16.beerproto.v1.TimeTypeR\bstepTime\x12:\n" +
-	"\vend_gravity\x18\a \x01(\v2\x19.beerproto.v1.GravityTypeR\n" +
-	"endGravity\x12=\n" +
-	"\rvessel_volume\x18\b \x01(\v2\x18.beerproto.v1.VolumeTypeR\fvesselVolume\x12'\n" +
-	"\x0fvessel_quantity\x18\t \x01(\x05R\x0evesselQuantity\x12 \n" +
-	"\vdescription\x18\n" +
-	" \x01(\tR\vdescription\x124\n" +
-	"\bstart_ph\x18\v \x01(\v2\x19.beerproto.v1.AcidityTypeR\astartPh\x12?\n" +
-	"\vcarbonation\x18\f \x01(\v2\x1d.beerproto.v1.CarbonationTypeR\vcarbonation\x12J\n" +
-	"\x11start_temperature\x18\r \x01(\v2\x1d.beerproto.v1.TemperatureTypeR\x10startTemperature\x120\n" +
-	"\x06end_ph\x18\x0e \x01(\v2\x19.beerproto.v1.AcidityTypeR\x05endPh\x12F\n" +
-	"\x0fend_temperature\x18\x0f \x01(\v2\x1d.beerproto.v1.TemperatureTypeR\x0eendTemperature\x12>\n" +
-	"\bgraphics\x18\x10 \x03(\v2\".beerproto.v1.PackagingGraphicTypeR\bgraphics\x12N\n" +
-	"\x12carbonation_method\x18\x11 \x01(\x0e2\x1f.beerproto.v1.CarbonationMethodR\x11carbonationMethod*\x9f\x02\n" +
+	"#beerproto/v1/packaging_vessel.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a$beerproto/v1/packaging_graphic.proto\x1a\x1bbuf/validate/validate.proto\"\xb6\x02\n" +
+	"\x13PackagingVesselBase\x12\x1e\n" +
+	"\x04name\x18\x01 \x01(\tB\n" +
+	"\xbaH\a\xc8\x01\x01r\x02\x10\x03R\x04name\x125\n" +
+	"\x04type\x18\x02 \x01(\x0e2!.beerproto.v1.PackagingVesselUnitR\x04type\x12=\n" +
+	"\rvessel_volume\x18\x03 \x01(\v2\x18.beerproto.v1.VolumeTypeR\fvesselVolume\x12'\n" +
+	"\x0fvessel_quantity\x18\x04 \x01(\x05R\x0evesselQuantity\x12 \n" +
+	"\vdescription\x18\x05 \x01(\tR\vdescription\x12>\n" +
+	"\bgraphics\x18\x06 \x03(\v2\".beerproto.v1.PackagingGraphicTypeR\bgraphics\"i\n" +
+	"\x13PackagingVesselType\x125\n" +
+	"\x04base\x18\x01 \x01(\v2!.beerproto.v1.PackagingVesselBaseR\x04base\x12\x1b\n" +
+	"\x02id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\"\x82\t\n" +
+	"\x17PackagingVesselStepType\x125\n" +
+	"\x04base\x18\x01 \x01(\v2!.beerproto.v1.PackagingVesselBaseR\x04base\x12\x1b\n" +
+	"\x02id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x12!\n" +
+	"\fpackage_date\x18\x03 \x01(\tR\vpackageDate\x123\n" +
+	"\tstep_time\x18\x04 \x01(\v2\x16.beerproto.v1.TimeTypeR\bstepTime\x12>\n" +
+	"\rstart_gravity\x18\x05 \x01(\v2\x19.beerproto.v1.GravityTypeR\fstartGravity\x12:\n" +
+	"\vend_gravity\x18\x06 \x01(\v2\x19.beerproto.v1.GravityTypeR\n" +
+	"endGravity\x124\n" +
+	"\bstart_ph\x18\a \x01(\v2\x19.beerproto.v1.AcidityTypeR\astartPh\x120\n" +
+	"\x06end_ph\x18\b \x01(\v2\x19.beerproto.v1.AcidityTypeR\x05endPh\x12J\n" +
+	"\x11start_temperature\x18\t \x01(\v2\x1d.beerproto.v1.TemperatureTypeR\x10startTemperature\x12F\n" +
+	"\x0fend_temperature\x18\n" +
+	" \x01(\v2\x1d.beerproto.v1.TemperatureTypeR\x0eendTemperature\x12N\n" +
+	"\x12carbonation_method\x18\v \x01(\x0e2\x1f.beerproto.v1.CarbonationMethodR\x11carbonationMethod\x12L\n" +
+	"\x12target_carbonation\x18\f \x01(\v2\x1d.beerproto.v1.CarbonationTypeR\x11targetCarbonation\x12P\n" +
+	"\x14residual_carbonation\x18\r \x01(\v2\x1d.beerproto.v1.CarbonationTypeR\x13residualCarbonation\x12T\n" +
+	"\x16additional_carbonation\x18\x0e \x01(\v2\x1d.beerproto.v1.CarbonationTypeR\x15additionalCarbonation\x12J\n" +
+	"\x13force_carb_pressure\x18\x0f \x01(\v2\x1a.beerproto.v1.PressureTypeR\x11forceCarbPressure\x12F\n" +
+	"\x13force_carb_duration\x18\x10 \x01(\v2\x16.beerproto.v1.TimeTypeR\x11forceCarbDuration\x12;\n" +
+	"\rpriming_sugar\x18\x11 \x01(\v2\x16.beerproto.v1.MassTypeR\fprimingSugar\x12,\n" +
+	"\x12priming_sugar_type\x18\x12 \x01(\tR\x10primingSugarType*\x9f\x02\n" +
 	"\x13PackagingVesselUnit\x12%\n" +
 	"!PACKAGING_VESSEL_UNIT_UNSPECIFIED\x10\x00\x12\x1d\n" +
 	"\x19PACKAGING_VESSEL_UNIT_KEG\x10\x01\x12 \n" +
@@ -323,37 +486,48 @@ func file_beerproto_v1_packaging_vessel_proto_rawDescGZIP() []byte {
 }
 
 var file_beerproto_v1_packaging_vessel_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_beerproto_v1_packaging_vessel_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_beerproto_v1_packaging_vessel_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_beerproto_v1_packaging_vessel_proto_goTypes = []any{
-	(PackagingVesselUnit)(0),     // 0: beerproto.v1.PackagingVesselUnit
-	(*PackagingVesselType)(nil),  // 1: beerproto.v1.PackagingVesselType
-	(*GravityType)(nil),          // 2: beerproto.v1.GravityType
-	(*TimeType)(nil),             // 3: beerproto.v1.TimeType
-	(*VolumeType)(nil),           // 4: beerproto.v1.VolumeType
-	(*AcidityType)(nil),          // 5: beerproto.v1.AcidityType
-	(*CarbonationType)(nil),      // 6: beerproto.v1.CarbonationType
-	(*TemperatureType)(nil),      // 7: beerproto.v1.TemperatureType
-	(*PackagingGraphicType)(nil), // 8: beerproto.v1.PackagingGraphicType
-	(CarbonationMethod)(0),       // 9: beerproto.v1.CarbonationMethod
+	(PackagingVesselUnit)(0),        // 0: beerproto.v1.PackagingVesselUnit
+	(*PackagingVesselBase)(nil),     // 1: beerproto.v1.PackagingVesselBase
+	(*PackagingVesselType)(nil),     // 2: beerproto.v1.PackagingVesselType
+	(*PackagingVesselStepType)(nil), // 3: beerproto.v1.PackagingVesselStepType
+	(*VolumeType)(nil),              // 4: beerproto.v1.VolumeType
+	(*PackagingGraphicType)(nil),    // 5: beerproto.v1.PackagingGraphicType
+	(*TimeType)(nil),                // 6: beerproto.v1.TimeType
+	(*GravityType)(nil),             // 7: beerproto.v1.GravityType
+	(*AcidityType)(nil),             // 8: beerproto.v1.AcidityType
+	(*TemperatureType)(nil),         // 9: beerproto.v1.TemperatureType
+	(CarbonationMethod)(0),          // 10: beerproto.v1.CarbonationMethod
+	(*CarbonationType)(nil),         // 11: beerproto.v1.CarbonationType
+	(*PressureType)(nil),            // 12: beerproto.v1.PressureType
+	(*MassType)(nil),                // 13: beerproto.v1.MassType
 }
 var file_beerproto_v1_packaging_vessel_proto_depIdxs = []int32{
-	0,  // 0: beerproto.v1.PackagingVesselType.type:type_name -> beerproto.v1.PackagingVesselUnit
-	2,  // 1: beerproto.v1.PackagingVesselType.start_gravity:type_name -> beerproto.v1.GravityType
-	3,  // 2: beerproto.v1.PackagingVesselType.step_time:type_name -> beerproto.v1.TimeType
-	2,  // 3: beerproto.v1.PackagingVesselType.end_gravity:type_name -> beerproto.v1.GravityType
-	4,  // 4: beerproto.v1.PackagingVesselType.vessel_volume:type_name -> beerproto.v1.VolumeType
-	5,  // 5: beerproto.v1.PackagingVesselType.start_ph:type_name -> beerproto.v1.AcidityType
-	6,  // 6: beerproto.v1.PackagingVesselType.carbonation:type_name -> beerproto.v1.CarbonationType
-	7,  // 7: beerproto.v1.PackagingVesselType.start_temperature:type_name -> beerproto.v1.TemperatureType
-	5,  // 8: beerproto.v1.PackagingVesselType.end_ph:type_name -> beerproto.v1.AcidityType
-	7,  // 9: beerproto.v1.PackagingVesselType.end_temperature:type_name -> beerproto.v1.TemperatureType
-	8,  // 10: beerproto.v1.PackagingVesselType.graphics:type_name -> beerproto.v1.PackagingGraphicType
-	9,  // 11: beerproto.v1.PackagingVesselType.carbonation_method:type_name -> beerproto.v1.CarbonationMethod
-	12, // [12:12] is the sub-list for method output_type
-	12, // [12:12] is the sub-list for method input_type
-	12, // [12:12] is the sub-list for extension type_name
-	12, // [12:12] is the sub-list for extension extendee
-	0,  // [0:12] is the sub-list for field type_name
+	0,  // 0: beerproto.v1.PackagingVesselBase.type:type_name -> beerproto.v1.PackagingVesselUnit
+	4,  // 1: beerproto.v1.PackagingVesselBase.vessel_volume:type_name -> beerproto.v1.VolumeType
+	5,  // 2: beerproto.v1.PackagingVesselBase.graphics:type_name -> beerproto.v1.PackagingGraphicType
+	1,  // 3: beerproto.v1.PackagingVesselType.base:type_name -> beerproto.v1.PackagingVesselBase
+	1,  // 4: beerproto.v1.PackagingVesselStepType.base:type_name -> beerproto.v1.PackagingVesselBase
+	6,  // 5: beerproto.v1.PackagingVesselStepType.step_time:type_name -> beerproto.v1.TimeType
+	7,  // 6: beerproto.v1.PackagingVesselStepType.start_gravity:type_name -> beerproto.v1.GravityType
+	7,  // 7: beerproto.v1.PackagingVesselStepType.end_gravity:type_name -> beerproto.v1.GravityType
+	8,  // 8: beerproto.v1.PackagingVesselStepType.start_ph:type_name -> beerproto.v1.AcidityType
+	8,  // 9: beerproto.v1.PackagingVesselStepType.end_ph:type_name -> beerproto.v1.AcidityType
+	9,  // 10: beerproto.v1.PackagingVesselStepType.start_temperature:type_name -> beerproto.v1.TemperatureType
+	9,  // 11: beerproto.v1.PackagingVesselStepType.end_temperature:type_name -> beerproto.v1.TemperatureType
+	10, // 12: beerproto.v1.PackagingVesselStepType.carbonation_method:type_name -> beerproto.v1.CarbonationMethod
+	11, // 13: beerproto.v1.PackagingVesselStepType.target_carbonation:type_name -> beerproto.v1.CarbonationType
+	11, // 14: beerproto.v1.PackagingVesselStepType.residual_carbonation:type_name -> beerproto.v1.CarbonationType
+	11, // 15: beerproto.v1.PackagingVesselStepType.additional_carbonation:type_name -> beerproto.v1.CarbonationType
+	12, // 16: beerproto.v1.PackagingVesselStepType.force_carb_pressure:type_name -> beerproto.v1.PressureType
+	6,  // 17: beerproto.v1.PackagingVesselStepType.force_carb_duration:type_name -> beerproto.v1.TimeType
+	13, // 18: beerproto.v1.PackagingVesselStepType.priming_sugar:type_name -> beerproto.v1.MassType
+	19, // [19:19] is the sub-list for method output_type
+	19, // [19:19] is the sub-list for method input_type
+	19, // [19:19] is the sub-list for extension type_name
+	19, // [19:19] is the sub-list for extension extendee
+	0,  // [0:19] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_packaging_vessel_proto_init() }
@@ -369,7 +543,7 @@ func file_beerproto_v1_packaging_vessel_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_beerproto_v1_packaging_vessel_proto_rawDesc), len(file_beerproto_v1_packaging_vessel_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   1,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
