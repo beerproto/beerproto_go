@@ -1092,24 +1092,27 @@ type PressureUnit int32
 
 const (
 	PressureUnit_PRESSURE_UNIT_UNSPECIFIED PressureUnit = 0
-	PressureUnit_PRESSURE_UNIT_BAR         PressureUnit = 1
-	PressureUnit_PRESSURE_UNIT_PSI         PressureUnit = 2
-	PressureUnit_PRESSURE_UNIT_KPA         PressureUnit = 3
+	PressureUnit_PRESSURE_UNIT_PASCAL      PressureUnit = 1
+	PressureUnit_PRESSURE_UNIT_BAR         PressureUnit = 2
+	PressureUnit_PRESSURE_UNIT_PSI         PressureUnit = 3
+	PressureUnit_PRESSURE_UNIT_KPA         PressureUnit = 4
 )
 
 // Enum value maps for PressureUnit.
 var (
 	PressureUnit_name = map[int32]string{
 		0: "PRESSURE_UNIT_UNSPECIFIED",
-		1: "PRESSURE_UNIT_BAR",
-		2: "PRESSURE_UNIT_PSI",
-		3: "PRESSURE_UNIT_KPA",
+		1: "PRESSURE_UNIT_PASCAL",
+		2: "PRESSURE_UNIT_BAR",
+		3: "PRESSURE_UNIT_PSI",
+		4: "PRESSURE_UNIT_KPA",
 	}
 	PressureUnit_value = map[string]int32{
 		"PRESSURE_UNIT_UNSPECIFIED": 0,
-		"PRESSURE_UNIT_BAR":         1,
-		"PRESSURE_UNIT_PSI":         2,
-		"PRESSURE_UNIT_KPA":         3,
+		"PRESSURE_UNIT_PASCAL":      1,
+		"PRESSURE_UNIT_BAR":         2,
+		"PRESSURE_UNIT_PSI":         3,
+		"PRESSURE_UNIT_KPA":         4,
 	}
 )
 
@@ -2912,12 +2915,13 @@ const file_beerproto_v1_measureable_units_proto_rawDesc = "" +
 	"\x1eCARBONATION_METHOD_UNSPECIFIED\x10\x00\x12 \n" +
 	"\x1cCARBONATION_METHOD_FORCE_CO2\x10\x01\x12$\n" +
 	" CARBONATION_METHOD_PRIMING_SUGAR\x10\x02\x12+\n" +
-	"'CARBONATION_METHOD_NATURAL_CONDITIONING\x10\x03*r\n" +
+	"'CARBONATION_METHOD_NATURAL_CONDITIONING\x10\x03*\x8c\x01\n" +
 	"\fPressureUnit\x12\x1d\n" +
-	"\x19PRESSURE_UNIT_UNSPECIFIED\x10\x00\x12\x15\n" +
-	"\x11PRESSURE_UNIT_BAR\x10\x01\x12\x15\n" +
-	"\x11PRESSURE_UNIT_PSI\x10\x02\x12\x15\n" +
-	"\x11PRESSURE_UNIT_KPA\x10\x03B\xb6\x01\n" +
+	"\x19PRESSURE_UNIT_UNSPECIFIED\x10\x00\x12\x18\n" +
+	"\x14PRESSURE_UNIT_PASCAL\x10\x01\x12\x15\n" +
+	"\x11PRESSURE_UNIT_BAR\x10\x02\x12\x15\n" +
+	"\x11PRESSURE_UNIT_PSI\x10\x03\x12\x15\n" +
+	"\x11PRESSURE_UNIT_KPA\x10\x04B\xb6\x01\n" +
 	"\x10com.beerproto.v1B\x15MeasureableUnitsProtoP\x01Z:github.com/beerproto/beerproto_go/beerproto/v1;beerprotov1\xa2\x02\x03BXX\xaa\x02\fBeerproto.V1\xca\x02\fBeerproto\\V1\xe2\x02\x18Beerproto\\V1\\GPBMetadata\xea\x02\rBeerproto::V1b\x06proto3"
 
 var (
