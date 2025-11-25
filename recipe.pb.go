@@ -129,7 +129,7 @@ type RecipeType struct {
 	// The gravity of beer at the end of fermentation
 	FinalGravity *GravityType `protobuf:"bytes,11,opt,name=final_gravity,json=finalGravity,proto3" json:"final_gravity,omitempty"`
 	// The final carbonation of the beer when packaged or served
-	Carbonation float64 `protobuf:"fixed64,12,opt,name=carbonation,proto3" json:"carbonation,omitempty"`
+	Carbonation *CarbonationType `protobuf:"bytes,12,opt,name=carbonation,proto3" json:"carbonation,omitempty"`
 	// FermentationProcedureType defines the procedure for performing fermentation
 	Fermentation *FermentationProcedureType `protobuf:"bytes,13,opt,name=fermentation,proto3" json:"fermentation,omitempty"`
 	Author       string                     `protobuf:"bytes,14,opt,name=author,proto3" json:"author,omitempty"`
@@ -262,11 +262,11 @@ func (x *RecipeType) GetFinalGravity() *GravityType {
 	return nil
 }
 
-func (x *RecipeType) GetCarbonation() float64 {
+func (x *RecipeType) GetCarbonation() *CarbonationType {
 	if x != nil {
 		return x.Carbonation
 	}
-	return 0
+	return nil
 }
 
 func (x *RecipeType) GetFermentation() *FermentationProcedureType {
@@ -570,7 +570,7 @@ var File_beerproto_v1_recipe_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_recipe_proto_rawDesc = "" +
 	"\n" +
-	"\x19beerproto/v1/recipe.proto\x12\fbeerproto.v1\x1a\x17beerproto/v1/boil.proto\x1a\x1abeerproto/v1/culture.proto\x1a\x1ebeerproto/v1/fermentable.proto\x1a\x1fbeerproto/v1/fermentation.proto\x1a\x16beerproto/v1/hop.proto\x1a\x17beerproto/v1/mash.proto\x1a$beerproto/v1/measureable_units.proto\x1a\x17beerproto/v1/misc.proto\x1a\x1cbeerproto/v1/packaging.proto\x1a\x18beerproto/v1/style.proto\x1a\x18beerproto/v1/water.proto\x1a\x1bbuf/validate/validate.proto\"\xbe\n" +
+	"\x19beerproto/v1/recipe.proto\x12\fbeerproto.v1\x1a\x17beerproto/v1/boil.proto\x1a\x1abeerproto/v1/culture.proto\x1a\x1ebeerproto/v1/fermentable.proto\x1a\x1fbeerproto/v1/fermentation.proto\x1a\x16beerproto/v1/hop.proto\x1a\x17beerproto/v1/mash.proto\x1a$beerproto/v1/measureable_units.proto\x1a\x17beerproto/v1/misc.proto\x1a\x1cbeerproto/v1/packaging.proto\x1a\x18beerproto/v1/style.proto\x1a\x18beerproto/v1/water.proto\x1a\x1bbuf/validate/validate.proto\"\xdd\n" +
 	"\n" +
 	"\n" +
 	"RecipeType\x12\x1b\n" +
@@ -588,8 +588,8 @@ const file_beerproto_v1_recipe_proto_rawDesc = "" +
 	"\bcoauthor\x18\t \x01(\tR\bcoauthor\x12D\n" +
 	"\x10original_gravity\x18\n" +
 	" \x01(\v2\x19.beerproto.v1.GravityTypeR\x0foriginalGravity\x12>\n" +
-	"\rfinal_gravity\x18\v \x01(\v2\x19.beerproto.v1.GravityTypeR\ffinalGravity\x12 \n" +
-	"\vcarbonation\x18\f \x01(\x01R\vcarbonation\x12K\n" +
+	"\rfinal_gravity\x18\v \x01(\v2\x19.beerproto.v1.GravityTypeR\ffinalGravity\x12?\n" +
+	"\vcarbonation\x18\f \x01(\v2\x1d.beerproto.v1.CarbonationTypeR\vcarbonation\x12K\n" +
 	"\ffermentation\x18\r \x01(\v2'.beerproto.v1.FermentationProcedureTypeR\ffermentation\x12\x1e\n" +
 	"\x06author\x18\x0e \x01(\tB\x06\xbaH\x03\xc8\x01\x01R\x06author\x12G\n" +
 	"\vingredients\x18\x0f \x01(\v2\x1d.beerproto.v1.IngredientsTypeB\x06\xbaH\x03\xc8\x01\x01R\vingredients\x123\n" +
@@ -659,17 +659,18 @@ var file_beerproto_v1_recipe_proto_goTypes = []any{
 	(*ColorType)(nil),                 // 7: beerproto.v1.ColorType
 	(*AcidityType)(nil),               // 8: beerproto.v1.AcidityType
 	(*GravityType)(nil),               // 9: beerproto.v1.GravityType
-	(*FermentationProcedureType)(nil), // 10: beerproto.v1.FermentationProcedureType
-	(*MashProcedureType)(nil),         // 11: beerproto.v1.MashProcedureType
-	(*PackagingProcedureType)(nil),    // 12: beerproto.v1.PackagingProcedureType
-	(*BoilProcedureType)(nil),         // 13: beerproto.v1.BoilProcedureType
-	(*VolumeType)(nil),                // 14: beerproto.v1.VolumeType
-	(*PercentType)(nil),               // 15: beerproto.v1.PercentType
-	(*MiscellaneousAdditionType)(nil), // 16: beerproto.v1.MiscellaneousAdditionType
-	(*CultureAdditionType)(nil),       // 17: beerproto.v1.CultureAdditionType
-	(*WaterAdditionType)(nil),         // 18: beerproto.v1.WaterAdditionType
-	(*FermentableAdditionType)(nil),   // 19: beerproto.v1.FermentableAdditionType
-	(*HopAdditionType)(nil),           // 20: beerproto.v1.HopAdditionType
+	(*CarbonationType)(nil),           // 10: beerproto.v1.CarbonationType
+	(*FermentationProcedureType)(nil), // 11: beerproto.v1.FermentationProcedureType
+	(*MashProcedureType)(nil),         // 12: beerproto.v1.MashProcedureType
+	(*PackagingProcedureType)(nil),    // 13: beerproto.v1.PackagingProcedureType
+	(*BoilProcedureType)(nil),         // 14: beerproto.v1.BoilProcedureType
+	(*VolumeType)(nil),                // 15: beerproto.v1.VolumeType
+	(*PercentType)(nil),               // 16: beerproto.v1.PercentType
+	(*MiscellaneousAdditionType)(nil), // 17: beerproto.v1.MiscellaneousAdditionType
+	(*CultureAdditionType)(nil),       // 18: beerproto.v1.CultureAdditionType
+	(*WaterAdditionType)(nil),         // 19: beerproto.v1.WaterAdditionType
+	(*FermentableAdditionType)(nil),   // 20: beerproto.v1.FermentableAdditionType
+	(*HopAdditionType)(nil),           // 21: beerproto.v1.HopAdditionType
 }
 var file_beerproto_v1_recipe_proto_depIdxs = []int32{
 	2,  // 0: beerproto.v1.RecipeType.efficiency:type_name -> beerproto.v1.EfficiencyType
@@ -680,29 +681,30 @@ var file_beerproto_v1_recipe_proto_depIdxs = []int32{
 	0,  // 5: beerproto.v1.RecipeType.type:type_name -> beerproto.v1.RecipeUnit
 	9,  // 6: beerproto.v1.RecipeType.original_gravity:type_name -> beerproto.v1.GravityType
 	9,  // 7: beerproto.v1.RecipeType.final_gravity:type_name -> beerproto.v1.GravityType
-	10, // 8: beerproto.v1.RecipeType.fermentation:type_name -> beerproto.v1.FermentationProcedureType
-	3,  // 9: beerproto.v1.RecipeType.ingredients:type_name -> beerproto.v1.IngredientsType
-	11, // 10: beerproto.v1.RecipeType.mash:type_name -> beerproto.v1.MashProcedureType
-	12, // 11: beerproto.v1.RecipeType.packaging:type_name -> beerproto.v1.PackagingProcedureType
-	13, // 12: beerproto.v1.RecipeType.boil:type_name -> beerproto.v1.BoilProcedureType
-	4,  // 13: beerproto.v1.RecipeType.taste:type_name -> beerproto.v1.TasteType
-	14, // 14: beerproto.v1.RecipeType.batch_size:type_name -> beerproto.v1.VolumeType
-	15, // 15: beerproto.v1.RecipeType.alcohol_by_volume:type_name -> beerproto.v1.PercentType
-	15, // 16: beerproto.v1.RecipeType.apparent_attenuation:type_name -> beerproto.v1.PercentType
-	15, // 17: beerproto.v1.EfficiencyType.conversion:type_name -> beerproto.v1.PercentType
-	15, // 18: beerproto.v1.EfficiencyType.lauter:type_name -> beerproto.v1.PercentType
-	15, // 19: beerproto.v1.EfficiencyType.mash:type_name -> beerproto.v1.PercentType
-	15, // 20: beerproto.v1.EfficiencyType.brewhouse:type_name -> beerproto.v1.PercentType
-	16, // 21: beerproto.v1.IngredientsType.miscellaneous_additions:type_name -> beerproto.v1.MiscellaneousAdditionType
-	17, // 22: beerproto.v1.IngredientsType.culture_additions:type_name -> beerproto.v1.CultureAdditionType
-	18, // 23: beerproto.v1.IngredientsType.water_additions:type_name -> beerproto.v1.WaterAdditionType
-	19, // 24: beerproto.v1.IngredientsType.fermentable_additions:type_name -> beerproto.v1.FermentableAdditionType
-	20, // 25: beerproto.v1.IngredientsType.hop_additions:type_name -> beerproto.v1.HopAdditionType
-	26, // [26:26] is the sub-list for method output_type
-	26, // [26:26] is the sub-list for method input_type
-	26, // [26:26] is the sub-list for extension type_name
-	26, // [26:26] is the sub-list for extension extendee
-	0,  // [0:26] is the sub-list for field type_name
+	10, // 8: beerproto.v1.RecipeType.carbonation:type_name -> beerproto.v1.CarbonationType
+	11, // 9: beerproto.v1.RecipeType.fermentation:type_name -> beerproto.v1.FermentationProcedureType
+	3,  // 10: beerproto.v1.RecipeType.ingredients:type_name -> beerproto.v1.IngredientsType
+	12, // 11: beerproto.v1.RecipeType.mash:type_name -> beerproto.v1.MashProcedureType
+	13, // 12: beerproto.v1.RecipeType.packaging:type_name -> beerproto.v1.PackagingProcedureType
+	14, // 13: beerproto.v1.RecipeType.boil:type_name -> beerproto.v1.BoilProcedureType
+	4,  // 14: beerproto.v1.RecipeType.taste:type_name -> beerproto.v1.TasteType
+	15, // 15: beerproto.v1.RecipeType.batch_size:type_name -> beerproto.v1.VolumeType
+	16, // 16: beerproto.v1.RecipeType.alcohol_by_volume:type_name -> beerproto.v1.PercentType
+	16, // 17: beerproto.v1.RecipeType.apparent_attenuation:type_name -> beerproto.v1.PercentType
+	16, // 18: beerproto.v1.EfficiencyType.conversion:type_name -> beerproto.v1.PercentType
+	16, // 19: beerproto.v1.EfficiencyType.lauter:type_name -> beerproto.v1.PercentType
+	16, // 20: beerproto.v1.EfficiencyType.mash:type_name -> beerproto.v1.PercentType
+	16, // 21: beerproto.v1.EfficiencyType.brewhouse:type_name -> beerproto.v1.PercentType
+	17, // 22: beerproto.v1.IngredientsType.miscellaneous_additions:type_name -> beerproto.v1.MiscellaneousAdditionType
+	18, // 23: beerproto.v1.IngredientsType.culture_additions:type_name -> beerproto.v1.CultureAdditionType
+	19, // 24: beerproto.v1.IngredientsType.water_additions:type_name -> beerproto.v1.WaterAdditionType
+	20, // 25: beerproto.v1.IngredientsType.fermentable_additions:type_name -> beerproto.v1.FermentableAdditionType
+	21, // 26: beerproto.v1.IngredientsType.hop_additions:type_name -> beerproto.v1.HopAdditionType
+	27, // [27:27] is the sub-list for method output_type
+	27, // [27:27] is the sub-list for method input_type
+	27, // [27:27] is the sub-list for extension type_name
+	27, // [27:27] is the sub-list for extension extendee
+	0,  // [0:27] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_recipe_proto_init() }
