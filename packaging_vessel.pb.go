@@ -259,11 +259,10 @@ type PackagingVesselType struct {
 	EndTemperature   *TemperatureType `protobuf:"bytes,10,opt,name=end_temperature,json=endTemperature,proto3" json:"end_temperature,omitempty"`
 	// Target carbonation for this vessel (vols or g/L)
 	TargetCarbonation *CarbonationType `protobuf:"bytes,11,opt,name=target_carbonation,json=targetCarbonation,proto3" json:"target_carbonation,omitempty"`
-	// Optional notes (cask finings, venting, etc.)
-	Notes           string          `protobuf:"bytes,12,opt,name=notes,proto3" json:"notes,omitempty"`
-	CarbonationStep CarbonationStep `protobuf:"varint,13,opt,name=carbonation_step,json=carbonationStep,proto3,enum=beerproto.v1.CarbonationStep" json:"carbonation_step,omitempty"`
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
+	Notes             string           `protobuf:"bytes,12,opt,name=notes,proto3" json:"notes,omitempty"`
+	CarbonationStep   CarbonationStep  `protobuf:"varint,13,opt,name=carbonation_step,json=carbonationStep,proto3,enum=beerproto.v1.CarbonationStep" json:"carbonation_step,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *PackagingVesselType) Reset() {
