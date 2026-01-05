@@ -47,6 +47,7 @@ type FermentationStepType struct {
 	Vessel           string           `protobuf:"bytes,12,opt,name=vessel,proto3" json:"vessel,omitempty"`
 	// Vessel pressure indicates the pressure applied within the fermentation vessel.
 	VesselPressure *PercentType `protobuf:"bytes,13,opt,name=vessel_pressure,json=vesselPressure,proto3" json:"vessel_pressure,omitempty"`
+	TopUp          *VolumeType  `protobuf:"bytes,14,opt,name=top_up,json=topUp,proto3" json:"top_up,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -172,11 +173,18 @@ func (x *FermentationStepType) GetVesselPressure() *PercentType {
 	return nil
 }
 
+func (x *FermentationStepType) GetTopUp() *VolumeType {
+	if x != nil {
+		return x.TopUp
+	}
+	return nil
+}
+
 var File_beerproto_v1_fermentation_step_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_fermentation_step_proto_rawDesc = "" +
 	"\n" +
-	"$beerproto/v1/fermentation_step.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x1bbuf/validate/validate.proto\"\x9b\x05\n" +
+	"$beerproto/v1/fermentation_step.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x1bbuf/validate/validate.proto\"\xcc\x05\n" +
 	"\x14FermentationStepType\x12\x1b\n" +
 	"\x02id\x18\x01 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x12\x1e\n" +
 	"\x04name\x18\x02 \x01(\tB\n" +
@@ -193,7 +201,8 @@ const file_beerproto_v1_fermentation_step_proto_rawDesc = "" +
 	" \x01(\v2\x1d.beerproto.v1.TemperatureTypeR\x10startTemperature\x120\n" +
 	"\x06end_ph\x18\v \x01(\v2\x19.beerproto.v1.AcidityTypeR\x05endPh\x12\x16\n" +
 	"\x06vessel\x18\f \x01(\tR\x06vessel\x12B\n" +
-	"\x0fvessel_pressure\x18\r \x01(\v2\x19.beerproto.v1.PercentTypeR\x0evesselPressureB\xb6\x01\n" +
+	"\x0fvessel_pressure\x18\r \x01(\v2\x19.beerproto.v1.PercentTypeR\x0evesselPressure\x12/\n" +
+	"\x06top_up\x18\x0e \x01(\v2\x18.beerproto.v1.VolumeTypeR\x05topUpB\xb6\x01\n" +
 	"\x10com.beerproto.v1B\x15FermentationStepProtoP\x01Z:github.com/beerproto/beerproto_go/beerproto/v1;beerprotov1\xa2\x02\x03BXX\xaa\x02\fBeerproto.V1\xca\x02\fBeerproto\\V1\xe2\x02\x18Beerproto\\V1\\GPBMetadata\xea\x02\rBeerproto::V1b\x06proto3"
 
 var (
@@ -216,6 +225,7 @@ var file_beerproto_v1_fermentation_step_proto_goTypes = []any{
 	(*GravityType)(nil),          // 3: beerproto.v1.GravityType
 	(*AcidityType)(nil),          // 4: beerproto.v1.AcidityType
 	(*PercentType)(nil),          // 5: beerproto.v1.PercentType
+	(*VolumeType)(nil),           // 6: beerproto.v1.VolumeType
 }
 var file_beerproto_v1_fermentation_step_proto_depIdxs = []int32{
 	1, // 0: beerproto.v1.FermentationStepType.end_temperature:type_name -> beerproto.v1.TemperatureType
@@ -226,11 +236,12 @@ var file_beerproto_v1_fermentation_step_proto_depIdxs = []int32{
 	1, // 5: beerproto.v1.FermentationStepType.start_temperature:type_name -> beerproto.v1.TemperatureType
 	4, // 6: beerproto.v1.FermentationStepType.end_ph:type_name -> beerproto.v1.AcidityType
 	5, // 7: beerproto.v1.FermentationStepType.vessel_pressure:type_name -> beerproto.v1.PercentType
-	8, // [8:8] is the sub-list for method output_type
-	8, // [8:8] is the sub-list for method input_type
-	8, // [8:8] is the sub-list for extension type_name
-	8, // [8:8] is the sub-list for extension extendee
-	0, // [0:8] is the sub-list for field type_name
+	6, // 8: beerproto.v1.FermentationStepType.top_up:type_name -> beerproto.v1.VolumeType
+	9, // [9:9] is the sub-list for method output_type
+	9, // [9:9] is the sub-list for method input_type
+	9, // [9:9] is the sub-list for extension type_name
+	9, // [9:9] is the sub-list for extension extendee
+	0, // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_fermentation_step_proto_init() }

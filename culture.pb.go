@@ -167,32 +167,28 @@ type CultureBaseType int32
 
 const (
 	CultureBaseType_CULTURE_BASE_TYPE_UNSPECIFIED CultureBaseType = 0
-	// ale
-	CultureBaseType_CULTURE_BASE_TYPE_ALE CultureBaseType = 1
-	// bacteria
-	CultureBaseType_CULTURE_BASE_TYPE_BACTERIA CultureBaseType = 2
-	// brett
-	CultureBaseType_CULTURE_BASE_TYPE_BRETT CultureBaseType = 3
-	// champagne
-	CultureBaseType_CULTURE_BASE_TYPE_CHAMPAGNE CultureBaseType = 4
-	// kveik
-	CultureBaseType_CULTURE_BASE_TYPE_KVEIK CultureBaseType = 5
-	// lacto
-	CultureBaseType_CULTURE_BASE_TYPE_LACTO CultureBaseType = 6
-	// lager
-	CultureBaseType_CULTURE_BASE_TYPE_LAGER CultureBaseType = 7
-	// malolactic
+	// Yeast
+	CultureBaseType_CULTURE_BASE_TYPE_ALE               CultureBaseType = 1
+	CultureBaseType_CULTURE_BASE_TYPE_LAGER             CultureBaseType = 7
+	CultureBaseType_CULTURE_BASE_TYPE_KVEIK             CultureBaseType = 5
+	CultureBaseType_CULTURE_BASE_TYPE_BRETT             CultureBaseType = 3
+	CultureBaseType_CULTURE_BASE_TYPE_CHAMPAGNE         CultureBaseType = 4
+	CultureBaseType_CULTURE_BASE_TYPE_WINE              CultureBaseType = 13
+	CultureBaseType_CULTURE_BASE_TYPE_NON_SACCHAROMYCES CultureBaseType = 14
+	// Bacteria
+	CultureBaseType_CULTURE_BASE_TYPE_LACTO      CultureBaseType = 6
+	CultureBaseType_CULTURE_BASE_TYPE_PEDIO      CultureBaseType = 11
 	CultureBaseType_CULTURE_BASE_TYPE_MALOLACTIC CultureBaseType = 8
-	// mixed-culture
+	CultureBaseType_CULTURE_BASE_TYPE_ACETIC     CultureBaseType = 15
+	CultureBaseType_CULTURE_BASE_TYPE_BACTERIA   CultureBaseType = 2
+	// Mixed / process-driven
 	CultureBaseType_CULTURE_BASE_TYPE_MIXED_CULTURE CultureBaseType = 9
-	// other
+	CultureBaseType_CULTURE_BASE_TYPE_SPONTANEOUS   CultureBaseType = 12
+	CultureBaseType_CULTURE_BASE_TYPE_SCOBY         CultureBaseType = 17
+	// Other biological agents
+	CultureBaseType_CULTURE_BASE_TYPE_MOLD CultureBaseType = 16
+	// Fallback
 	CultureBaseType_CULTURE_BASE_TYPE_OTHER CultureBaseType = 10
-	// pedio
-	CultureBaseType_CULTURE_BASE_TYPE_PEDIO CultureBaseType = 11
-	// spontaneous
-	CultureBaseType_CULTURE_BASE_TYPE_SPONTANEOUS CultureBaseType = 12
-	// wine
-	CultureBaseType_CULTURE_BASE_TYPE_WINE CultureBaseType = 13
 )
 
 // Enum value maps for CultureBaseType.
@@ -200,34 +196,42 @@ var (
 	CultureBaseType_name = map[int32]string{
 		0:  "CULTURE_BASE_TYPE_UNSPECIFIED",
 		1:  "CULTURE_BASE_TYPE_ALE",
-		2:  "CULTURE_BASE_TYPE_BACTERIA",
+		7:  "CULTURE_BASE_TYPE_LAGER",
+		5:  "CULTURE_BASE_TYPE_KVEIK",
 		3:  "CULTURE_BASE_TYPE_BRETT",
 		4:  "CULTURE_BASE_TYPE_CHAMPAGNE",
-		5:  "CULTURE_BASE_TYPE_KVEIK",
-		6:  "CULTURE_BASE_TYPE_LACTO",
-		7:  "CULTURE_BASE_TYPE_LAGER",
-		8:  "CULTURE_BASE_TYPE_MALOLACTIC",
-		9:  "CULTURE_BASE_TYPE_MIXED_CULTURE",
-		10: "CULTURE_BASE_TYPE_OTHER",
-		11: "CULTURE_BASE_TYPE_PEDIO",
-		12: "CULTURE_BASE_TYPE_SPONTANEOUS",
 		13: "CULTURE_BASE_TYPE_WINE",
+		14: "CULTURE_BASE_TYPE_NON_SACCHAROMYCES",
+		6:  "CULTURE_BASE_TYPE_LACTO",
+		11: "CULTURE_BASE_TYPE_PEDIO",
+		8:  "CULTURE_BASE_TYPE_MALOLACTIC",
+		15: "CULTURE_BASE_TYPE_ACETIC",
+		2:  "CULTURE_BASE_TYPE_BACTERIA",
+		9:  "CULTURE_BASE_TYPE_MIXED_CULTURE",
+		12: "CULTURE_BASE_TYPE_SPONTANEOUS",
+		17: "CULTURE_BASE_TYPE_SCOBY",
+		16: "CULTURE_BASE_TYPE_MOLD",
+		10: "CULTURE_BASE_TYPE_OTHER",
 	}
 	CultureBaseType_value = map[string]int32{
-		"CULTURE_BASE_TYPE_UNSPECIFIED":   0,
-		"CULTURE_BASE_TYPE_ALE":           1,
-		"CULTURE_BASE_TYPE_BACTERIA":      2,
-		"CULTURE_BASE_TYPE_BRETT":         3,
-		"CULTURE_BASE_TYPE_CHAMPAGNE":     4,
-		"CULTURE_BASE_TYPE_KVEIK":         5,
-		"CULTURE_BASE_TYPE_LACTO":         6,
-		"CULTURE_BASE_TYPE_LAGER":         7,
-		"CULTURE_BASE_TYPE_MALOLACTIC":    8,
-		"CULTURE_BASE_TYPE_MIXED_CULTURE": 9,
-		"CULTURE_BASE_TYPE_OTHER":         10,
-		"CULTURE_BASE_TYPE_PEDIO":         11,
-		"CULTURE_BASE_TYPE_SPONTANEOUS":   12,
-		"CULTURE_BASE_TYPE_WINE":          13,
+		"CULTURE_BASE_TYPE_UNSPECIFIED":       0,
+		"CULTURE_BASE_TYPE_ALE":               1,
+		"CULTURE_BASE_TYPE_LAGER":             7,
+		"CULTURE_BASE_TYPE_KVEIK":             5,
+		"CULTURE_BASE_TYPE_BRETT":             3,
+		"CULTURE_BASE_TYPE_CHAMPAGNE":         4,
+		"CULTURE_BASE_TYPE_WINE":              13,
+		"CULTURE_BASE_TYPE_NON_SACCHAROMYCES": 14,
+		"CULTURE_BASE_TYPE_LACTO":             6,
+		"CULTURE_BASE_TYPE_PEDIO":             11,
+		"CULTURE_BASE_TYPE_MALOLACTIC":        8,
+		"CULTURE_BASE_TYPE_ACETIC":            15,
+		"CULTURE_BASE_TYPE_BACTERIA":          2,
+		"CULTURE_BASE_TYPE_MIXED_CULTURE":     9,
+		"CULTURE_BASE_TYPE_SPONTANEOUS":       12,
+		"CULTURE_BASE_TYPE_SCOBY":             17,
+		"CULTURE_BASE_TYPE_MOLD":              16,
+		"CULTURE_BASE_TYPE_OTHER":             10,
 	}
 )
 
@@ -861,23 +865,27 @@ const file_beerproto_v1_culture_proto_rawDesc = "" +
 	"\x15CULTURE_BASE_FORM_DRY\x10\x02\x12\x1b\n" +
 	"\x17CULTURE_BASE_FORM_SLANT\x10\x03\x12\x1d\n" +
 	"\x19CULTURE_BASE_FORM_CULTURE\x10\x04\x12\x1b\n" +
-	"\x17CULTURE_BASE_FORM_DREGS\x10\x05*\xc4\x03\n" +
+	"\x17CULTURE_BASE_FORM_DREGS\x10\x05*\xc4\x04\n" +
 	"\x0fCultureBaseType\x12!\n" +
 	"\x1dCULTURE_BASE_TYPE_UNSPECIFIED\x10\x00\x12\x19\n" +
-	"\x15CULTURE_BASE_TYPE_ALE\x10\x01\x12\x1e\n" +
-	"\x1aCULTURE_BASE_TYPE_BACTERIA\x10\x02\x12\x1b\n" +
-	"\x17CULTURE_BASE_TYPE_BRETT\x10\x03\x12\x1f\n" +
-	"\x1bCULTURE_BASE_TYPE_CHAMPAGNE\x10\x04\x12\x1b\n" +
+	"\x15CULTURE_BASE_TYPE_ALE\x10\x01\x12\x1b\n" +
+	"\x17CULTURE_BASE_TYPE_LAGER\x10\a\x12\x1b\n" +
 	"\x17CULTURE_BASE_TYPE_KVEIK\x10\x05\x12\x1b\n" +
+	"\x17CULTURE_BASE_TYPE_BRETT\x10\x03\x12\x1f\n" +
+	"\x1bCULTURE_BASE_TYPE_CHAMPAGNE\x10\x04\x12\x1a\n" +
+	"\x16CULTURE_BASE_TYPE_WINE\x10\r\x12'\n" +
+	"#CULTURE_BASE_TYPE_NON_SACCHAROMYCES\x10\x0e\x12\x1b\n" +
 	"\x17CULTURE_BASE_TYPE_LACTO\x10\x06\x12\x1b\n" +
-	"\x17CULTURE_BASE_TYPE_LAGER\x10\a\x12 \n" +
-	"\x1cCULTURE_BASE_TYPE_MALOLACTIC\x10\b\x12#\n" +
-	"\x1fCULTURE_BASE_TYPE_MIXED_CULTURE\x10\t\x12\x1b\n" +
+	"\x17CULTURE_BASE_TYPE_PEDIO\x10\v\x12 \n" +
+	"\x1cCULTURE_BASE_TYPE_MALOLACTIC\x10\b\x12\x1c\n" +
+	"\x18CULTURE_BASE_TYPE_ACETIC\x10\x0f\x12\x1e\n" +
+	"\x1aCULTURE_BASE_TYPE_BACTERIA\x10\x02\x12#\n" +
+	"\x1fCULTURE_BASE_TYPE_MIXED_CULTURE\x10\t\x12!\n" +
+	"\x1dCULTURE_BASE_TYPE_SPONTANEOUS\x10\f\x12\x1b\n" +
+	"\x17CULTURE_BASE_TYPE_SCOBY\x10\x11\x12\x1a\n" +
+	"\x16CULTURE_BASE_TYPE_MOLD\x10\x10\x12\x1b\n" +
 	"\x17CULTURE_BASE_TYPE_OTHER\x10\n" +
-	"\x12\x1b\n" +
-	"\x17CULTURE_BASE_TYPE_PEDIO\x10\v\x12!\n" +
-	"\x1dCULTURE_BASE_TYPE_SPONTANEOUS\x10\f\x12\x1a\n" +
-	"\x16CULTURE_BASE_TYPE_WINE\x10\rB\xad\x01\n" +
+	"B\xad\x01\n" +
 	"\x10com.beerproto.v1B\fCultureProtoP\x01Z:github.com/beerproto/beerproto_go/beerproto/v1;beerprotov1\xa2\x02\x03BXX\xaa\x02\fBeerproto.V1\xca\x02\fBeerproto\\V1\xe2\x02\x18Beerproto\\V1\\GPBMetadata\xea\x02\rBeerproto::V1b\x06proto3"
 
 var (
