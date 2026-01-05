@@ -257,10 +257,12 @@ func (x *WaterType) GetPh() *AcidityType {
 
 // WaterAdditionType collects the attributes of each water addition for use in a recipe
 type WaterAdditionType struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Base          *WaterBase             `protobuf:"bytes,1,opt,name=base,proto3" json:"base,omitempty"`
-	Id            string                 `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
-	Amount        *VolumeType            `protobuf:"bytes,3,opt,name=amount,proto3" json:"amount,omitempty"`
+	state  protoimpl.MessageState `protogen:"open.v1"`
+	Base   *WaterBase             `protobuf:"bytes,1,opt,name=base,proto3" json:"base,omitempty"`
+	Id     string                 `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Amount *VolumeType            `protobuf:"bytes,3,opt,name=amount,proto3" json:"amount,omitempty"`
+	// The timing object fully describes the timing of an addition with options for a basis on time, gravity, or pH at any process step
+	Timing        *TimingType `protobuf:"bytes,4,opt,name=timing,proto3" json:"timing,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -316,11 +318,18 @@ func (x *WaterAdditionType) GetAmount() *VolumeType {
 	return nil
 }
 
+func (x *WaterAdditionType) GetTiming() *TimingType {
+	if x != nil {
+		return x.Timing
+	}
+	return nil
+}
+
 var File_beerproto_v1_water_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_water_proto_rawDesc = "" +
 	"\n" +
-	"\x18beerproto/v1/water.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x1bbuf/validate/validate.proto\"\xcb\x06\n" +
+	"\x18beerproto/v1/water.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x19beerproto/v1/timing.proto\x1a\x1bbuf/validate/validate.proto\"\xcb\x06\n" +
 	"\tWaterBase\x12A\n" +
 	"\acalcium\x18\x02 \x01(\v2\x1f.beerproto.v1.ConcentrationTypeB\x06\xbaH\x03\xc8\x01\x01R\acalcium\x129\n" +
 	"\anitrite\x18\x03 \x01(\v2\x1f.beerproto.v1.ConcentrationTypeR\anitrite\x12C\n" +
@@ -342,11 +351,12 @@ const file_beerproto_v1_water_proto_rawDesc = "" +
 	"\x04base\x18\x01 \x01(\v2\x17.beerproto.v1.WaterBaseB\x06\xbaH\x03\xc8\x01\x01R\x04base\x12\x1b\n" +
 	"\x02id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x12\x14\n" +
 	"\x05notes\x18\x03 \x01(\tR\x05notes\x12)\n" +
-	"\x02ph\x18\x04 \x01(\v2\x19.beerproto.v1.AcidityTypeR\x02ph\"\x97\x01\n" +
+	"\x02ph\x18\x04 \x01(\v2\x19.beerproto.v1.AcidityTypeR\x02ph\"\xd1\x01\n" +
 	"\x11WaterAdditionType\x123\n" +
 	"\x04base\x18\x01 \x01(\v2\x17.beerproto.v1.WaterBaseB\x06\xbaH\x03\xc8\x01\x01R\x04base\x12\x1b\n" +
 	"\x02id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x120\n" +
-	"\x06amount\x18\x03 \x01(\v2\x18.beerproto.v1.VolumeTypeR\x06amountB\xab\x01\n" +
+	"\x06amount\x18\x03 \x01(\v2\x18.beerproto.v1.VolumeTypeR\x06amount\x128\n" +
+	"\x06timing\x18\x04 \x01(\v2\x18.beerproto.v1.TimingTypeB\x06\xbaH\x03\xc8\x01\x01R\x06timingB\xab\x01\n" +
 	"\x10com.beerproto.v1B\n" +
 	"WaterProtoP\x01Z:github.com/beerproto/beerproto_go/beerproto/v1;beerprotov1\xa2\x02\x03BXX\xaa\x02\fBeerproto.V1\xca\x02\fBeerproto\\V1\xe2\x02\x18Beerproto\\V1\\GPBMetadata\xea\x02\rBeerproto::V1b\x06proto3"
 
@@ -370,6 +380,7 @@ var file_beerproto_v1_water_proto_goTypes = []any{
 	(*ConcentrationType)(nil), // 3: beerproto.v1.ConcentrationType
 	(*AcidityType)(nil),       // 4: beerproto.v1.AcidityType
 	(*VolumeType)(nil),        // 5: beerproto.v1.VolumeType
+	(*TimingType)(nil),        // 6: beerproto.v1.TimingType
 }
 var file_beerproto_v1_water_proto_depIdxs = []int32{
 	3,  // 0: beerproto.v1.WaterBase.calcium:type_name -> beerproto.v1.ConcentrationType
@@ -388,11 +399,12 @@ var file_beerproto_v1_water_proto_depIdxs = []int32{
 	4,  // 13: beerproto.v1.WaterType.ph:type_name -> beerproto.v1.AcidityType
 	0,  // 14: beerproto.v1.WaterAdditionType.base:type_name -> beerproto.v1.WaterBase
 	5,  // 15: beerproto.v1.WaterAdditionType.amount:type_name -> beerproto.v1.VolumeType
-	16, // [16:16] is the sub-list for method output_type
-	16, // [16:16] is the sub-list for method input_type
-	16, // [16:16] is the sub-list for extension type_name
-	16, // [16:16] is the sub-list for extension extendee
-	0,  // [0:16] is the sub-list for field type_name
+	6,  // 16: beerproto.v1.WaterAdditionType.timing:type_name -> beerproto.v1.TimingType
+	17, // [17:17] is the sub-list for method output_type
+	17, // [17:17] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_water_proto_init() }
@@ -401,6 +413,7 @@ func file_beerproto_v1_water_proto_init() {
 		return
 	}
 	file_beerproto_v1_measureable_units_proto_init()
+	file_beerproto_v1_timing_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
