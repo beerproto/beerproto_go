@@ -47,6 +47,8 @@ const (
 	EquipmentBaseForm_EQUIPMENT_BASE_FORM_AGING_VESSEL EquipmentBaseForm = 6
 	// Packaging Vessel
 	EquipmentBaseForm_EQUIPMENT_BASE_FORM_PACKAGING_VESSEL EquipmentBaseForm = 7
+	// Whirlpool Vessel
+	EquipmentBaseForm_EQUIPMENT_BASE_FORM_WHIRLPOOL_VESSEL EquipmentBaseForm = 8
 )
 
 // Enum value maps for EquipmentBaseForm.
@@ -60,6 +62,7 @@ var (
 		5: "EQUIPMENT_BASE_FORM_FERMENTER",
 		6: "EQUIPMENT_BASE_FORM_AGING_VESSEL",
 		7: "EQUIPMENT_BASE_FORM_PACKAGING_VESSEL",
+		8: "EQUIPMENT_BASE_FORM_WHIRLPOOL_VESSEL",
 	}
 	EquipmentBaseForm_value = map[string]int32{
 		"EQUIPMENT_BASE_FORM_UNSPECIFIED":      0,
@@ -70,6 +73,7 @@ var (
 		"EQUIPMENT_BASE_FORM_FERMENTER":        5,
 		"EQUIPMENT_BASE_FORM_AGING_VESSEL":     6,
 		"EQUIPMENT_BASE_FORM_PACKAGING_VESSEL": 7,
+		"EQUIPMENT_BASE_FORM_WHIRLPOOL_VESSEL": 8,
 	}
 )
 
@@ -184,9 +188,11 @@ type EquipmentItemType struct {
 	// The apparent volume absorbed by grain, typical values are 0.125 qt/lb (1.04 L/kg) for a mashtun, 0.08 gal/lb (0.66 L/kg) for BIAB.
 	GrainAbsorptionRate *SpecificVolumeType `protobuf:"bytes,7,opt,name=grain_absorption_rate,json=grainAbsorptionRate,proto3" json:"grain_absorption_rate,omitempty"`
 	// The weight of the piece of equipment, especially important for when the mashtun is not preheated.
-	Weight        *MassType    `protobuf:"bytes,8,opt,name=weight,proto3" json:"weight,omitempty"`
-	Loss          *VolumeType  `protobuf:"bytes,9,opt,name=loss,proto3" json:"loss,omitempty"`
-	Efficiency    *PercentType `protobuf:"bytes,10,opt,name=efficiency,proto3" json:"efficiency,omitempty"`
+	Weight     *MassType    `protobuf:"bytes,8,opt,name=weight,proto3" json:"weight,omitempty"`
+	Loss       *VolumeType  `protobuf:"bytes,9,opt,name=loss,proto3" json:"loss,omitempty"`
+	Efficiency *PercentType `protobuf:"bytes,10,opt,name=efficiency,proto3" json:"efficiency,omitempty"`
+	// The total volume of wort lost to dead legs, hoses, and fittings during transfers between vessels.
+	TransferLoss  *VolumeType `protobuf:"bytes,11,opt,name=transfer_loss,json=transferLoss,proto3" json:"transfer_loss,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -291,6 +297,13 @@ func (x *EquipmentItemType) GetEfficiency() *PercentType {
 	return nil
 }
 
+func (x *EquipmentItemType) GetTransferLoss() *VolumeType {
+	if x != nil {
+		return x.TransferLoss
+	}
+	return nil
+}
+
 // Provides necessary information for brewing equipment set
 type EquipmentType struct {
 	state               protoimpl.MessageState `protogen:"open.v1"`
@@ -370,7 +383,7 @@ const file_beerproto_v1_equipment_proto_rawDesc = "" +
 	"\xbaH\a\xc8\x01\x01r\x02\x10\x03R\x04name\x12\x12\n" +
 	"\x04type\x18\x02 \x01(\tR\x04type\x12@\n" +
 	"\x04form\x18\x03 \x01(\x0e2\x1f.beerproto.v1.EquipmentBaseFormB\v\xbaH\b\xc8\x01\x01\x82\x01\x02 \x00R\x04form\x12G\n" +
-	"\x0emaximum_volume\x18\x04 \x01(\v2\x18.beerproto.v1.VolumeTypeB\x06\xbaH\x03\xc8\x01\x01R\rmaximumVolume\"\xcf\x04\n" +
+	"\x0emaximum_volume\x18\x04 \x01(\v2\x18.beerproto.v1.VolumeTypeB\x06\xbaH\x03\xc8\x01\x01R\rmaximumVolume\"\x8e\x05\n" +
 	"\x11EquipmentItemType\x127\n" +
 	"\x04base\x18\x01 \x01(\v2\x1b.beerproto.v1.EquipmentBaseB\x06\xbaH\x03\xc8\x01\x01R\x04base\x12\x1b\n" +
 	"\x02id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x12\x14\n" +
@@ -384,13 +397,14 @@ const file_beerproto_v1_equipment_proto_rawDesc = "" +
 	"\n" +
 	"efficiency\x18\n" +
 	" \x01(\v2\x19.beerproto.v1.PercentTypeR\n" +
-	"efficiency\"\xee\x01\n" +
+	"efficiency\x12=\n" +
+	"\rtransfer_loss\x18\v \x01(\v2\x18.beerproto.v1.VolumeTypeR\ftransferLoss\"\xee\x01\n" +
 	"\rEquipmentType\x12\x1b\n" +
 	"\x02id\x18\x01 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x12\x1e\n" +
 	"\x04name\x18\x02 \x01(\tB\n" +
 	"\xbaH\a\xc8\x01\x01r\x02\x10\x03R\x04name\x12R\n" +
 	"\x0fequipment_items\x18\x03 \x03(\v2\x1f.beerproto.v1.EquipmentItemTypeB\b\xbaH\x05\x92\x01\x02\b\x01R\x0eequipmentItems\x12L\n" +
-	"\x14brewhouse_efficiency\x18\x04 \x01(\v2\x19.beerproto.v1.PercentTypeR\x13brewhouseEfficiency*\xb3\x02\n" +
+	"\x14brewhouse_efficiency\x18\x04 \x01(\v2\x19.beerproto.v1.PercentTypeR\x13brewhouseEfficiency*\xdd\x02\n" +
 	"\x11EquipmentBaseForm\x12#\n" +
 	"\x1fEQUIPMENT_BASE_FORM_UNSPECIFIED\x10\x00\x12\x1b\n" +
 	"\x17EQUIPMENT_BASE_FORM_HLT\x10\x01\x12 \n" +
@@ -399,7 +413,8 @@ const file_beerproto_v1_equipment_proto_rawDesc = "" +
 	"\x1fEQUIPMENT_BASE_FORM_BREW_KETTLE\x10\x04\x12!\n" +
 	"\x1dEQUIPMENT_BASE_FORM_FERMENTER\x10\x05\x12$\n" +
 	" EQUIPMENT_BASE_FORM_AGING_VESSEL\x10\x06\x12(\n" +
-	"$EQUIPMENT_BASE_FORM_PACKAGING_VESSEL\x10\aB\xaf\x01\n" +
+	"$EQUIPMENT_BASE_FORM_PACKAGING_VESSEL\x10\a\x12(\n" +
+	"$EQUIPMENT_BASE_FORM_WHIRLPOOL_VESSEL\x10\bB\xaf\x01\n" +
 	"\x10com.beerproto.v1B\x0eEquipmentProtoP\x01Z:github.com/beerproto/beerproto_go/beerproto/v1;beerprotov1\xa2\x02\x03BXX\xaa\x02\fBeerproto.V1\xca\x02\fBeerproto\\V1\xe2\x02\x18Beerproto\\V1\\GPBMetadata\xea\x02\rBeerproto::V1b\x06proto3"
 
 var (
@@ -438,13 +453,14 @@ var file_beerproto_v1_equipment_proto_depIdxs = []int32{
 	7,  // 7: beerproto.v1.EquipmentItemType.weight:type_name -> beerproto.v1.MassType
 	4,  // 8: beerproto.v1.EquipmentItemType.loss:type_name -> beerproto.v1.VolumeType
 	8,  // 9: beerproto.v1.EquipmentItemType.efficiency:type_name -> beerproto.v1.PercentType
-	2,  // 10: beerproto.v1.EquipmentType.equipment_items:type_name -> beerproto.v1.EquipmentItemType
-	8,  // 11: beerproto.v1.EquipmentType.brewhouse_efficiency:type_name -> beerproto.v1.PercentType
-	12, // [12:12] is the sub-list for method output_type
-	12, // [12:12] is the sub-list for method input_type
-	12, // [12:12] is the sub-list for extension type_name
-	12, // [12:12] is the sub-list for extension extendee
-	0,  // [0:12] is the sub-list for field type_name
+	4,  // 10: beerproto.v1.EquipmentItemType.transfer_loss:type_name -> beerproto.v1.VolumeType
+	2,  // 11: beerproto.v1.EquipmentType.equipment_items:type_name -> beerproto.v1.EquipmentItemType
+	8,  // 12: beerproto.v1.EquipmentType.brewhouse_efficiency:type_name -> beerproto.v1.PercentType
+	13, // [13:13] is the sub-list for method output_type
+	13, // [13:13] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_equipment_proto_init() }
