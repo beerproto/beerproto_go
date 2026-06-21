@@ -971,12 +971,13 @@ type RateUnit int32
 const (
 	RateUnit_RATE_UNIT_UNSPECIFIED RateUnit = 0
 	// Volume-based rates
-	RateUnit_RATE_UNIT_L_PER_HOUR     RateUnit = 1
-	RateUnit_RATE_UNIT_L_PER_MINUTE   RateUnit = 2
-	RateUnit_RATE_UNIT_GAL_PER_HOUR   RateUnit = 3
-	RateUnit_RATE_UNIT_GAL_PER_MINUTE RateUnit = 9
-	RateUnit_RATE_UNIT_HL_PER_HOUR    RateUnit = 10
-	RateUnit_RATE_UNIT_BBL_PER_HOUR   RateUnit = 11
+	RateUnit_RATE_UNIT_L_PER_HOUR      RateUnit = 1
+	RateUnit_RATE_UNIT_L_PER_MINUTE    RateUnit = 2
+	RateUnit_RATE_UNIT_GAL_PER_HOUR    RateUnit = 3
+	RateUnit_RATE_UNIT_GAL_PER_MINUTE  RateUnit = 9
+	RateUnit_RATE_UNIT_HL_PER_HOUR     RateUnit = 10
+	RateUnit_RATE_UNIT_BBL_PER_HOUR    RateUnit = 11 // US beer barrel (31 US gal)
+	RateUnit_RATE_UNIT_UK_BBL_PER_HOUR RateUnit = 12 // UK brewers' barrel (36 imp gal)
 	// Percent-based rates (useful for boil-off)
 	RateUnit_RATE_UNIT_PERCENT_PER_HOUR RateUnit = 4
 	// Mass absorption (common in brewing calculations)
@@ -997,6 +998,7 @@ var (
 		9:  "RATE_UNIT_GAL_PER_MINUTE",
 		10: "RATE_UNIT_HL_PER_HOUR",
 		11: "RATE_UNIT_BBL_PER_HOUR",
+		12: "RATE_UNIT_UK_BBL_PER_HOUR",
 		4:  "RATE_UNIT_PERCENT_PER_HOUR",
 		5:  "RATE_UNIT_L_PER_KG",
 		6:  "RATE_UNIT_GAL_PER_LB",
@@ -1011,6 +1013,7 @@ var (
 		"RATE_UNIT_GAL_PER_MINUTE":   9,
 		"RATE_UNIT_HL_PER_HOUR":      10,
 		"RATE_UNIT_BBL_PER_HOUR":     11,
+		"RATE_UNIT_UK_BBL_PER_HOUR":  12,
 		"RATE_UNIT_PERCENT_PER_HOUR": 4,
 		"RATE_UNIT_L_PER_KG":         5,
 		"RATE_UNIT_GAL_PER_LB":       6,
@@ -3081,7 +3084,7 @@ const file_beerproto_v1_measureable_units_proto_rawDesc = "" +
 	"\x1aVISCOSITY_UNIT_UNSPECIFIED\x10\x00\x12\x15\n" +
 	"\x11VISCOSITY_UNIT_CP\x10\x01\x12\x17\n" +
 	"\x13VISCOSITY_UNIT_MPAS\x10\x02\x12\x18\n" +
-	"\x14VISCOSITY_UNIT_POISE\x10\x03*\xd6\x02\n" +
+	"\x14VISCOSITY_UNIT_POISE\x10\x03*\xf5\x02\n" +
 	"\bRateUnit\x12\x19\n" +
 	"\x15RATE_UNIT_UNSPECIFIED\x10\x00\x12\x18\n" +
 	"\x14RATE_UNIT_L_PER_HOUR\x10\x01\x12\x1a\n" +
@@ -3090,7 +3093,8 @@ const file_beerproto_v1_measureable_units_proto_rawDesc = "" +
 	"\x18RATE_UNIT_GAL_PER_MINUTE\x10\t\x12\x19\n" +
 	"\x15RATE_UNIT_HL_PER_HOUR\x10\n" +
 	"\x12\x1a\n" +
-	"\x16RATE_UNIT_BBL_PER_HOUR\x10\v\x12\x1e\n" +
+	"\x16RATE_UNIT_BBL_PER_HOUR\x10\v\x12\x1d\n" +
+	"\x19RATE_UNIT_UK_BBL_PER_HOUR\x10\f\x12\x1e\n" +
 	"\x1aRATE_UNIT_PERCENT_PER_HOUR\x10\x04\x12\x16\n" +
 	"\x12RATE_UNIT_L_PER_KG\x10\x05\x12\x18\n" +
 	"\x14RATE_UNIT_GAL_PER_LB\x10\x06\x12\x1a\n" +
