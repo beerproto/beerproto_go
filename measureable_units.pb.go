@@ -250,6 +250,53 @@ func (CellCountUnit) EnumDescriptor() ([]byte, []int) {
 	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{2}
 }
 
+type PitchRateUnit int32
+
+const (
+	PitchRateUnit_PITCH_RATE_UNIT_UNSPECIFIED PitchRateUnit = 0
+	// M cells / mL / °Plato
+	PitchRateUnit_PITCH_RATE_UNIT_MILLION_CELLS_PER_ML_PER_PLATO PitchRateUnit = 1
+)
+
+// Enum value maps for PitchRateUnit.
+var (
+	PitchRateUnit_name = map[int32]string{
+		0: "PITCH_RATE_UNIT_UNSPECIFIED",
+		1: "PITCH_RATE_UNIT_MILLION_CELLS_PER_ML_PER_PLATO",
+	}
+	PitchRateUnit_value = map[string]int32{
+		"PITCH_RATE_UNIT_UNSPECIFIED":                    0,
+		"PITCH_RATE_UNIT_MILLION_CELLS_PER_ML_PER_PLATO": 1,
+	}
+)
+
+func (x PitchRateUnit) Enum() *PitchRateUnit {
+	p := new(PitchRateUnit)
+	*p = x
+	return p
+}
+
+func (x PitchRateUnit) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (PitchRateUnit) Descriptor() protoreflect.EnumDescriptor {
+	return file_beerproto_v1_measureable_units_proto_enumTypes[3].Descriptor()
+}
+
+func (PitchRateUnit) Type() protoreflect.EnumType {
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[3]
+}
+
+func (x PitchRateUnit) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use PitchRateUnit.Descriptor instead.
+func (PitchRateUnit) EnumDescriptor() ([]byte, []int) {
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{3}
+}
+
 type DiastaticPowerUnit int32
 
 const (
@@ -285,11 +332,11 @@ func (x DiastaticPowerUnit) String() string {
 }
 
 func (DiastaticPowerUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[3].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[4].Descriptor()
 }
 
 func (DiastaticPowerUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[3]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[4]
 }
 
 func (x DiastaticPowerUnit) Number() protoreflect.EnumNumber {
@@ -298,7 +345,7 @@ func (x DiastaticPowerUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use DiastaticPowerUnit.Descriptor instead.
 func (DiastaticPowerUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{3}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{4}
 }
 
 type TemperatureUnit int32
@@ -334,11 +381,11 @@ func (x TemperatureUnit) String() string {
 }
 
 func (TemperatureUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[4].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[5].Descriptor()
 }
 
 func (TemperatureUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[4]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[5]
 }
 
 func (x TemperatureUnit) Number() protoreflect.EnumNumber {
@@ -347,7 +394,7 @@ func (x TemperatureUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use TemperatureUnit.Descriptor instead.
 func (TemperatureUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{4}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{5}
 }
 
 type AcidityUnit int32
@@ -380,11 +427,11 @@ func (x AcidityUnit) String() string {
 }
 
 func (AcidityUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[5].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[6].Descriptor()
 }
 
 func (AcidityUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[5]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[6]
 }
 
 func (x AcidityUnit) Number() protoreflect.EnumNumber {
@@ -393,7 +440,7 @@ func (x AcidityUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use AcidityUnit.Descriptor instead.
 func (AcidityUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{5}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{6}
 }
 
 type TimeUnit int32
@@ -443,11 +490,11 @@ func (x TimeUnit) String() string {
 }
 
 func (TimeUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[6].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[7].Descriptor()
 }
 
 func (TimeUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[6]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[7]
 }
 
 func (x TimeUnit) Number() protoreflect.EnumNumber {
@@ -456,7 +503,7 @@ func (x TimeUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use TimeUnit.Descriptor instead.
 func (TimeUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{6}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{7}
 }
 
 type ColorUnit int32
@@ -498,11 +545,11 @@ func (x ColorUnit) String() string {
 }
 
 func (ColorUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[7].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[8].Descriptor()
 }
 
 func (ColorUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[7]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[8]
 }
 
 func (x ColorUnit) Number() protoreflect.EnumNumber {
@@ -511,7 +558,7 @@ func (x ColorUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ColorUnit.Descriptor instead.
 func (ColorUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{7}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{8}
 }
 
 type CarbonationUnit int32
@@ -549,11 +596,11 @@ func (x CarbonationUnit) String() string {
 }
 
 func (CarbonationUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[8].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[9].Descriptor()
 }
 
 func (CarbonationUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[8]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[9]
 }
 
 func (x CarbonationUnit) Number() protoreflect.EnumNumber {
@@ -562,7 +609,7 @@ func (x CarbonationUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use CarbonationUnit.Descriptor instead.
 func (CarbonationUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{8}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{9}
 }
 
 type BitternessUnit int32
@@ -596,11 +643,11 @@ func (x BitternessUnit) String() string {
 }
 
 func (BitternessUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[9].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[10].Descriptor()
 }
 
 func (BitternessUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[9]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[10]
 }
 
 func (x BitternessUnit) Number() protoreflect.EnumNumber {
@@ -609,7 +656,7 @@ func (x BitternessUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use BitternessUnit.Descriptor instead.
 func (BitternessUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{9}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{10}
 }
 
 type GravityUnit int32
@@ -651,11 +698,11 @@ func (x GravityUnit) String() string {
 }
 
 func (GravityUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[10].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[11].Descriptor()
 }
 
 func (GravityUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[10]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[11]
 }
 
 func (x GravityUnit) Number() protoreflect.EnumNumber {
@@ -664,7 +711,7 @@ func (x GravityUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use GravityUnit.Descriptor instead.
 func (GravityUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{10}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{11}
 }
 
 type SpecificHeatUnit int32
@@ -706,11 +753,11 @@ func (x SpecificHeatUnit) String() string {
 }
 
 func (SpecificHeatUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[11].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[12].Descriptor()
 }
 
 func (SpecificHeatUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[11]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[12]
 }
 
 func (x SpecificHeatUnit) Number() protoreflect.EnumNumber {
@@ -719,7 +766,7 @@ func (x SpecificHeatUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use SpecificHeatUnit.Descriptor instead.
 func (SpecificHeatUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{11}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{12}
 }
 
 type ConcentrationUnit int32
@@ -765,11 +812,11 @@ func (x ConcentrationUnit) String() string {
 }
 
 func (ConcentrationUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[12].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[13].Descriptor()
 }
 
 func (ConcentrationUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[12]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[13]
 }
 
 func (x ConcentrationUnit) Number() protoreflect.EnumNumber {
@@ -778,7 +825,7 @@ func (x ConcentrationUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ConcentrationUnit.Descriptor instead.
 func (ConcentrationUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{12}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{13}
 }
 
 type SpecificVolumeUnit int32
@@ -840,11 +887,11 @@ func (x SpecificVolumeUnit) String() string {
 }
 
 func (SpecificVolumeUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[13].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[14].Descriptor()
 }
 
 func (SpecificVolumeUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[13]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[14]
 }
 
 func (x SpecificVolumeUnit) Number() protoreflect.EnumNumber {
@@ -853,7 +900,7 @@ func (x SpecificVolumeUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use SpecificVolumeUnit.Descriptor instead.
 func (SpecificVolumeUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{13}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{14}
 }
 
 type UnitUnit int32
@@ -903,11 +950,11 @@ func (x UnitUnit) String() string {
 }
 
 func (UnitUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[14].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[15].Descriptor()
 }
 
 func (UnitUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[14]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[15]
 }
 
 func (x UnitUnit) Number() protoreflect.EnumNumber {
@@ -916,7 +963,7 @@ func (x UnitUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use UnitUnit.Descriptor instead.
 func (UnitUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{14}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{15}
 }
 
 type PercentUnit int32
@@ -950,11 +997,11 @@ func (x PercentUnit) String() string {
 }
 
 func (PercentUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[15].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[16].Descriptor()
 }
 
 func (PercentUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[15]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[16]
 }
 
 func (x PercentUnit) Number() protoreflect.EnumNumber {
@@ -963,7 +1010,7 @@ func (x PercentUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use PercentUnit.Descriptor instead.
 func (PercentUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{15}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{16}
 }
 
 type ViscosityUnit int32
@@ -1005,11 +1052,11 @@ func (x ViscosityUnit) String() string {
 }
 
 func (ViscosityUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[16].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[17].Descriptor()
 }
 
 func (ViscosityUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[16]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[17]
 }
 
 func (x ViscosityUnit) Number() protoreflect.EnumNumber {
@@ -1018,7 +1065,7 @@ func (x ViscosityUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ViscosityUnit.Descriptor instead.
 func (ViscosityUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{16}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{17}
 }
 
 type RateUnit int32
@@ -1088,11 +1135,11 @@ func (x RateUnit) String() string {
 }
 
 func (RateUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[17].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[18].Descriptor()
 }
 
 func (RateUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[17]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[18]
 }
 
 func (x RateUnit) Number() protoreflect.EnumNumber {
@@ -1101,7 +1148,7 @@ func (x RateUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use RateUnit.Descriptor instead.
 func (RateUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{17}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{18}
 }
 
 type PressureUnit int32
@@ -1143,11 +1190,11 @@ func (x PressureUnit) String() string {
 }
 
 func (PressureUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[18].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[19].Descriptor()
 }
 
 func (PressureUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[18]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[19]
 }
 
 func (x PressureUnit) Number() protoreflect.EnumNumber {
@@ -1156,7 +1203,7 @@ func (x PressureUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use PressureUnit.Descriptor instead.
 func (PressureUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{18}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{19}
 }
 
 // *
@@ -1202,11 +1249,11 @@ func (x EnzymeActivityUnit) String() string {
 }
 
 func (EnzymeActivityUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[19].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[20].Descriptor()
 }
 
 func (EnzymeActivityUnit) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[19]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[20]
 }
 
 func (x EnzymeActivityUnit) Number() protoreflect.EnumNumber {
@@ -1215,7 +1262,7 @@ func (x EnzymeActivityUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use EnzymeActivityUnit.Descriptor instead.
 func (EnzymeActivityUnit) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{19}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{20}
 }
 
 type EnzymeType int32
@@ -1254,11 +1301,11 @@ func (x EnzymeType) String() string {
 }
 
 func (EnzymeType) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_measureable_units_proto_enumTypes[20].Descriptor()
+	return file_beerproto_v1_measureable_units_proto_enumTypes[21].Descriptor()
 }
 
 func (EnzymeType) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_measureable_units_proto_enumTypes[20]
+	return &file_beerproto_v1_measureable_units_proto_enumTypes[21]
 }
 
 func (x EnzymeType) Number() protoreflect.EnumNumber {
@@ -1267,7 +1314,7 @@ func (x EnzymeType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use EnzymeType.Descriptor instead.
 func (EnzymeType) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{20}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{21}
 }
 
 type VolumeType struct {
@@ -1427,6 +1474,59 @@ func (x *CellCountType) GetUnit() CellCountUnit {
 	return CellCountUnit_CELL_COUNT_UNIT_UNSPECIFIED
 }
 
+// PitchRateType is a yeast pitch rate — cells pitched per unit wort volume per unit gravity. There is one unit in common brewing use (million cells / mL / °Plato), so it exists mainly for type-safety and consistent display rather than conversion.
+type PitchRateType struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         float64                `protobuf:"fixed64,1,opt,name=value,proto3" json:"value,omitempty"`
+	Unit          PitchRateUnit          `protobuf:"varint,2,opt,name=unit,proto3,enum=beerproto.v1.PitchRateUnit" json:"unit,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PitchRateType) Reset() {
+	*x = PitchRateType{}
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PitchRateType) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PitchRateType) ProtoMessage() {}
+
+func (x *PitchRateType) ProtoReflect() protoreflect.Message {
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PitchRateType.ProtoReflect.Descriptor instead.
+func (*PitchRateType) Descriptor() ([]byte, []int) {
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *PitchRateType) GetValue() float64 {
+	if x != nil {
+		return x.Value
+	}
+	return 0
+}
+
+func (x *PitchRateType) GetUnit() PitchRateUnit {
+	if x != nil {
+		return x.Unit
+	}
+	return PitchRateUnit_PITCH_RATE_UNIT_UNSPECIFIED
+}
+
 // Diastatic power is a measurement of malted grains enzymatic content. A value of 35 Lintner is needed to self convert, while a value of 100 or more is desirable for base malts
 type DiastaticPowerType struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -1438,7 +1538,7 @@ type DiastaticPowerType struct {
 
 func (x *DiastaticPowerType) Reset() {
 	*x = DiastaticPowerType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[3]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1450,7 +1550,7 @@ func (x *DiastaticPowerType) String() string {
 func (*DiastaticPowerType) ProtoMessage() {}
 
 func (x *DiastaticPowerType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[3]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1463,7 +1563,7 @@ func (x *DiastaticPowerType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiastaticPowerType.ProtoReflect.Descriptor instead.
 func (*DiastaticPowerType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{3}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *DiastaticPowerType) GetValue() float64 {
@@ -1490,7 +1590,7 @@ type TemperatureType struct {
 
 func (x *TemperatureType) Reset() {
 	*x = TemperatureType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[4]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1502,7 +1602,7 @@ func (x *TemperatureType) String() string {
 func (*TemperatureType) ProtoMessage() {}
 
 func (x *TemperatureType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[4]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1515,7 +1615,7 @@ func (x *TemperatureType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TemperatureType.ProtoReflect.Descriptor instead.
 func (*TemperatureType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{4}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *TemperatureType) GetValue() float64 {
@@ -1542,7 +1642,7 @@ type AcidityType struct {
 
 func (x *AcidityType) Reset() {
 	*x = AcidityType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[5]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1554,7 +1654,7 @@ func (x *AcidityType) String() string {
 func (*AcidityType) ProtoMessage() {}
 
 func (x *AcidityType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[5]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1567,7 +1667,7 @@ func (x *AcidityType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AcidityType.ProtoReflect.Descriptor instead.
 func (*AcidityType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{5}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *AcidityType) GetValue() float64 {
@@ -1594,7 +1694,7 @@ type TimeType struct {
 
 func (x *TimeType) Reset() {
 	*x = TimeType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[6]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1606,7 +1706,7 @@ func (x *TimeType) String() string {
 func (*TimeType) ProtoMessage() {}
 
 func (x *TimeType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[6]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1619,7 +1719,7 @@ func (x *TimeType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TimeType.ProtoReflect.Descriptor instead.
 func (*TimeType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{6}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *TimeType) GetValue() int64 {
@@ -1647,7 +1747,7 @@ type ColorType struct {
 
 func (x *ColorType) Reset() {
 	*x = ColorType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[7]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1659,7 +1759,7 @@ func (x *ColorType) String() string {
 func (*ColorType) ProtoMessage() {}
 
 func (x *ColorType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[7]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1672,7 +1772,7 @@ func (x *ColorType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ColorType.ProtoReflect.Descriptor instead.
 func (*ColorType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{7}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *ColorType) GetValue() float64 {
@@ -1699,7 +1799,7 @@ type CarbonationType struct {
 
 func (x *CarbonationType) Reset() {
 	*x = CarbonationType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[8]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1711,7 +1811,7 @@ func (x *CarbonationType) String() string {
 func (*CarbonationType) ProtoMessage() {}
 
 func (x *CarbonationType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[8]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1724,7 +1824,7 @@ func (x *CarbonationType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarbonationType.ProtoReflect.Descriptor instead.
 func (*CarbonationType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{8}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *CarbonationType) GetValue() float64 {
@@ -1751,7 +1851,7 @@ type BitternessType struct {
 
 func (x *BitternessType) Reset() {
 	*x = BitternessType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[9]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1763,7 +1863,7 @@ func (x *BitternessType) String() string {
 func (*BitternessType) ProtoMessage() {}
 
 func (x *BitternessType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[9]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1776,7 +1876,7 @@ func (x *BitternessType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BitternessType.ProtoReflect.Descriptor instead.
 func (*BitternessType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{9}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *BitternessType) GetValue() float64 {
@@ -1804,7 +1904,7 @@ type GravityType struct {
 
 func (x *GravityType) Reset() {
 	*x = GravityType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[10]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1816,7 +1916,7 @@ func (x *GravityType) String() string {
 func (*GravityType) ProtoMessage() {}
 
 func (x *GravityType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[10]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1829,7 +1929,7 @@ func (x *GravityType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GravityType.ProtoReflect.Descriptor instead.
 func (*GravityType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{10}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *GravityType) GetValue() float64 {
@@ -1856,7 +1956,7 @@ type SpecificHeatType struct {
 
 func (x *SpecificHeatType) Reset() {
 	*x = SpecificHeatType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[11]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1868,7 +1968,7 @@ func (x *SpecificHeatType) String() string {
 func (*SpecificHeatType) ProtoMessage() {}
 
 func (x *SpecificHeatType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[11]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1881,7 +1981,7 @@ func (x *SpecificHeatType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SpecificHeatType.ProtoReflect.Descriptor instead.
 func (*SpecificHeatType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{11}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *SpecificHeatType) GetValue() float64 {
@@ -1908,7 +2008,7 @@ type ConcentrationType struct {
 
 func (x *ConcentrationType) Reset() {
 	*x = ConcentrationType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[12]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1920,7 +2020,7 @@ func (x *ConcentrationType) String() string {
 func (*ConcentrationType) ProtoMessage() {}
 
 func (x *ConcentrationType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[12]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1933,7 +2033,7 @@ func (x *ConcentrationType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConcentrationType.ProtoReflect.Descriptor instead.
 func (*ConcentrationType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{12}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *ConcentrationType) GetValue() float64 {
@@ -1960,7 +2060,7 @@ type SpecificVolumeType struct {
 
 func (x *SpecificVolumeType) Reset() {
 	*x = SpecificVolumeType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[13]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1972,7 +2072,7 @@ func (x *SpecificVolumeType) String() string {
 func (*SpecificVolumeType) ProtoMessage() {}
 
 func (x *SpecificVolumeType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[13]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1985,7 +2085,7 @@ func (x *SpecificVolumeType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SpecificVolumeType.ProtoReflect.Descriptor instead.
 func (*SpecificVolumeType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{13}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *SpecificVolumeType) GetValue() float64 {
@@ -2013,7 +2113,7 @@ type UnitType struct {
 
 func (x *UnitType) Reset() {
 	*x = UnitType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[14]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2025,7 +2125,7 @@ func (x *UnitType) String() string {
 func (*UnitType) ProtoMessage() {}
 
 func (x *UnitType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[14]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2038,7 +2138,7 @@ func (x *UnitType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UnitType.ProtoReflect.Descriptor instead.
 func (*UnitType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{14}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *UnitType) GetValue() float64 {
@@ -2065,7 +2165,7 @@ type PercentType struct {
 
 func (x *PercentType) Reset() {
 	*x = PercentType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[15]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2077,7 +2177,7 @@ func (x *PercentType) String() string {
 func (*PercentType) ProtoMessage() {}
 
 func (x *PercentType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[15]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2090,7 +2190,7 @@ func (x *PercentType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PercentType.ProtoReflect.Descriptor instead.
 func (*PercentType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{15}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *PercentType) GetValue() float64 {
@@ -2117,7 +2217,7 @@ type ViscosityType struct {
 
 func (x *ViscosityType) Reset() {
 	*x = ViscosityType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[16]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2129,7 +2229,7 @@ func (x *ViscosityType) String() string {
 func (*ViscosityType) ProtoMessage() {}
 
 func (x *ViscosityType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[16]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2142,7 +2242,7 @@ func (x *ViscosityType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ViscosityType.ProtoReflect.Descriptor instead.
 func (*ViscosityType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{16}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *ViscosityType) GetValue() float64 {
@@ -2169,7 +2269,7 @@ type CarbonationRangeType struct {
 
 func (x *CarbonationRangeType) Reset() {
 	*x = CarbonationRangeType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[17]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2181,7 +2281,7 @@ func (x *CarbonationRangeType) String() string {
 func (*CarbonationRangeType) ProtoMessage() {}
 
 func (x *CarbonationRangeType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[17]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2194,7 +2294,7 @@ func (x *CarbonationRangeType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarbonationRangeType.ProtoReflect.Descriptor instead.
 func (*CarbonationRangeType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{17}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *CarbonationRangeType) GetMinimum() *CarbonationType {
@@ -2221,7 +2321,7 @@ type BitternessRangeType struct {
 
 func (x *BitternessRangeType) Reset() {
 	*x = BitternessRangeType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[18]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2233,7 +2333,7 @@ func (x *BitternessRangeType) String() string {
 func (*BitternessRangeType) ProtoMessage() {}
 
 func (x *BitternessRangeType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[18]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2246,7 +2346,7 @@ func (x *BitternessRangeType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BitternessRangeType.ProtoReflect.Descriptor instead.
 func (*BitternessRangeType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{18}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *BitternessRangeType) GetMinimum() *BitternessType {
@@ -2273,7 +2373,7 @@ type TemperatureRangeType struct {
 
 func (x *TemperatureRangeType) Reset() {
 	*x = TemperatureRangeType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[19]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2285,7 +2385,7 @@ func (x *TemperatureRangeType) String() string {
 func (*TemperatureRangeType) ProtoMessage() {}
 
 func (x *TemperatureRangeType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[19]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2298,7 +2398,7 @@ func (x *TemperatureRangeType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TemperatureRangeType.ProtoReflect.Descriptor instead.
 func (*TemperatureRangeType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{19}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *TemperatureRangeType) GetMinimum() *TemperatureType {
@@ -2325,7 +2425,7 @@ type ColorRangeType struct {
 
 func (x *ColorRangeType) Reset() {
 	*x = ColorRangeType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[20]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2337,7 +2437,7 @@ func (x *ColorRangeType) String() string {
 func (*ColorRangeType) ProtoMessage() {}
 
 func (x *ColorRangeType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[20]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2350,7 +2450,7 @@ func (x *ColorRangeType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ColorRangeType.ProtoReflect.Descriptor instead.
 func (*ColorRangeType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{20}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *ColorRangeType) GetMinimum() *ColorType {
@@ -2377,7 +2477,7 @@ type GravityRangeType struct {
 
 func (x *GravityRangeType) Reset() {
 	*x = GravityRangeType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[21]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2389,7 +2489,7 @@ func (x *GravityRangeType) String() string {
 func (*GravityRangeType) ProtoMessage() {}
 
 func (x *GravityRangeType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[21]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2402,7 +2502,7 @@ func (x *GravityRangeType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GravityRangeType.ProtoReflect.Descriptor instead.
 func (*GravityRangeType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{21}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *GravityRangeType) GetMinimum() *GravityType {
@@ -2429,7 +2529,7 @@ type PercentRangeType struct {
 
 func (x *PercentRangeType) Reset() {
 	*x = PercentRangeType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[22]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2441,7 +2541,7 @@ func (x *PercentRangeType) String() string {
 func (*PercentRangeType) ProtoMessage() {}
 
 func (x *PercentRangeType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[22]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2454,7 +2554,7 @@ func (x *PercentRangeType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PercentRangeType.ProtoReflect.Descriptor instead.
 func (*PercentRangeType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{22}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *PercentRangeType) GetMinimum() *PercentType {
@@ -2481,7 +2581,7 @@ type TimeRangeType struct {
 
 func (x *TimeRangeType) Reset() {
 	*x = TimeRangeType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[23]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2493,7 +2593,7 @@ func (x *TimeRangeType) String() string {
 func (*TimeRangeType) ProtoMessage() {}
 
 func (x *TimeRangeType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[23]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2506,7 +2606,7 @@ func (x *TimeRangeType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TimeRangeType.ProtoReflect.Descriptor instead.
 func (*TimeRangeType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{23}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *TimeRangeType) GetMinimum() *TimeType {
@@ -2533,7 +2633,7 @@ type ViscosityRangeType struct {
 
 func (x *ViscosityRangeType) Reset() {
 	*x = ViscosityRangeType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[24]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2545,7 +2645,7 @@ func (x *ViscosityRangeType) String() string {
 func (*ViscosityRangeType) ProtoMessage() {}
 
 func (x *ViscosityRangeType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[24]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2558,7 +2658,7 @@ func (x *ViscosityRangeType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ViscosityRangeType.ProtoReflect.Descriptor instead.
 func (*ViscosityRangeType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{24}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *ViscosityRangeType) GetMinimum() *ViscosityType {
@@ -2585,7 +2685,7 @@ type DiastaticPowerRangeType struct {
 
 func (x *DiastaticPowerRangeType) Reset() {
 	*x = DiastaticPowerRangeType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[25]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2597,7 +2697,7 @@ func (x *DiastaticPowerRangeType) String() string {
 func (*DiastaticPowerRangeType) ProtoMessage() {}
 
 func (x *DiastaticPowerRangeType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[25]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2610,7 +2710,7 @@ func (x *DiastaticPowerRangeType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiastaticPowerRangeType.ProtoReflect.Descriptor instead.
 func (*DiastaticPowerRangeType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{25}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *DiastaticPowerRangeType) GetMinimum() *DiastaticPowerType {
@@ -2637,7 +2737,7 @@ type SpecificVolumeRangeType struct {
 
 func (x *SpecificVolumeRangeType) Reset() {
 	*x = SpecificVolumeRangeType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[26]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2649,7 +2749,7 @@ func (x *SpecificVolumeRangeType) String() string {
 func (*SpecificVolumeRangeType) ProtoMessage() {}
 
 func (x *SpecificVolumeRangeType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[26]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2662,7 +2762,7 @@ func (x *SpecificVolumeRangeType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SpecificVolumeRangeType.ProtoReflect.Descriptor instead.
 func (*SpecificVolumeRangeType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{26}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *SpecificVolumeRangeType) GetMinimum() *SpecificVolumeType {
@@ -2689,7 +2789,7 @@ type AcidityRangeType struct {
 
 func (x *AcidityRangeType) Reset() {
 	*x = AcidityRangeType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[27]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2701,7 +2801,7 @@ func (x *AcidityRangeType) String() string {
 func (*AcidityRangeType) ProtoMessage() {}
 
 func (x *AcidityRangeType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[27]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2714,7 +2814,7 @@ func (x *AcidityRangeType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AcidityRangeType.ProtoReflect.Descriptor instead.
 func (*AcidityRangeType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{27}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *AcidityRangeType) GetMinimum() *AcidityType {
@@ -2741,7 +2841,7 @@ type ConcentrationRangeType struct {
 
 func (x *ConcentrationRangeType) Reset() {
 	*x = ConcentrationRangeType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[28]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2753,7 +2853,7 @@ func (x *ConcentrationRangeType) String() string {
 func (*ConcentrationRangeType) ProtoMessage() {}
 
 func (x *ConcentrationRangeType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[28]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2766,7 +2866,7 @@ func (x *ConcentrationRangeType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConcentrationRangeType.ProtoReflect.Descriptor instead.
 func (*ConcentrationRangeType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{28}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *ConcentrationRangeType) GetMinimum() *ConcentrationType {
@@ -2794,7 +2894,7 @@ type RateType struct {
 
 func (x *RateType) Reset() {
 	*x = RateType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[29]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2806,7 +2906,7 @@ func (x *RateType) String() string {
 func (*RateType) ProtoMessage() {}
 
 func (x *RateType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[29]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2819,7 +2919,7 @@ func (x *RateType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RateType.ProtoReflect.Descriptor instead.
 func (*RateType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{29}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *RateType) GetValue() float64 {
@@ -2846,7 +2946,7 @@ type PressureType struct {
 
 func (x *PressureType) Reset() {
 	*x = PressureType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[30]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2858,7 +2958,7 @@ func (x *PressureType) String() string {
 func (*PressureType) ProtoMessage() {}
 
 func (x *PressureType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[30]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2871,7 +2971,7 @@ func (x *PressureType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PressureType.ProtoReflect.Descriptor instead.
 func (*PressureType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{30}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *PressureType) GetValue() float64 {
@@ -2900,7 +3000,7 @@ type EnzymeActivityType struct {
 
 func (x *EnzymeActivityType) Reset() {
 	*x = EnzymeActivityType{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[31]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2912,7 +3012,7 @@ func (x *EnzymeActivityType) String() string {
 func (*EnzymeActivityType) ProtoMessage() {}
 
 func (x *EnzymeActivityType) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[31]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2925,7 +3025,7 @@ func (x *EnzymeActivityType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EnzymeActivityType.ProtoReflect.Descriptor instead.
 func (*EnzymeActivityType) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{31}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *EnzymeActivityType) GetValue() float64 {
@@ -2952,7 +3052,7 @@ type EnzymeActivity struct {
 
 func (x *EnzymeActivity) Reset() {
 	*x = EnzymeActivity{}
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[32]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2964,7 +3064,7 @@ func (x *EnzymeActivity) String() string {
 func (*EnzymeActivity) ProtoMessage() {}
 
 func (x *EnzymeActivity) ProtoReflect() protoreflect.Message {
-	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[32]
+	mi := &file_beerproto_v1_measureable_units_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2977,7 +3077,7 @@ func (x *EnzymeActivity) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EnzymeActivity.ProtoReflect.Descriptor instead.
 func (*EnzymeActivity) Descriptor() ([]byte, []int) {
-	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{32}
+	return file_beerproto_v1_measureable_units_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *EnzymeActivity) GetKind() EnzymeType {
@@ -3008,7 +3108,10 @@ const file_beerproto_v1_measureable_units_proto_rawDesc = "" +
 	"\x04unit\x18\x02 \x01(\x0e2\x16.beerproto.v1.MassUnitR\x04unit\"V\n" +
 	"\rCellCountType\x12\x14\n" +
 	"\x05value\x18\x01 \x01(\x01R\x05value\x12/\n" +
-	"\x04unit\x18\x02 \x01(\x0e2\x1b.beerproto.v1.CellCountUnitR\x04unit\"`\n" +
+	"\x04unit\x18\x02 \x01(\x0e2\x1b.beerproto.v1.CellCountUnitR\x04unit\"V\n" +
+	"\rPitchRateType\x12\x14\n" +
+	"\x05value\x18\x01 \x01(\x01R\x05value\x12/\n" +
+	"\x04unit\x18\x02 \x01(\x0e2\x1b.beerproto.v1.PitchRateUnitR\x04unit\"`\n" +
 	"\x12DiastaticPowerType\x12\x14\n" +
 	"\x05value\x18\x01 \x01(\x01R\x05value\x124\n" +
 	"\x04unit\x18\x02 \x01(\x0e2 .beerproto.v1.DiastaticPowerUnitR\x04unit\"Z\n" +
@@ -3129,7 +3232,10 @@ const file_beerproto_v1_measureable_units_proto_rawDesc = "" +
 	"\x1bCELL_COUNT_UNIT_UNSPECIFIED\x10\x00\x12\x19\n" +
 	"\x15CELL_COUNT_UNIT_CELLS\x10\x01\x12\x1b\n" +
 	"\x17CELL_COUNT_UNIT_MILLION\x10\x02\x12\x1b\n" +
-	"\x17CELL_COUNT_UNIT_BILLION\x10\x03*y\n" +
+	"\x17CELL_COUNT_UNIT_BILLION\x10\x03*d\n" +
+	"\rPitchRateUnit\x12\x1f\n" +
+	"\x1bPITCH_RATE_UNIT_UNSPECIFIED\x10\x00\x122\n" +
+	".PITCH_RATE_UNIT_MILLION_CELLS_PER_ML_PER_PLATO\x10\x01*y\n" +
 	"\x12DiastaticPowerUnit\x12$\n" +
 	" DIASTATIC_POWER_UNIT_UNSPECIFIED\x10\x00\x12 \n" +
 	"\x1cDIASTATIC_POWER_UNIT_LINTNER\x10\x01\x12\x1b\n" +
@@ -3247,116 +3353,119 @@ func file_beerproto_v1_measureable_units_proto_rawDescGZIP() []byte {
 	return file_beerproto_v1_measureable_units_proto_rawDescData
 }
 
-var file_beerproto_v1_measureable_units_proto_enumTypes = make([]protoimpl.EnumInfo, 21)
-var file_beerproto_v1_measureable_units_proto_msgTypes = make([]protoimpl.MessageInfo, 33)
+var file_beerproto_v1_measureable_units_proto_enumTypes = make([]protoimpl.EnumInfo, 22)
+var file_beerproto_v1_measureable_units_proto_msgTypes = make([]protoimpl.MessageInfo, 34)
 var file_beerproto_v1_measureable_units_proto_goTypes = []any{
 	(VolumeUnit)(0),                 // 0: beerproto.v1.VolumeUnit
 	(MassUnit)(0),                   // 1: beerproto.v1.MassUnit
 	(CellCountUnit)(0),              // 2: beerproto.v1.CellCountUnit
-	(DiastaticPowerUnit)(0),         // 3: beerproto.v1.DiastaticPowerUnit
-	(TemperatureUnit)(0),            // 4: beerproto.v1.TemperatureUnit
-	(AcidityUnit)(0),                // 5: beerproto.v1.AcidityUnit
-	(TimeUnit)(0),                   // 6: beerproto.v1.TimeUnit
-	(ColorUnit)(0),                  // 7: beerproto.v1.ColorUnit
-	(CarbonationUnit)(0),            // 8: beerproto.v1.CarbonationUnit
-	(BitternessUnit)(0),             // 9: beerproto.v1.BitternessUnit
-	(GravityUnit)(0),                // 10: beerproto.v1.GravityUnit
-	(SpecificHeatUnit)(0),           // 11: beerproto.v1.SpecificHeatUnit
-	(ConcentrationUnit)(0),          // 12: beerproto.v1.ConcentrationUnit
-	(SpecificVolumeUnit)(0),         // 13: beerproto.v1.SpecificVolumeUnit
-	(UnitUnit)(0),                   // 14: beerproto.v1.UnitUnit
-	(PercentUnit)(0),                // 15: beerproto.v1.PercentUnit
-	(ViscosityUnit)(0),              // 16: beerproto.v1.ViscosityUnit
-	(RateUnit)(0),                   // 17: beerproto.v1.RateUnit
-	(PressureUnit)(0),               // 18: beerproto.v1.PressureUnit
-	(EnzymeActivityUnit)(0),         // 19: beerproto.v1.EnzymeActivityUnit
-	(EnzymeType)(0),                 // 20: beerproto.v1.EnzymeType
-	(*VolumeType)(nil),              // 21: beerproto.v1.VolumeType
-	(*MassType)(nil),                // 22: beerproto.v1.MassType
-	(*CellCountType)(nil),           // 23: beerproto.v1.CellCountType
-	(*DiastaticPowerType)(nil),      // 24: beerproto.v1.DiastaticPowerType
-	(*TemperatureType)(nil),         // 25: beerproto.v1.TemperatureType
-	(*AcidityType)(nil),             // 26: beerproto.v1.AcidityType
-	(*TimeType)(nil),                // 27: beerproto.v1.TimeType
-	(*ColorType)(nil),               // 28: beerproto.v1.ColorType
-	(*CarbonationType)(nil),         // 29: beerproto.v1.CarbonationType
-	(*BitternessType)(nil),          // 30: beerproto.v1.BitternessType
-	(*GravityType)(nil),             // 31: beerproto.v1.GravityType
-	(*SpecificHeatType)(nil),        // 32: beerproto.v1.SpecificHeatType
-	(*ConcentrationType)(nil),       // 33: beerproto.v1.ConcentrationType
-	(*SpecificVolumeType)(nil),      // 34: beerproto.v1.SpecificVolumeType
-	(*UnitType)(nil),                // 35: beerproto.v1.UnitType
-	(*PercentType)(nil),             // 36: beerproto.v1.PercentType
-	(*ViscosityType)(nil),           // 37: beerproto.v1.ViscosityType
-	(*CarbonationRangeType)(nil),    // 38: beerproto.v1.CarbonationRangeType
-	(*BitternessRangeType)(nil),     // 39: beerproto.v1.BitternessRangeType
-	(*TemperatureRangeType)(nil),    // 40: beerproto.v1.TemperatureRangeType
-	(*ColorRangeType)(nil),          // 41: beerproto.v1.ColorRangeType
-	(*GravityRangeType)(nil),        // 42: beerproto.v1.GravityRangeType
-	(*PercentRangeType)(nil),        // 43: beerproto.v1.PercentRangeType
-	(*TimeRangeType)(nil),           // 44: beerproto.v1.TimeRangeType
-	(*ViscosityRangeType)(nil),      // 45: beerproto.v1.ViscosityRangeType
-	(*DiastaticPowerRangeType)(nil), // 46: beerproto.v1.DiastaticPowerRangeType
-	(*SpecificVolumeRangeType)(nil), // 47: beerproto.v1.SpecificVolumeRangeType
-	(*AcidityRangeType)(nil),        // 48: beerproto.v1.AcidityRangeType
-	(*ConcentrationRangeType)(nil),  // 49: beerproto.v1.ConcentrationRangeType
-	(*RateType)(nil),                // 50: beerproto.v1.RateType
-	(*PressureType)(nil),            // 51: beerproto.v1.PressureType
-	(*EnzymeActivityType)(nil),      // 52: beerproto.v1.EnzymeActivityType
-	(*EnzymeActivity)(nil),          // 53: beerproto.v1.EnzymeActivity
+	(PitchRateUnit)(0),              // 3: beerproto.v1.PitchRateUnit
+	(DiastaticPowerUnit)(0),         // 4: beerproto.v1.DiastaticPowerUnit
+	(TemperatureUnit)(0),            // 5: beerproto.v1.TemperatureUnit
+	(AcidityUnit)(0),                // 6: beerproto.v1.AcidityUnit
+	(TimeUnit)(0),                   // 7: beerproto.v1.TimeUnit
+	(ColorUnit)(0),                  // 8: beerproto.v1.ColorUnit
+	(CarbonationUnit)(0),            // 9: beerproto.v1.CarbonationUnit
+	(BitternessUnit)(0),             // 10: beerproto.v1.BitternessUnit
+	(GravityUnit)(0),                // 11: beerproto.v1.GravityUnit
+	(SpecificHeatUnit)(0),           // 12: beerproto.v1.SpecificHeatUnit
+	(ConcentrationUnit)(0),          // 13: beerproto.v1.ConcentrationUnit
+	(SpecificVolumeUnit)(0),         // 14: beerproto.v1.SpecificVolumeUnit
+	(UnitUnit)(0),                   // 15: beerproto.v1.UnitUnit
+	(PercentUnit)(0),                // 16: beerproto.v1.PercentUnit
+	(ViscosityUnit)(0),              // 17: beerproto.v1.ViscosityUnit
+	(RateUnit)(0),                   // 18: beerproto.v1.RateUnit
+	(PressureUnit)(0),               // 19: beerproto.v1.PressureUnit
+	(EnzymeActivityUnit)(0),         // 20: beerproto.v1.EnzymeActivityUnit
+	(EnzymeType)(0),                 // 21: beerproto.v1.EnzymeType
+	(*VolumeType)(nil),              // 22: beerproto.v1.VolumeType
+	(*MassType)(nil),                // 23: beerproto.v1.MassType
+	(*CellCountType)(nil),           // 24: beerproto.v1.CellCountType
+	(*PitchRateType)(nil),           // 25: beerproto.v1.PitchRateType
+	(*DiastaticPowerType)(nil),      // 26: beerproto.v1.DiastaticPowerType
+	(*TemperatureType)(nil),         // 27: beerproto.v1.TemperatureType
+	(*AcidityType)(nil),             // 28: beerproto.v1.AcidityType
+	(*TimeType)(nil),                // 29: beerproto.v1.TimeType
+	(*ColorType)(nil),               // 30: beerproto.v1.ColorType
+	(*CarbonationType)(nil),         // 31: beerproto.v1.CarbonationType
+	(*BitternessType)(nil),          // 32: beerproto.v1.BitternessType
+	(*GravityType)(nil),             // 33: beerproto.v1.GravityType
+	(*SpecificHeatType)(nil),        // 34: beerproto.v1.SpecificHeatType
+	(*ConcentrationType)(nil),       // 35: beerproto.v1.ConcentrationType
+	(*SpecificVolumeType)(nil),      // 36: beerproto.v1.SpecificVolumeType
+	(*UnitType)(nil),                // 37: beerproto.v1.UnitType
+	(*PercentType)(nil),             // 38: beerproto.v1.PercentType
+	(*ViscosityType)(nil),           // 39: beerproto.v1.ViscosityType
+	(*CarbonationRangeType)(nil),    // 40: beerproto.v1.CarbonationRangeType
+	(*BitternessRangeType)(nil),     // 41: beerproto.v1.BitternessRangeType
+	(*TemperatureRangeType)(nil),    // 42: beerproto.v1.TemperatureRangeType
+	(*ColorRangeType)(nil),          // 43: beerproto.v1.ColorRangeType
+	(*GravityRangeType)(nil),        // 44: beerproto.v1.GravityRangeType
+	(*PercentRangeType)(nil),        // 45: beerproto.v1.PercentRangeType
+	(*TimeRangeType)(nil),           // 46: beerproto.v1.TimeRangeType
+	(*ViscosityRangeType)(nil),      // 47: beerproto.v1.ViscosityRangeType
+	(*DiastaticPowerRangeType)(nil), // 48: beerproto.v1.DiastaticPowerRangeType
+	(*SpecificVolumeRangeType)(nil), // 49: beerproto.v1.SpecificVolumeRangeType
+	(*AcidityRangeType)(nil),        // 50: beerproto.v1.AcidityRangeType
+	(*ConcentrationRangeType)(nil),  // 51: beerproto.v1.ConcentrationRangeType
+	(*RateType)(nil),                // 52: beerproto.v1.RateType
+	(*PressureType)(nil),            // 53: beerproto.v1.PressureType
+	(*EnzymeActivityType)(nil),      // 54: beerproto.v1.EnzymeActivityType
+	(*EnzymeActivity)(nil),          // 55: beerproto.v1.EnzymeActivity
 }
 var file_beerproto_v1_measureable_units_proto_depIdxs = []int32{
 	0,  // 0: beerproto.v1.VolumeType.unit:type_name -> beerproto.v1.VolumeUnit
 	1,  // 1: beerproto.v1.MassType.unit:type_name -> beerproto.v1.MassUnit
 	2,  // 2: beerproto.v1.CellCountType.unit:type_name -> beerproto.v1.CellCountUnit
-	3,  // 3: beerproto.v1.DiastaticPowerType.unit:type_name -> beerproto.v1.DiastaticPowerUnit
-	4,  // 4: beerproto.v1.TemperatureType.unit:type_name -> beerproto.v1.TemperatureUnit
-	5,  // 5: beerproto.v1.AcidityType.unit:type_name -> beerproto.v1.AcidityUnit
-	6,  // 6: beerproto.v1.TimeType.unit:type_name -> beerproto.v1.TimeUnit
-	7,  // 7: beerproto.v1.ColorType.unit:type_name -> beerproto.v1.ColorUnit
-	8,  // 8: beerproto.v1.CarbonationType.unit:type_name -> beerproto.v1.CarbonationUnit
-	9,  // 9: beerproto.v1.BitternessType.unit:type_name -> beerproto.v1.BitternessUnit
-	10, // 10: beerproto.v1.GravityType.unit:type_name -> beerproto.v1.GravityUnit
-	11, // 11: beerproto.v1.SpecificHeatType.unit:type_name -> beerproto.v1.SpecificHeatUnit
-	12, // 12: beerproto.v1.ConcentrationType.unit:type_name -> beerproto.v1.ConcentrationUnit
-	13, // 13: beerproto.v1.SpecificVolumeType.unit:type_name -> beerproto.v1.SpecificVolumeUnit
-	14, // 14: beerproto.v1.UnitType.unit:type_name -> beerproto.v1.UnitUnit
-	15, // 15: beerproto.v1.PercentType.unit:type_name -> beerproto.v1.PercentUnit
-	16, // 16: beerproto.v1.ViscosityType.unit:type_name -> beerproto.v1.ViscosityUnit
-	29, // 17: beerproto.v1.CarbonationRangeType.minimum:type_name -> beerproto.v1.CarbonationType
-	29, // 18: beerproto.v1.CarbonationRangeType.maximum:type_name -> beerproto.v1.CarbonationType
-	30, // 19: beerproto.v1.BitternessRangeType.minimum:type_name -> beerproto.v1.BitternessType
-	30, // 20: beerproto.v1.BitternessRangeType.maximum:type_name -> beerproto.v1.BitternessType
-	25, // 21: beerproto.v1.TemperatureRangeType.minimum:type_name -> beerproto.v1.TemperatureType
-	25, // 22: beerproto.v1.TemperatureRangeType.maximum:type_name -> beerproto.v1.TemperatureType
-	28, // 23: beerproto.v1.ColorRangeType.minimum:type_name -> beerproto.v1.ColorType
-	28, // 24: beerproto.v1.ColorRangeType.maximum:type_name -> beerproto.v1.ColorType
-	31, // 25: beerproto.v1.GravityRangeType.minimum:type_name -> beerproto.v1.GravityType
-	31, // 26: beerproto.v1.GravityRangeType.maximum:type_name -> beerproto.v1.GravityType
-	36, // 27: beerproto.v1.PercentRangeType.minimum:type_name -> beerproto.v1.PercentType
-	36, // 28: beerproto.v1.PercentRangeType.maximum:type_name -> beerproto.v1.PercentType
-	27, // 29: beerproto.v1.TimeRangeType.minimum:type_name -> beerproto.v1.TimeType
-	27, // 30: beerproto.v1.TimeRangeType.maximum:type_name -> beerproto.v1.TimeType
-	37, // 31: beerproto.v1.ViscosityRangeType.minimum:type_name -> beerproto.v1.ViscosityType
-	37, // 32: beerproto.v1.ViscosityRangeType.maximum:type_name -> beerproto.v1.ViscosityType
-	24, // 33: beerproto.v1.DiastaticPowerRangeType.minimum:type_name -> beerproto.v1.DiastaticPowerType
-	24, // 34: beerproto.v1.DiastaticPowerRangeType.maximum:type_name -> beerproto.v1.DiastaticPowerType
-	34, // 35: beerproto.v1.SpecificVolumeRangeType.minimum:type_name -> beerproto.v1.SpecificVolumeType
-	34, // 36: beerproto.v1.SpecificVolumeRangeType.maximum:type_name -> beerproto.v1.SpecificVolumeType
-	26, // 37: beerproto.v1.AcidityRangeType.minimum:type_name -> beerproto.v1.AcidityType
-	26, // 38: beerproto.v1.AcidityRangeType.maximum:type_name -> beerproto.v1.AcidityType
-	33, // 39: beerproto.v1.ConcentrationRangeType.minimum:type_name -> beerproto.v1.ConcentrationType
-	33, // 40: beerproto.v1.ConcentrationRangeType.maximum:type_name -> beerproto.v1.ConcentrationType
-	17, // 41: beerproto.v1.RateType.unit:type_name -> beerproto.v1.RateUnit
-	18, // 42: beerproto.v1.PressureType.unit:type_name -> beerproto.v1.PressureUnit
-	19, // 43: beerproto.v1.EnzymeActivityType.unit:type_name -> beerproto.v1.EnzymeActivityUnit
-	20, // 44: beerproto.v1.EnzymeActivity.kind:type_name -> beerproto.v1.EnzymeType
-	52, // 45: beerproto.v1.EnzymeActivity.activity:type_name -> beerproto.v1.EnzymeActivityType
-	46, // [46:46] is the sub-list for method output_type
-	46, // [46:46] is the sub-list for method input_type
-	46, // [46:46] is the sub-list for extension type_name
-	46, // [46:46] is the sub-list for extension extendee
-	0,  // [0:46] is the sub-list for field type_name
+	3,  // 3: beerproto.v1.PitchRateType.unit:type_name -> beerproto.v1.PitchRateUnit
+	4,  // 4: beerproto.v1.DiastaticPowerType.unit:type_name -> beerproto.v1.DiastaticPowerUnit
+	5,  // 5: beerproto.v1.TemperatureType.unit:type_name -> beerproto.v1.TemperatureUnit
+	6,  // 6: beerproto.v1.AcidityType.unit:type_name -> beerproto.v1.AcidityUnit
+	7,  // 7: beerproto.v1.TimeType.unit:type_name -> beerproto.v1.TimeUnit
+	8,  // 8: beerproto.v1.ColorType.unit:type_name -> beerproto.v1.ColorUnit
+	9,  // 9: beerproto.v1.CarbonationType.unit:type_name -> beerproto.v1.CarbonationUnit
+	10, // 10: beerproto.v1.BitternessType.unit:type_name -> beerproto.v1.BitternessUnit
+	11, // 11: beerproto.v1.GravityType.unit:type_name -> beerproto.v1.GravityUnit
+	12, // 12: beerproto.v1.SpecificHeatType.unit:type_name -> beerproto.v1.SpecificHeatUnit
+	13, // 13: beerproto.v1.ConcentrationType.unit:type_name -> beerproto.v1.ConcentrationUnit
+	14, // 14: beerproto.v1.SpecificVolumeType.unit:type_name -> beerproto.v1.SpecificVolumeUnit
+	15, // 15: beerproto.v1.UnitType.unit:type_name -> beerproto.v1.UnitUnit
+	16, // 16: beerproto.v1.PercentType.unit:type_name -> beerproto.v1.PercentUnit
+	17, // 17: beerproto.v1.ViscosityType.unit:type_name -> beerproto.v1.ViscosityUnit
+	31, // 18: beerproto.v1.CarbonationRangeType.minimum:type_name -> beerproto.v1.CarbonationType
+	31, // 19: beerproto.v1.CarbonationRangeType.maximum:type_name -> beerproto.v1.CarbonationType
+	32, // 20: beerproto.v1.BitternessRangeType.minimum:type_name -> beerproto.v1.BitternessType
+	32, // 21: beerproto.v1.BitternessRangeType.maximum:type_name -> beerproto.v1.BitternessType
+	27, // 22: beerproto.v1.TemperatureRangeType.minimum:type_name -> beerproto.v1.TemperatureType
+	27, // 23: beerproto.v1.TemperatureRangeType.maximum:type_name -> beerproto.v1.TemperatureType
+	30, // 24: beerproto.v1.ColorRangeType.minimum:type_name -> beerproto.v1.ColorType
+	30, // 25: beerproto.v1.ColorRangeType.maximum:type_name -> beerproto.v1.ColorType
+	33, // 26: beerproto.v1.GravityRangeType.minimum:type_name -> beerproto.v1.GravityType
+	33, // 27: beerproto.v1.GravityRangeType.maximum:type_name -> beerproto.v1.GravityType
+	38, // 28: beerproto.v1.PercentRangeType.minimum:type_name -> beerproto.v1.PercentType
+	38, // 29: beerproto.v1.PercentRangeType.maximum:type_name -> beerproto.v1.PercentType
+	29, // 30: beerproto.v1.TimeRangeType.minimum:type_name -> beerproto.v1.TimeType
+	29, // 31: beerproto.v1.TimeRangeType.maximum:type_name -> beerproto.v1.TimeType
+	39, // 32: beerproto.v1.ViscosityRangeType.minimum:type_name -> beerproto.v1.ViscosityType
+	39, // 33: beerproto.v1.ViscosityRangeType.maximum:type_name -> beerproto.v1.ViscosityType
+	26, // 34: beerproto.v1.DiastaticPowerRangeType.minimum:type_name -> beerproto.v1.DiastaticPowerType
+	26, // 35: beerproto.v1.DiastaticPowerRangeType.maximum:type_name -> beerproto.v1.DiastaticPowerType
+	36, // 36: beerproto.v1.SpecificVolumeRangeType.minimum:type_name -> beerproto.v1.SpecificVolumeType
+	36, // 37: beerproto.v1.SpecificVolumeRangeType.maximum:type_name -> beerproto.v1.SpecificVolumeType
+	28, // 38: beerproto.v1.AcidityRangeType.minimum:type_name -> beerproto.v1.AcidityType
+	28, // 39: beerproto.v1.AcidityRangeType.maximum:type_name -> beerproto.v1.AcidityType
+	35, // 40: beerproto.v1.ConcentrationRangeType.minimum:type_name -> beerproto.v1.ConcentrationType
+	35, // 41: beerproto.v1.ConcentrationRangeType.maximum:type_name -> beerproto.v1.ConcentrationType
+	18, // 42: beerproto.v1.RateType.unit:type_name -> beerproto.v1.RateUnit
+	19, // 43: beerproto.v1.PressureType.unit:type_name -> beerproto.v1.PressureUnit
+	20, // 44: beerproto.v1.EnzymeActivityType.unit:type_name -> beerproto.v1.EnzymeActivityUnit
+	21, // 45: beerproto.v1.EnzymeActivity.kind:type_name -> beerproto.v1.EnzymeType
+	54, // 46: beerproto.v1.EnzymeActivity.activity:type_name -> beerproto.v1.EnzymeActivityType
+	47, // [47:47] is the sub-list for method output_type
+	47, // [47:47] is the sub-list for method input_type
+	47, // [47:47] is the sub-list for extension type_name
+	47, // [47:47] is the sub-list for extension extendee
+	0,  // [0:47] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_measureable_units_proto_init() }
@@ -3369,8 +3478,8 @@ func file_beerproto_v1_measureable_units_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_beerproto_v1_measureable_units_proto_rawDesc), len(file_beerproto_v1_measureable_units_proto_rawDesc)),
-			NumEnums:      21,
-			NumMessages:   33,
+			NumEnums:      22,
+			NumMessages:   34,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
