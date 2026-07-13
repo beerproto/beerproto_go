@@ -40,6 +40,10 @@ const (
 	UseType_USE_TYPE_ADD_TO_FERMENTATION UseType = 3
 	// add to package
 	UseType_USE_TYPE_ADD_TO_PACKAGE UseType = 4
+	// add at or after flameout, steeped below boiling (whirlpool / hopstand); isomerization continues at a reduced, temperature-dependent rate
+	UseType_USE_TYPE_ADD_TO_WHIRLPOOL UseType = 5
+	// add to the kettle before the boil begins (first wort hopping); ~10% higher measured utilization than an equivalent full-boil addition
+	UseType_USE_TYPE_ADD_TO_FIRST_WORT UseType = 6
 )
 
 // Enum value maps for UseType.
@@ -50,6 +54,8 @@ var (
 		2: "USE_TYPE_ADD_TO_BOIL",
 		3: "USE_TYPE_ADD_TO_FERMENTATION",
 		4: "USE_TYPE_ADD_TO_PACKAGE",
+		5: "USE_TYPE_ADD_TO_WHIRLPOOL",
+		6: "USE_TYPE_ADD_TO_FIRST_WORT",
 	}
 	UseType_value = map[string]int32{
 		"USE_TYPE_UNSPECIFIED":         0,
@@ -57,6 +63,8 @@ var (
 		"USE_TYPE_ADD_TO_BOIL":         2,
 		"USE_TYPE_ADD_TO_FERMENTATION": 3,
 		"USE_TYPE_ADD_TO_PACKAGE":      4,
+		"USE_TYPE_ADD_TO_WHIRLPOOL":    5,
+		"USE_TYPE_ADD_TO_FIRST_WORT":   6,
 	}
 )
 
@@ -201,13 +209,15 @@ const file_beerproto_v1_timing_proto_rawDesc = "" +
 	"\x10specific_gravity\x18\x04 \x01(\v2\x19.beerproto.v1.GravityTypeR\x0fspecificGravity\x12)\n" +
 	"\x02ph\x18\x05 \x01(\v2\x19.beerproto.v1.AcidityTypeR\x02ph\x12\x12\n" +
 	"\x04step\x18\x06 \x01(\x05R\x04step\x12'\n" +
-	"\x03use\x18\a \x01(\x0e2\x15.beerproto.v1.UseTypeR\x03use*\x96\x01\n" +
+	"\x03use\x18\a \x01(\x0e2\x15.beerproto.v1.UseTypeR\x03use*\xd5\x01\n" +
 	"\aUseType\x12\x18\n" +
 	"\x14USE_TYPE_UNSPECIFIED\x10\x00\x12\x18\n" +
 	"\x14USE_TYPE_ADD_TO_MASH\x10\x01\x12\x18\n" +
 	"\x14USE_TYPE_ADD_TO_BOIL\x10\x02\x12 \n" +
 	"\x1cUSE_TYPE_ADD_TO_FERMENTATION\x10\x03\x12\x1b\n" +
-	"\x17USE_TYPE_ADD_TO_PACKAGE\x10\x04B\xac\x01\n" +
+	"\x17USE_TYPE_ADD_TO_PACKAGE\x10\x04\x12\x1d\n" +
+	"\x19USE_TYPE_ADD_TO_WHIRLPOOL\x10\x05\x12\x1e\n" +
+	"\x1aUSE_TYPE_ADD_TO_FIRST_WORT\x10\x06B\xac\x01\n" +
 	"\x10com.beerproto.v1B\vTimingProtoP\x01Z:github.com/beerproto/beerproto_go/beerproto/v1;beerprotov1\xa2\x02\x03BXX\xaa\x02\fBeerproto.V1\xca\x02\fBeerproto\\V1\xe2\x02\x18Beerproto\\V1\\GPBMetadata\xea\x02\rBeerproto::V1b\x06proto3"
 
 var (
