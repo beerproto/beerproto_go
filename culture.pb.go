@@ -264,12 +264,14 @@ func (CultureBaseType) EnumDescriptor() ([]byte, []int) {
 
 // CultureBase Provides unique properties to identify individual records of a culture.
 type CultureBase struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Type          CultureBaseType        `protobuf:"varint,2,opt,name=type,proto3,enum=beerproto.v1.CultureBaseType" json:"type,omitempty"`
-	Form          CultureBaseForm        `protobuf:"varint,3,opt,name=form,proto3,enum=beerproto.v1.CultureBaseForm" json:"form,omitempty"`
-	Producer      string                 `protobuf:"bytes,4,opt,name=producer,proto3" json:"producer,omitempty"`
-	ProductId     string                 `protobuf:"bytes,5,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	Name      string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Type      CultureBaseType        `protobuf:"varint,2,opt,name=type,proto3,enum=beerproto.v1.CultureBaseType" json:"type,omitempty"`
+	Form      CultureBaseForm        `protobuf:"varint,3,opt,name=form,proto3,enum=beerproto.v1.CultureBaseForm" json:"form,omitempty"`
+	Producer  string                 `protobuf:"bytes,4,opt,name=producer,proto3" json:"producer,omitempty"`
+	ProductId string                 `protobuf:"bytes,5,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
+	// A glucoamylase positive culture attenuates dextrins and starches, leading to a very low FG. Carried on the base so a recipe's culture addition can drive the FG estimate toward near-complete attenuation.
+	Glucoamylase  bool `protobuf:"varint,6,opt,name=glucoamylase,proto3" json:"glucoamylase,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -337,6 +339,13 @@ func (x *CultureBase) GetProductId() string {
 		return x.ProductId
 	}
 	return ""
+}
+
+func (x *CultureBase) GetGlucoamylase() bool {
+	if x != nil {
+		return x.Glucoamylase
+	}
+	return false
 }
 
 // CultureInformation collects the attributes of a microbial culture
@@ -801,7 +810,7 @@ var File_beerproto_v1_culture_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_culture_proto_rawDesc = "" +
 	"\n" +
-	"\x1abeerproto/v1/culture.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x19beerproto/v1/timing.proto\x1a\x1bbuf/validate/validate.proto\"\xe8\x01\n" +
+	"\x1abeerproto/v1/culture.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x19beerproto/v1/timing.proto\x1a\x1bbuf/validate/validate.proto\"\x8c\x02\n" +
 	"\vCultureBase\x12\x1e\n" +
 	"\x04name\x18\x01 \x01(\tB\n" +
 	"\xbaH\a\xc8\x01\x01r\x02\x10\x03R\x04name\x12>\n" +
@@ -809,7 +818,8 @@ const file_beerproto_v1_culture_proto_rawDesc = "" +
 	"\x04form\x18\x03 \x01(\x0e2\x1d.beerproto.v1.CultureBaseFormB\v\xbaH\b\xc8\x01\x01\x82\x01\x02 \x00R\x04form\x12\x1a\n" +
 	"\bproducer\x18\x04 \x01(\tR\bproducer\x12\x1d\n" +
 	"\n" +
-	"product_id\x18\x05 \x01(\tR\tproductId\"\xc3\x05\n" +
+	"product_id\x18\x05 \x01(\tR\tproductId\x12\"\n" +
+	"\fglucoamylase\x18\x06 \x01(\bR\fglucoamylase\"\xc3\x05\n" +
 	"\x12CultureInformation\x125\n" +
 	"\x04base\x18\x01 \x01(\v2\x19.beerproto.v1.CultureBaseB\x06\xbaH\x03\xc8\x01\x01R\x04base\x12\x1b\n" +
 	"\x02id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x12O\n" +
