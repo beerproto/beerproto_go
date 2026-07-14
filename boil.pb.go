@@ -31,16 +31,20 @@ const (
 
 // BoilProcedureType defines the procedure for performing a boil. A boil procedure with no steps is the same as a standard single step boil
 type BoilProcedureType struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	PreBoilSize   *VolumeType            `protobuf:"bytes,2,opt,name=pre_boil_size,json=preBoilSize,proto3" json:"pre_boil_size,omitempty"`
-	BoilTime      *TimeType              `protobuf:"bytes,3,opt,name=boil_time,json=boilTime,proto3" json:"boil_time,omitempty"`
-	BoilSteps     []*BoilStepType        `protobuf:"bytes,4,rep,name=boil_steps,json=boilSteps,proto3" json:"boil_steps,omitempty"`
-	Name          string                 `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
-	Description   string                 `protobuf:"bytes,6,opt,name=description,proto3" json:"description,omitempty"`
-	Notes         string                 `protobuf:"bytes,7,opt,name=notes,proto3" json:"notes,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state       protoimpl.MessageState `protogen:"open.v1"`
+	Id          string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	PreBoilSize *VolumeType            `protobuf:"bytes,2,opt,name=pre_boil_size,json=preBoilSize,proto3" json:"pre_boil_size,omitempty"`
+	BoilTime    *TimeType              `protobuf:"bytes,3,opt,name=boil_time,json=boilTime,proto3" json:"boil_time,omitempty"`
+	BoilSteps   []*BoilStepType        `protobuf:"bytes,4,rep,name=boil_steps,json=boilSteps,proto3" json:"boil_steps,omitempty"`
+	Name        string                 `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
+	Description string                 `protobuf:"bytes,6,opt,name=description,proto3" json:"description,omitempty"`
+	Notes       string                 `protobuf:"bytes,7,opt,name=notes,proto3" json:"notes,omitempty"`
+	// Whirlpool / hopstand temperature. Whirlpool hop isomerization is strongly
+	// temperature-dependent, so this drives the temperature-corrected whirlpool
+	// IBU. Unset falls back to a typical ~85 C stand.
+	WhirlpoolTemperature *TemperatureType `protobuf:"bytes,8,opt,name=whirlpool_temperature,json=whirlpoolTemperature,proto3" json:"whirlpool_temperature,omitempty"`
+	unknownFields        protoimpl.UnknownFields
+	sizeCache            protoimpl.SizeCache
 }
 
 func (x *BoilProcedureType) Reset() {
@@ -122,11 +126,18 @@ func (x *BoilProcedureType) GetNotes() string {
 	return ""
 }
 
+func (x *BoilProcedureType) GetWhirlpoolTemperature() *TemperatureType {
+	if x != nil {
+		return x.WhirlpoolTemperature
+	}
+	return nil
+}
+
 var File_beerproto_v1_boil_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_boil_proto_rawDesc = "" +
 	"\n" +
-	"\x17beerproto/v1/boil.proto\x12\fbeerproto.v1\x1a\x1cbeerproto/v1/boil_step.proto\x1a$beerproto/v1/measureable_units.proto\x1a\x1bbuf/validate/validate.proto\"\xb2\x02\n" +
+	"\x17beerproto/v1/boil.proto\x12\fbeerproto.v1\x1a\x1cbeerproto/v1/boil_step.proto\x1a$beerproto/v1/measureable_units.proto\x1a\x1bbuf/validate/validate.proto\"\x86\x03\n" +
 	"\x11BoilProcedureType\x12\x1b\n" +
 	"\x02id\x18\x01 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x12<\n" +
 	"\rpre_boil_size\x18\x02 \x01(\v2\x18.beerproto.v1.VolumeTypeR\vpreBoilSize\x12;\n" +
@@ -135,7 +146,8 @@ const file_beerproto_v1_boil_proto_rawDesc = "" +
 	"boil_steps\x18\x04 \x03(\v2\x1a.beerproto.v1.BoilStepTypeR\tboilSteps\x12\x12\n" +
 	"\x04name\x18\x05 \x01(\tR\x04name\x12 \n" +
 	"\vdescription\x18\x06 \x01(\tR\vdescription\x12\x14\n" +
-	"\x05notes\x18\a \x01(\tR\x05notesB\xaa\x01\n" +
+	"\x05notes\x18\a \x01(\tR\x05notes\x12R\n" +
+	"\x15whirlpool_temperature\x18\b \x01(\v2\x1d.beerproto.v1.TemperatureTypeR\x14whirlpoolTemperatureB\xaa\x01\n" +
 	"\x10com.beerproto.v1B\tBoilProtoP\x01Z:github.com/beerproto/beerproto_go/beerproto/v1;beerprotov1\xa2\x02\x03BXX\xaa\x02\fBeerproto.V1\xca\x02\fBeerproto\\V1\xe2\x02\x18Beerproto\\V1\\GPBMetadata\xea\x02\rBeerproto::V1b\x06proto3"
 
 var (
@@ -156,16 +168,18 @@ var file_beerproto_v1_boil_proto_goTypes = []any{
 	(*VolumeType)(nil),        // 1: beerproto.v1.VolumeType
 	(*TimeType)(nil),          // 2: beerproto.v1.TimeType
 	(*BoilStepType)(nil),      // 3: beerproto.v1.BoilStepType
+	(*TemperatureType)(nil),   // 4: beerproto.v1.TemperatureType
 }
 var file_beerproto_v1_boil_proto_depIdxs = []int32{
 	1, // 0: beerproto.v1.BoilProcedureType.pre_boil_size:type_name -> beerproto.v1.VolumeType
 	2, // 1: beerproto.v1.BoilProcedureType.boil_time:type_name -> beerproto.v1.TimeType
 	3, // 2: beerproto.v1.BoilProcedureType.boil_steps:type_name -> beerproto.v1.BoilStepType
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	4, // 3: beerproto.v1.BoilProcedureType.whirlpool_temperature:type_name -> beerproto.v1.TemperatureType
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_boil_proto_init() }
