@@ -228,15 +228,19 @@ func (IBUMethodUnit) EnumDescriptor() ([]byte, []int) {
 
 // HopVarietyBase provides unique properties to identify individual records of a hop variety.
 type HopVarietyBase struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Producer      string                 `protobuf:"bytes,2,opt,name=producer,proto3" json:"producer,omitempty"`
-	ProductId     string                 `protobuf:"bytes,3,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
-	Origin        string                 `protobuf:"bytes,4,opt,name=origin,proto3" json:"origin,omitempty"`
-	Year          string                 `protobuf:"bytes,5,opt,name=year,proto3" json:"year,omitempty"`
-	Form          HopVarietyBaseForm     `protobuf:"varint,6,opt,name=form,proto3,enum=beerproto.v1.HopVarietyBaseForm" json:"form,omitempty"`
-	AlphaAcid     *PercentType           `protobuf:"bytes,7,opt,name=alpha_acid,json=alphaAcid,proto3" json:"alpha_acid,omitempty"`
-	BetaAcid      *PercentType           `protobuf:"bytes,8,opt,name=beta_acid,json=betaAcid,proto3" json:"beta_acid,omitempty"`
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	Name      string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Producer  string                 `protobuf:"bytes,2,opt,name=producer,proto3" json:"producer,omitempty"`
+	ProductId string                 `protobuf:"bytes,3,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
+	Origin    string                 `protobuf:"bytes,4,opt,name=origin,proto3" json:"origin,omitempty"`
+	Year      string                 `protobuf:"bytes,5,opt,name=year,proto3" json:"year,omitempty"`
+	Form      HopVarietyBaseForm     `protobuf:"varint,6,opt,name=form,proto3,enum=beerproto.v1.HopVarietyBaseForm" json:"form,omitempty"`
+	AlphaAcid *PercentType           `protobuf:"bytes,7,opt,name=alpha_acid,json=alphaAcid,proto3" json:"alpha_acid,omitempty"`
+	BetaAcid  *PercentType           `protobuf:"bytes,8,opt,name=beta_acid,json=betaAcid,proto3" json:"beta_acid,omitempty"`
+	// Defined as the percentage of hop alpha lost in 6 months of storage.
+	// Carried onto a recipe addition so IBU can be computed from age-adjusted
+	// alpha rather than the fresh label value.
+	PercentLost   *PercentType `protobuf:"bytes,9,opt,name=percent_lost,json=percentLost,proto3" json:"percent_lost,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -323,6 +327,13 @@ func (x *HopVarietyBase) GetAlphaAcid() *PercentType {
 func (x *HopVarietyBase) GetBetaAcid() *PercentType {
 	if x != nil {
 		return x.BetaAcid
+	}
+	return nil
+}
+
+func (x *HopVarietyBase) GetPercentLost() *PercentType {
+	if x != nil {
+		return x.PercentLost
 	}
 	return nil
 }
@@ -819,7 +830,7 @@ var File_beerproto_v1_hop_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_hop_proto_rawDesc = "" +
 	"\n" +
-	"\x16beerproto/v1/hop.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x19beerproto/v1/timing.proto\x1a\x1bbuf/validate/validate.proto\"\xc7\x02\n" +
+	"\x16beerproto/v1/hop.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x19beerproto/v1/timing.proto\x1a\x1bbuf/validate/validate.proto\"\x85\x03\n" +
 	"\x0eHopVarietyBase\x12\x1e\n" +
 	"\x04name\x18\x01 \x01(\tB\n" +
 	"\xbaH\a\xc8\x01\x01r\x02\x10\x03R\x04name\x12\x1a\n" +
@@ -831,7 +842,8 @@ const file_beerproto_v1_hop_proto_rawDesc = "" +
 	"\x04form\x18\x06 \x01(\x0e2 .beerproto.v1.HopVarietyBaseFormR\x04form\x12@\n" +
 	"\n" +
 	"alpha_acid\x18\a \x01(\v2\x19.beerproto.v1.PercentTypeB\x06\xbaH\x03\xc8\x01\x01R\talphaAcid\x126\n" +
-	"\tbeta_acid\x18\b \x01(\v2\x19.beerproto.v1.PercentTypeR\bbetaAcid\"\x98\x03\n" +
+	"\tbeta_acid\x18\b \x01(\v2\x19.beerproto.v1.PercentTypeR\bbetaAcid\x12<\n" +
+	"\fpercent_lost\x18\t \x01(\v2\x19.beerproto.v1.PercentTypeR\vpercentLost\"\x98\x03\n" +
 	"\x12VarietyInformation\x128\n" +
 	"\x04base\x18\x01 \x01(\v2\x1c.beerproto.v1.HopVarietyBaseB\x06\xbaH\x03\xc8\x01\x01R\x04base\x12\x1b\n" +
 	"\x02id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x12<\n" +
@@ -931,36 +943,37 @@ var file_beerproto_v1_hop_proto_depIdxs = []int32{
 	1,  // 0: beerproto.v1.HopVarietyBase.form:type_name -> beerproto.v1.HopVarietyBaseForm
 	9,  // 1: beerproto.v1.HopVarietyBase.alpha_acid:type_name -> beerproto.v1.PercentType
 	9,  // 2: beerproto.v1.HopVarietyBase.beta_acid:type_name -> beerproto.v1.PercentType
-	3,  // 3: beerproto.v1.VarietyInformation.base:type_name -> beerproto.v1.HopVarietyBase
-	8,  // 4: beerproto.v1.VarietyInformation.inventory:type_name -> beerproto.v1.HopInventoryType
-	0,  // 5: beerproto.v1.VarietyInformation.type:type_name -> beerproto.v1.VarietyInformationType
-	7,  // 6: beerproto.v1.VarietyInformation.oil_content:type_name -> beerproto.v1.OilContentType
-	9,  // 7: beerproto.v1.VarietyInformation.percent_lost:type_name -> beerproto.v1.PercentType
-	3,  // 8: beerproto.v1.HopAdditionType.base:type_name -> beerproto.v1.HopVarietyBase
-	10, // 9: beerproto.v1.HopAdditionType.timing:type_name -> beerproto.v1.TimingType
-	11, // 10: beerproto.v1.HopAdditionType.mass:type_name -> beerproto.v1.MassType
-	12, // 11: beerproto.v1.HopAdditionType.volume:type_name -> beerproto.v1.VolumeType
-	2,  // 12: beerproto.v1.IBUEstimateType.method:type_name -> beerproto.v1.IBUMethodUnit
-	9,  // 13: beerproto.v1.OilContentType.polyphenols:type_name -> beerproto.v1.PercentType
-	9,  // 14: beerproto.v1.OilContentType.farnesene:type_name -> beerproto.v1.PercentType
-	9,  // 15: beerproto.v1.OilContentType.limonene:type_name -> beerproto.v1.PercentType
-	9,  // 16: beerproto.v1.OilContentType.nerol:type_name -> beerproto.v1.PercentType
-	9,  // 17: beerproto.v1.OilContentType.geraniol:type_name -> beerproto.v1.PercentType
-	9,  // 18: beerproto.v1.OilContentType.b_pinene:type_name -> beerproto.v1.PercentType
-	9,  // 19: beerproto.v1.OilContentType.linalool:type_name -> beerproto.v1.PercentType
-	9,  // 20: beerproto.v1.OilContentType.caryophyllene:type_name -> beerproto.v1.PercentType
-	9,  // 21: beerproto.v1.OilContentType.cohumulone:type_name -> beerproto.v1.PercentType
-	9,  // 22: beerproto.v1.OilContentType.xanthohumol:type_name -> beerproto.v1.PercentType
-	9,  // 23: beerproto.v1.OilContentType.humulene:type_name -> beerproto.v1.PercentType
-	9,  // 24: beerproto.v1.OilContentType.myrcene:type_name -> beerproto.v1.PercentType
-	9,  // 25: beerproto.v1.OilContentType.pinene:type_name -> beerproto.v1.PercentType
-	11, // 26: beerproto.v1.HopInventoryType.mass:type_name -> beerproto.v1.MassType
-	12, // 27: beerproto.v1.HopInventoryType.volume:type_name -> beerproto.v1.VolumeType
-	28, // [28:28] is the sub-list for method output_type
-	28, // [28:28] is the sub-list for method input_type
-	28, // [28:28] is the sub-list for extension type_name
-	28, // [28:28] is the sub-list for extension extendee
-	0,  // [0:28] is the sub-list for field type_name
+	9,  // 3: beerproto.v1.HopVarietyBase.percent_lost:type_name -> beerproto.v1.PercentType
+	3,  // 4: beerproto.v1.VarietyInformation.base:type_name -> beerproto.v1.HopVarietyBase
+	8,  // 5: beerproto.v1.VarietyInformation.inventory:type_name -> beerproto.v1.HopInventoryType
+	0,  // 6: beerproto.v1.VarietyInformation.type:type_name -> beerproto.v1.VarietyInformationType
+	7,  // 7: beerproto.v1.VarietyInformation.oil_content:type_name -> beerproto.v1.OilContentType
+	9,  // 8: beerproto.v1.VarietyInformation.percent_lost:type_name -> beerproto.v1.PercentType
+	3,  // 9: beerproto.v1.HopAdditionType.base:type_name -> beerproto.v1.HopVarietyBase
+	10, // 10: beerproto.v1.HopAdditionType.timing:type_name -> beerproto.v1.TimingType
+	11, // 11: beerproto.v1.HopAdditionType.mass:type_name -> beerproto.v1.MassType
+	12, // 12: beerproto.v1.HopAdditionType.volume:type_name -> beerproto.v1.VolumeType
+	2,  // 13: beerproto.v1.IBUEstimateType.method:type_name -> beerproto.v1.IBUMethodUnit
+	9,  // 14: beerproto.v1.OilContentType.polyphenols:type_name -> beerproto.v1.PercentType
+	9,  // 15: beerproto.v1.OilContentType.farnesene:type_name -> beerproto.v1.PercentType
+	9,  // 16: beerproto.v1.OilContentType.limonene:type_name -> beerproto.v1.PercentType
+	9,  // 17: beerproto.v1.OilContentType.nerol:type_name -> beerproto.v1.PercentType
+	9,  // 18: beerproto.v1.OilContentType.geraniol:type_name -> beerproto.v1.PercentType
+	9,  // 19: beerproto.v1.OilContentType.b_pinene:type_name -> beerproto.v1.PercentType
+	9,  // 20: beerproto.v1.OilContentType.linalool:type_name -> beerproto.v1.PercentType
+	9,  // 21: beerproto.v1.OilContentType.caryophyllene:type_name -> beerproto.v1.PercentType
+	9,  // 22: beerproto.v1.OilContentType.cohumulone:type_name -> beerproto.v1.PercentType
+	9,  // 23: beerproto.v1.OilContentType.xanthohumol:type_name -> beerproto.v1.PercentType
+	9,  // 24: beerproto.v1.OilContentType.humulene:type_name -> beerproto.v1.PercentType
+	9,  // 25: beerproto.v1.OilContentType.myrcene:type_name -> beerproto.v1.PercentType
+	9,  // 26: beerproto.v1.OilContentType.pinene:type_name -> beerproto.v1.PercentType
+	11, // 27: beerproto.v1.HopInventoryType.mass:type_name -> beerproto.v1.MassType
+	12, // 28: beerproto.v1.HopInventoryType.volume:type_name -> beerproto.v1.VolumeType
+	29, // [29:29] is the sub-list for method output_type
+	29, // [29:29] is the sub-list for method input_type
+	29, // [29:29] is the sub-list for extension type_name
+	29, // [29:29] is the sub-list for extension extendee
+	0,  // [0:29] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_hop_proto_init() }
