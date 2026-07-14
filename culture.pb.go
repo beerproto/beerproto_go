@@ -662,11 +662,19 @@ func (*CultureAdditionType_Unit) isCultureAdditionType_Amount() {}
 func (*CultureAdditionType_Volume) isCultureAdditionType_Amount() {}
 
 type CultureInventoryType struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Liquid        *VolumeType            `protobuf:"bytes,1,opt,name=liquid,proto3" json:"liquid,omitempty"`
-	Dry           *MassType              `protobuf:"bytes,2,opt,name=dry,proto3" json:"dry,omitempty"`
-	Slant         *VolumeType            `protobuf:"bytes,3,opt,name=slant,proto3" json:"slant,omitempty"`
-	Culture       *VolumeType            `protobuf:"bytes,4,opt,name=culture,proto3" json:"culture,omitempty"`
+	state   protoimpl.MessageState `protogen:"open.v1"`
+	Liquid  *VolumeType            `protobuf:"bytes,1,opt,name=liquid,proto3" json:"liquid,omitempty"`
+	Dry     *MassType              `protobuf:"bytes,2,opt,name=dry,proto3" json:"dry,omitempty"`
+	Slant   *VolumeType            `protobuf:"bytes,3,opt,name=slant,proto3" json:"slant,omitempty"`
+	Culture *VolumeType            `protobuf:"bytes,4,opt,name=culture,proto3" json:"culture,omitempty"`
+	// Yeast production / harvest date as an ISO-8601 date string (e.g.
+	// "2026-01-15"). Drives the stock's age-based viability estimate so freshness
+	// is visible while browsing inventory, not only at pitch time.
+	ManufactureDate string `protobuf:"bytes,5,opt,name=manufacture_date,json=manufactureDate,proto3" json:"manufacture_date,omitempty"`
+	// Repitch generation for harvested/reused yeast: 0 = fresh from the
+	// manufacturer/lab, 1 = first repitch, etc. Compared against the library
+	// culture's max_reuse to warn when a slurry is past its recommended reuses.
+	Generation    int32 `protobuf:"varint,6,opt,name=generation,proto3" json:"generation,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -727,6 +735,20 @@ func (x *CultureInventoryType) GetCulture() *VolumeType {
 		return x.Culture
 	}
 	return nil
+}
+
+func (x *CultureInventoryType) GetManufactureDate() string {
+	if x != nil {
+		return x.ManufactureDate
+	}
+	return ""
+}
+
+func (x *CultureInventoryType) GetGeneration() int32 {
+	if x != nil {
+		return x.Generation
+	}
+	return 0
 }
 
 // Zymocide, also known as killer yeast properties, is common among wine yeast. There are also some ale and brett yeasts that are immune to some zymocidic properties, these are known as killer neutral
@@ -848,12 +870,16 @@ const file_beerproto_v1_culture_proto_rawDesc = "" +
 	"\x04unit\x18\t \x01(\v2\x16.beerproto.v1.UnitTypeH\x00R\x04unit\x122\n" +
 	"\x06volume\x18\n" +
 	" \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volumeB\x0f\n" +
-	"\x06amount\x12\x05\xbaH\x02\b\x01\"\xd6\x01\n" +
+	"\x06amount\x12\x05\xbaH\x02\b\x01\"\xa1\x02\n" +
 	"\x14CultureInventoryType\x120\n" +
 	"\x06liquid\x18\x01 \x01(\v2\x18.beerproto.v1.VolumeTypeR\x06liquid\x12(\n" +
 	"\x03dry\x18\x02 \x01(\v2\x16.beerproto.v1.MassTypeR\x03dry\x12.\n" +
 	"\x05slant\x18\x03 \x01(\v2\x18.beerproto.v1.VolumeTypeR\x05slant\x122\n" +
-	"\aculture\x18\x04 \x01(\v2\x18.beerproto.v1.VolumeTypeR\aculture\"p\n" +
+	"\aculture\x18\x04 \x01(\v2\x18.beerproto.v1.VolumeTypeR\aculture\x12)\n" +
+	"\x10manufacture_date\x18\x05 \x01(\tR\x0fmanufactureDate\x12\x1e\n" +
+	"\n" +
+	"generation\x18\x06 \x01(\x05R\n" +
+	"generation\"p\n" +
 	"\bZymocide\x12\x10\n" +
 	"\x03no1\x18\x01 \x01(\bR\x03no1\x12\x10\n" +
 	"\x03no2\x18\x02 \x01(\bR\x03no2\x12\x12\n" +
