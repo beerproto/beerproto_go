@@ -17,6 +17,7 @@ import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -28,6 +29,61 @@ const (
 	// Verify that runtime/protoimpl is sufficiently up-to-date.
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
+
+type GrainCrush int32
+
+const (
+	GrainCrush_GRAIN_CRUSH_UNSPECIFIED GrainCrush = 0
+	GrainCrush_GRAIN_CRUSH_UNCRUSHED   GrainCrush = 1
+	GrainCrush_GRAIN_CRUSH_COARSE      GrainCrush = 2
+	GrainCrush_GRAIN_CRUSH_MEDIUM      GrainCrush = 3
+	GrainCrush_GRAIN_CRUSH_FINE        GrainCrush = 4
+)
+
+// Enum value maps for GrainCrush.
+var (
+	GrainCrush_name = map[int32]string{
+		0: "GRAIN_CRUSH_UNSPECIFIED",
+		1: "GRAIN_CRUSH_UNCRUSHED",
+		2: "GRAIN_CRUSH_COARSE",
+		3: "GRAIN_CRUSH_MEDIUM",
+		4: "GRAIN_CRUSH_FINE",
+	}
+	GrainCrush_value = map[string]int32{
+		"GRAIN_CRUSH_UNSPECIFIED": 0,
+		"GRAIN_CRUSH_UNCRUSHED":   1,
+		"GRAIN_CRUSH_COARSE":      2,
+		"GRAIN_CRUSH_MEDIUM":      3,
+		"GRAIN_CRUSH_FINE":        4,
+	}
+)
+
+func (x GrainCrush) Enum() *GrainCrush {
+	p := new(GrainCrush)
+	*p = x
+	return p
+}
+
+func (x GrainCrush) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (GrainCrush) Descriptor() protoreflect.EnumDescriptor {
+	return file_beerproto_v1_fermentable_proto_enumTypes[0].Descriptor()
+}
+
+func (GrainCrush) Type() protoreflect.EnumType {
+	return &file_beerproto_v1_fermentable_proto_enumTypes[0]
+}
+
+func (x GrainCrush) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use GrainCrush.Descriptor instead.
+func (GrainCrush) EnumDescriptor() ([]byte, []int) {
+	return file_beerproto_v1_fermentable_proto_rawDescGZIP(), []int{0}
+}
 
 type FermentableBaseType int32
 
@@ -88,11 +144,11 @@ func (x FermentableBaseType) String() string {
 }
 
 func (FermentableBaseType) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_fermentable_proto_enumTypes[0].Descriptor()
+	return file_beerproto_v1_fermentable_proto_enumTypes[1].Descriptor()
 }
 
 func (FermentableBaseType) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_fermentable_proto_enumTypes[0]
+	return &file_beerproto_v1_fermentable_proto_enumTypes[1]
 }
 
 func (x FermentableBaseType) Number() protoreflect.EnumNumber {
@@ -101,7 +157,7 @@ func (x FermentableBaseType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use FermentableBaseType.Descriptor instead.
 func (FermentableBaseType) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_fermentable_proto_rawDescGZIP(), []int{0}
+	return file_beerproto_v1_fermentable_proto_rawDescGZIP(), []int{1}
 }
 
 type GrainGroup int32
@@ -159,11 +215,11 @@ func (x GrainGroup) String() string {
 }
 
 func (GrainGroup) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_fermentable_proto_enumTypes[1].Descriptor()
+	return file_beerproto_v1_fermentable_proto_enumTypes[2].Descriptor()
 }
 
 func (GrainGroup) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_fermentable_proto_enumTypes[1]
+	return &file_beerproto_v1_fermentable_proto_enumTypes[2]
 }
 
 func (x GrainGroup) Number() protoreflect.EnumNumber {
@@ -172,7 +228,7 @@ func (x GrainGroup) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use GrainGroup.Descriptor instead.
 func (GrainGroup) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_fermentable_proto_rawDescGZIP(), []int{1}
+	return file_beerproto_v1_fermentable_proto_rawDescGZIP(), []int{2}
 }
 
 // FermentableBase provides unique properties to identify individual records of fermentable ingredients.
@@ -710,7 +766,17 @@ type FermentableInventoryType struct {
 	//
 	//	*FermentableInventoryType_Mass
 	//	*FermentableInventoryType_Volume
-	Amount        isFermentableInventoryType_Amount `protobuf_oneof:"amount"`
+	Amount isFermentableInventoryType_Amount `protobuf_oneof:"amount"`
+	// Best-before / use-by date of this stock. Unset when unknown.
+	BestBefore *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=best_before,json=bestBefore,proto3" json:"best_before,omitempty"`
+	// The measured extract potential of *this lot* (points per lb per gallon,
+	// e.g. 1.037). When set, overrides the library nominal yield for OG so a
+	// sack that assays differently from the maltster's spec is accounted for.
+	LotPotential *GravityType `protobuf:"bytes,4,opt,name=lot_potential,json=lotPotential,proto3" json:"lot_potential,omitempty"`
+	// How this lot is milled — affects staling rate and mash efficiency.
+	Crush GrainCrush `protobuf:"varint,5,opt,name=crush,proto3,enum=beerproto.v1.GrainCrush" json:"crush,omitempty"`
+	// Measured moisture content of this lot (percent). Informational.
+	Moisture      *PercentType `protobuf:"bytes,6,opt,name=moisture,proto3" json:"moisture,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -770,6 +836,34 @@ func (x *FermentableInventoryType) GetVolume() *VolumeType {
 	return nil
 }
 
+func (x *FermentableInventoryType) GetBestBefore() *timestamppb.Timestamp {
+	if x != nil {
+		return x.BestBefore
+	}
+	return nil
+}
+
+func (x *FermentableInventoryType) GetLotPotential() *GravityType {
+	if x != nil {
+		return x.LotPotential
+	}
+	return nil
+}
+
+func (x *FermentableInventoryType) GetCrush() GrainCrush {
+	if x != nil {
+		return x.Crush
+	}
+	return GrainCrush_GRAIN_CRUSH_UNSPECIFIED
+}
+
+func (x *FermentableInventoryType) GetMoisture() *PercentType {
+	if x != nil {
+		return x.Moisture
+	}
+	return nil
+}
+
 type isFermentableInventoryType_Amount interface {
 	isFermentableInventoryType_Amount()
 }
@@ -790,7 +884,7 @@ var File_beerproto_v1_fermentable_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_fermentable_proto_rawDesc = "" +
 	"\n" +
-	"\x1ebeerproto/v1/fermentable.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x19beerproto/v1/timing.proto\x1a\x1bbuf/validate/validate.proto\"\xc6\x03\n" +
+	"\x1ebeerproto/v1/fermentable.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x19beerproto/v1/timing.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbuf/validate/validate.proto\"\xc6\x03\n" +
 	"\x0fFermentableBase\x12B\n" +
 	"\x04type\x18\x01 \x01(\x0e2!.beerproto.v1.FermentableBaseTypeB\v\xbaH\b\xc8\x01\x01\x82\x01\x02 \x00R\x04type\x12\x16\n" +
 	"\x06origin\x18\x02 \x01(\tR\x06origin\x12C\n" +
@@ -844,11 +938,23 @@ const file_beerproto_v1_fermentable_proto_rawDesc = "" +
 	"fine_grind\x18\x01 \x01(\v2\x19.beerproto.v1.PercentTypeR\tfineGrind\x12<\n" +
 	"\fcoarse_grind\x18\x02 \x01(\v2\x19.beerproto.v1.PercentTypeR\vcoarseGrind\x12O\n" +
 	"\x16fine_coarse_difference\x18\x03 \x01(\v2\x19.beerproto.v1.PercentTypeR\x14fineCoarseDifference\x127\n" +
-	"\tpotential\x18\x04 \x01(\v2\x19.beerproto.v1.GravityTypeR\tpotential\"\x8d\x01\n" +
+	"\tpotential\x18\x04 \x01(\v2\x19.beerproto.v1.GravityTypeR\tpotential\"\xf1\x02\n" +
 	"\x18FermentableInventoryType\x12,\n" +
 	"\x04mass\x18\x01 \x01(\v2\x16.beerproto.v1.MassTypeH\x00R\x04mass\x122\n" +
-	"\x06volume\x18\x02 \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volumeB\x0f\n" +
-	"\x06amount\x12\x05\xbaH\x02\b\x01*\xcc\x02\n" +
+	"\x06volume\x18\x02 \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volume\x12;\n" +
+	"\vbest_before\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"bestBefore\x12>\n" +
+	"\rlot_potential\x18\x04 \x01(\v2\x19.beerproto.v1.GravityTypeR\flotPotential\x12.\n" +
+	"\x05crush\x18\x05 \x01(\x0e2\x18.beerproto.v1.GrainCrushR\x05crush\x125\n" +
+	"\bmoisture\x18\x06 \x01(\v2\x19.beerproto.v1.PercentTypeR\bmoistureB\x0f\n" +
+	"\x06amount\x12\x05\xbaH\x02\b\x01*\x8a\x01\n" +
+	"\n" +
+	"GrainCrush\x12\x1b\n" +
+	"\x17GRAIN_CRUSH_UNSPECIFIED\x10\x00\x12\x19\n" +
+	"\x15GRAIN_CRUSH_UNCRUSHED\x10\x01\x12\x16\n" +
+	"\x12GRAIN_CRUSH_COARSE\x10\x02\x12\x16\n" +
+	"\x12GRAIN_CRUSH_MEDIUM\x10\x03\x12\x14\n" +
+	"\x10GRAIN_CRUSH_FINE\x10\x04*\xcc\x02\n" +
 	"\x13FermentableBaseType\x12%\n" +
 	"!FERMENTABLE_BASE_TYPE_UNSPECIFIED\x10\x00\x12%\n" +
 	"!FERMENTABLE_BASE_TYPE_DRY_EXTRACT\x10\x01\x12!\n" +
@@ -883,69 +989,75 @@ func file_beerproto_v1_fermentable_proto_rawDescGZIP() []byte {
 	return file_beerproto_v1_fermentable_proto_rawDescData
 }
 
-var file_beerproto_v1_fermentable_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_beerproto_v1_fermentable_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_beerproto_v1_fermentable_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_beerproto_v1_fermentable_proto_goTypes = []any{
-	(FermentableBaseType)(0),         // 0: beerproto.v1.FermentableBaseType
-	(GrainGroup)(0),                  // 1: beerproto.v1.GrainGroup
-	(*FermentableBase)(nil),          // 2: beerproto.v1.FermentableBase
-	(*FermentableType)(nil),          // 3: beerproto.v1.FermentableType
-	(*FermentableAdditionType)(nil),  // 4: beerproto.v1.FermentableAdditionType
-	(*YieldType)(nil),                // 5: beerproto.v1.YieldType
-	(*FermentableInventoryType)(nil), // 6: beerproto.v1.FermentableInventoryType
-	(*ColorType)(nil),                // 7: beerproto.v1.ColorType
-	(*DiastaticPowerType)(nil),       // 8: beerproto.v1.DiastaticPowerType
-	(*PercentType)(nil),              // 9: beerproto.v1.PercentType
-	(*EnzymeActivityType)(nil),       // 10: beerproto.v1.EnzymeActivityType
-	(*AcidityType)(nil),              // 11: beerproto.v1.AcidityType
-	(*ViscosityType)(nil),            // 12: beerproto.v1.ViscosityType
-	(*ConcentrationType)(nil),        // 13: beerproto.v1.ConcentrationType
-	(*TimingType)(nil),               // 14: beerproto.v1.TimingType
-	(*MassType)(nil),                 // 15: beerproto.v1.MassType
-	(*VolumeType)(nil),               // 16: beerproto.v1.VolumeType
-	(*GravityType)(nil),              // 17: beerproto.v1.GravityType
+	(GrainCrush)(0),                  // 0: beerproto.v1.GrainCrush
+	(FermentableBaseType)(0),         // 1: beerproto.v1.FermentableBaseType
+	(GrainGroup)(0),                  // 2: beerproto.v1.GrainGroup
+	(*FermentableBase)(nil),          // 3: beerproto.v1.FermentableBase
+	(*FermentableType)(nil),          // 4: beerproto.v1.FermentableType
+	(*FermentableAdditionType)(nil),  // 5: beerproto.v1.FermentableAdditionType
+	(*YieldType)(nil),                // 6: beerproto.v1.YieldType
+	(*FermentableInventoryType)(nil), // 7: beerproto.v1.FermentableInventoryType
+	(*ColorType)(nil),                // 8: beerproto.v1.ColorType
+	(*DiastaticPowerType)(nil),       // 9: beerproto.v1.DiastaticPowerType
+	(*PercentType)(nil),              // 10: beerproto.v1.PercentType
+	(*EnzymeActivityType)(nil),       // 11: beerproto.v1.EnzymeActivityType
+	(*AcidityType)(nil),              // 12: beerproto.v1.AcidityType
+	(*ViscosityType)(nil),            // 13: beerproto.v1.ViscosityType
+	(*ConcentrationType)(nil),        // 14: beerproto.v1.ConcentrationType
+	(*TimingType)(nil),               // 15: beerproto.v1.TimingType
+	(*MassType)(nil),                 // 16: beerproto.v1.MassType
+	(*VolumeType)(nil),               // 17: beerproto.v1.VolumeType
+	(*GravityType)(nil),              // 18: beerproto.v1.GravityType
+	(*timestamppb.Timestamp)(nil),    // 19: google.protobuf.Timestamp
 }
 var file_beerproto_v1_fermentable_proto_depIdxs = []int32{
-	0,  // 0: beerproto.v1.FermentableBase.type:type_name -> beerproto.v1.FermentableBaseType
-	1,  // 1: beerproto.v1.FermentableBase.grain_group:type_name -> beerproto.v1.GrainGroup
-	5,  // 2: beerproto.v1.FermentableBase.yield:type_name -> beerproto.v1.YieldType
-	7,  // 3: beerproto.v1.FermentableBase.color:type_name -> beerproto.v1.ColorType
-	8,  // 4: beerproto.v1.FermentableBase.diastatic_power:type_name -> beerproto.v1.DiastaticPowerType
-	2,  // 5: beerproto.v1.FermentableType.base:type_name -> beerproto.v1.FermentableBase
-	9,  // 6: beerproto.v1.FermentableType.max_in_batch:type_name -> beerproto.v1.PercentType
-	9,  // 7: beerproto.v1.FermentableType.protein:type_name -> beerproto.v1.PercentType
-	10, // 8: beerproto.v1.FermentableType.alpha_amylase:type_name -> beerproto.v1.EnzymeActivityType
-	8,  // 9: beerproto.v1.FermentableType.diastatic_power:type_name -> beerproto.v1.DiastaticPowerType
-	9,  // 10: beerproto.v1.FermentableType.moisture:type_name -> beerproto.v1.PercentType
-	6,  // 11: beerproto.v1.FermentableType.inventory:type_name -> beerproto.v1.FermentableInventoryType
-	9,  // 12: beerproto.v1.FermentableType.kolbach_index:type_name -> beerproto.v1.PercentType
-	9,  // 13: beerproto.v1.FermentableType.glassy:type_name -> beerproto.v1.PercentType
-	9,  // 14: beerproto.v1.FermentableType.plump:type_name -> beerproto.v1.PercentType
-	9,  // 15: beerproto.v1.FermentableType.half:type_name -> beerproto.v1.PercentType
-	9,  // 16: beerproto.v1.FermentableType.mealy:type_name -> beerproto.v1.PercentType
-	9,  // 17: beerproto.v1.FermentableType.thru:type_name -> beerproto.v1.PercentType
-	9,  // 18: beerproto.v1.FermentableType.friability:type_name -> beerproto.v1.PercentType
-	11, // 19: beerproto.v1.FermentableType.di_ph:type_name -> beerproto.v1.AcidityType
-	12, // 20: beerproto.v1.FermentableType.viscosity:type_name -> beerproto.v1.ViscosityType
-	13, // 21: beerproto.v1.FermentableType.dms_p:type_name -> beerproto.v1.ConcentrationType
-	13, // 22: beerproto.v1.FermentableType.fan:type_name -> beerproto.v1.ConcentrationType
-	9,  // 23: beerproto.v1.FermentableType.fermentability:type_name -> beerproto.v1.PercentType
-	13, // 24: beerproto.v1.FermentableType.beta_glucan:type_name -> beerproto.v1.ConcentrationType
-	2,  // 25: beerproto.v1.FermentableAdditionType.base:type_name -> beerproto.v1.FermentableBase
-	14, // 26: beerproto.v1.FermentableAdditionType.timing:type_name -> beerproto.v1.TimingType
-	15, // 27: beerproto.v1.FermentableAdditionType.mass:type_name -> beerproto.v1.MassType
-	16, // 28: beerproto.v1.FermentableAdditionType.volume:type_name -> beerproto.v1.VolumeType
-	9,  // 29: beerproto.v1.YieldType.fine_grind:type_name -> beerproto.v1.PercentType
-	9,  // 30: beerproto.v1.YieldType.coarse_grind:type_name -> beerproto.v1.PercentType
-	9,  // 31: beerproto.v1.YieldType.fine_coarse_difference:type_name -> beerproto.v1.PercentType
-	17, // 32: beerproto.v1.YieldType.potential:type_name -> beerproto.v1.GravityType
-	15, // 33: beerproto.v1.FermentableInventoryType.mass:type_name -> beerproto.v1.MassType
-	16, // 34: beerproto.v1.FermentableInventoryType.volume:type_name -> beerproto.v1.VolumeType
-	35, // [35:35] is the sub-list for method output_type
-	35, // [35:35] is the sub-list for method input_type
-	35, // [35:35] is the sub-list for extension type_name
-	35, // [35:35] is the sub-list for extension extendee
-	0,  // [0:35] is the sub-list for field type_name
+	1,  // 0: beerproto.v1.FermentableBase.type:type_name -> beerproto.v1.FermentableBaseType
+	2,  // 1: beerproto.v1.FermentableBase.grain_group:type_name -> beerproto.v1.GrainGroup
+	6,  // 2: beerproto.v1.FermentableBase.yield:type_name -> beerproto.v1.YieldType
+	8,  // 3: beerproto.v1.FermentableBase.color:type_name -> beerproto.v1.ColorType
+	9,  // 4: beerproto.v1.FermentableBase.diastatic_power:type_name -> beerproto.v1.DiastaticPowerType
+	3,  // 5: beerproto.v1.FermentableType.base:type_name -> beerproto.v1.FermentableBase
+	10, // 6: beerproto.v1.FermentableType.max_in_batch:type_name -> beerproto.v1.PercentType
+	10, // 7: beerproto.v1.FermentableType.protein:type_name -> beerproto.v1.PercentType
+	11, // 8: beerproto.v1.FermentableType.alpha_amylase:type_name -> beerproto.v1.EnzymeActivityType
+	9,  // 9: beerproto.v1.FermentableType.diastatic_power:type_name -> beerproto.v1.DiastaticPowerType
+	10, // 10: beerproto.v1.FermentableType.moisture:type_name -> beerproto.v1.PercentType
+	7,  // 11: beerproto.v1.FermentableType.inventory:type_name -> beerproto.v1.FermentableInventoryType
+	10, // 12: beerproto.v1.FermentableType.kolbach_index:type_name -> beerproto.v1.PercentType
+	10, // 13: beerproto.v1.FermentableType.glassy:type_name -> beerproto.v1.PercentType
+	10, // 14: beerproto.v1.FermentableType.plump:type_name -> beerproto.v1.PercentType
+	10, // 15: beerproto.v1.FermentableType.half:type_name -> beerproto.v1.PercentType
+	10, // 16: beerproto.v1.FermentableType.mealy:type_name -> beerproto.v1.PercentType
+	10, // 17: beerproto.v1.FermentableType.thru:type_name -> beerproto.v1.PercentType
+	10, // 18: beerproto.v1.FermentableType.friability:type_name -> beerproto.v1.PercentType
+	12, // 19: beerproto.v1.FermentableType.di_ph:type_name -> beerproto.v1.AcidityType
+	13, // 20: beerproto.v1.FermentableType.viscosity:type_name -> beerproto.v1.ViscosityType
+	14, // 21: beerproto.v1.FermentableType.dms_p:type_name -> beerproto.v1.ConcentrationType
+	14, // 22: beerproto.v1.FermentableType.fan:type_name -> beerproto.v1.ConcentrationType
+	10, // 23: beerproto.v1.FermentableType.fermentability:type_name -> beerproto.v1.PercentType
+	14, // 24: beerproto.v1.FermentableType.beta_glucan:type_name -> beerproto.v1.ConcentrationType
+	3,  // 25: beerproto.v1.FermentableAdditionType.base:type_name -> beerproto.v1.FermentableBase
+	15, // 26: beerproto.v1.FermentableAdditionType.timing:type_name -> beerproto.v1.TimingType
+	16, // 27: beerproto.v1.FermentableAdditionType.mass:type_name -> beerproto.v1.MassType
+	17, // 28: beerproto.v1.FermentableAdditionType.volume:type_name -> beerproto.v1.VolumeType
+	10, // 29: beerproto.v1.YieldType.fine_grind:type_name -> beerproto.v1.PercentType
+	10, // 30: beerproto.v1.YieldType.coarse_grind:type_name -> beerproto.v1.PercentType
+	10, // 31: beerproto.v1.YieldType.fine_coarse_difference:type_name -> beerproto.v1.PercentType
+	18, // 32: beerproto.v1.YieldType.potential:type_name -> beerproto.v1.GravityType
+	16, // 33: beerproto.v1.FermentableInventoryType.mass:type_name -> beerproto.v1.MassType
+	17, // 34: beerproto.v1.FermentableInventoryType.volume:type_name -> beerproto.v1.VolumeType
+	19, // 35: beerproto.v1.FermentableInventoryType.best_before:type_name -> google.protobuf.Timestamp
+	18, // 36: beerproto.v1.FermentableInventoryType.lot_potential:type_name -> beerproto.v1.GravityType
+	0,  // 37: beerproto.v1.FermentableInventoryType.crush:type_name -> beerproto.v1.GrainCrush
+	10, // 38: beerproto.v1.FermentableInventoryType.moisture:type_name -> beerproto.v1.PercentType
+	39, // [39:39] is the sub-list for method output_type
+	39, // [39:39] is the sub-list for method input_type
+	39, // [39:39] is the sub-list for extension type_name
+	39, // [39:39] is the sub-list for extension extendee
+	0,  // [0:39] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_fermentable_proto_init() }
@@ -968,7 +1080,7 @@ func file_beerproto_v1_fermentable_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_beerproto_v1_fermentable_proto_rawDesc), len(file_beerproto_v1_fermentable_proto_rawDesc)),
-			NumEnums:      2,
+			NumEnums:      3,
 			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,

@@ -17,6 +17,7 @@ import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -378,7 +379,9 @@ type MiscellaneousInventoryType struct {
 	//	*MiscellaneousInventoryType_Mass
 	//	*MiscellaneousInventoryType_Unit
 	//	*MiscellaneousInventoryType_Volume
-	Amount        isMiscellaneousInventoryType_Amount `protobuf_oneof:"amount"`
+	Amount isMiscellaneousInventoryType_Amount `protobuf_oneof:"amount"`
+	// Best-before / use-by date of this stock. Unset when unknown.
+	BestBefore    *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=best_before,json=bestBefore,proto3" json:"best_before,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -447,6 +450,13 @@ func (x *MiscellaneousInventoryType) GetVolume() *VolumeType {
 	return nil
 }
 
+func (x *MiscellaneousInventoryType) GetBestBefore() *timestamppb.Timestamp {
+	if x != nil {
+		return x.BestBefore
+	}
+	return nil
+}
+
 type isMiscellaneousInventoryType_Amount interface {
 	isMiscellaneousInventoryType_Amount()
 }
@@ -473,7 +483,7 @@ var File_beerproto_v1_misc_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_misc_proto_rawDesc = "" +
 	"\n" +
-	"\x17beerproto/v1/misc.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x19beerproto/v1/timing.proto\x1a\x1bbuf/validate/validate.proto\"\xb4\x01\n" +
+	"\x17beerproto/v1/misc.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x19beerproto/v1/timing.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbuf/validate/validate.proto\"\xb4\x01\n" +
 	"\x11MiscellaneousBase\x12\x1e\n" +
 	"\x04name\x18\x01 \x01(\tB\n" +
 	"\xbaH\a\xc8\x01\x01r\x02\x10\x03R\x04name\x12\x1a\n" +
@@ -494,11 +504,13 @@ const file_beerproto_v1_misc_proto_rawDesc = "" +
 	"\x04mass\x18\x04 \x01(\v2\x16.beerproto.v1.MassTypeH\x00R\x04mass\x12,\n" +
 	"\x04unit\x18\x05 \x01(\v2\x16.beerproto.v1.UnitTypeH\x00R\x04unit\x122\n" +
 	"\x06volume\x18\x06 \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volumeB\x0f\n" +
-	"\x06amount\x12\x05\xbaH\x02\b\x01\"\xbd\x01\n" +
+	"\x06amount\x12\x05\xbaH\x02\b\x01\"\xfa\x01\n" +
 	"\x1aMiscellaneousInventoryType\x12,\n" +
 	"\x04mass\x18\x01 \x01(\v2\x16.beerproto.v1.MassTypeH\x00R\x04mass\x12,\n" +
 	"\x04unit\x18\x02 \x01(\v2\x16.beerproto.v1.UnitTypeH\x00R\x04unit\x122\n" +
-	"\x06volume\x18\x03 \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volumeB\x0f\n" +
+	"\x06volume\x18\x03 \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volume\x12;\n" +
+	"\vbest_before\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"bestBeforeB\x0f\n" +
 	"\x06amount\x12\x05\xbaH\x02\b\x01*\xbb\x02\n" +
 	"\x15MiscellaneousBaseType\x12'\n" +
 	"#MISCELLANEOUS_BASE_TYPE_UNSPECIFIED\x10\x00\x12!\n" +
@@ -535,6 +547,7 @@ var file_beerproto_v1_misc_proto_goTypes = []any{
 	(*MassType)(nil),                   // 6: beerproto.v1.MassType
 	(*UnitType)(nil),                   // 7: beerproto.v1.UnitType
 	(*VolumeType)(nil),                 // 8: beerproto.v1.VolumeType
+	(*timestamppb.Timestamp)(nil),      // 9: google.protobuf.Timestamp
 }
 var file_beerproto_v1_misc_proto_depIdxs = []int32{
 	0,  // 0: beerproto.v1.MiscellaneousBase.type:type_name -> beerproto.v1.MiscellaneousBaseType
@@ -548,11 +561,12 @@ var file_beerproto_v1_misc_proto_depIdxs = []int32{
 	6,  // 8: beerproto.v1.MiscellaneousInventoryType.mass:type_name -> beerproto.v1.MassType
 	7,  // 9: beerproto.v1.MiscellaneousInventoryType.unit:type_name -> beerproto.v1.UnitType
 	8,  // 10: beerproto.v1.MiscellaneousInventoryType.volume:type_name -> beerproto.v1.VolumeType
-	11, // [11:11] is the sub-list for method output_type
-	11, // [11:11] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	9,  // 11: beerproto.v1.MiscellaneousInventoryType.best_before:type_name -> google.protobuf.Timestamp
+	12, // [12:12] is the sub-list for method output_type
+	12, // [12:12] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_misc_proto_init() }

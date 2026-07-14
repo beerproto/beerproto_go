@@ -17,6 +17,7 @@ import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -750,7 +751,9 @@ type HopInventoryType struct {
 	//
 	//	*HopInventoryType_Mass
 	//	*HopInventoryType_Volume
-	Amount        isHopInventoryType_Amount `protobuf_oneof:"amount"`
+	Amount isHopInventoryType_Amount `protobuf_oneof:"amount"`
+	// Best-before / use-by date of this stock. Unset when unknown.
+	BestBefore    *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=best_before,json=bestBefore,proto3" json:"best_before,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -810,6 +813,13 @@ func (x *HopInventoryType) GetVolume() *VolumeType {
 	return nil
 }
 
+func (x *HopInventoryType) GetBestBefore() *timestamppb.Timestamp {
+	if x != nil {
+		return x.BestBefore
+	}
+	return nil
+}
+
 type isHopInventoryType_Amount interface {
 	isHopInventoryType_Amount()
 }
@@ -830,7 +840,7 @@ var File_beerproto_v1_hop_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_hop_proto_rawDesc = "" +
 	"\n" +
-	"\x16beerproto/v1/hop.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x19beerproto/v1/timing.proto\x1a\x1bbuf/validate/validate.proto\"\x85\x03\n" +
+	"\x16beerproto/v1/hop.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x19beerproto/v1/timing.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbuf/validate/validate.proto\"\x85\x03\n" +
 	"\x0eHopVarietyBase\x12\x1e\n" +
 	"\x04name\x18\x01 \x01(\tB\n" +
 	"\xbaH\a\xc8\x01\x01r\x02\x10\x03R\x04name\x12\x1a\n" +
@@ -880,10 +890,12 @@ const file_beerproto_v1_hop_proto_rawDesc = "" +
 	"\vxanthohumol\x18\v \x01(\v2\x19.beerproto.v1.PercentTypeR\vxanthohumol\x125\n" +
 	"\bhumulene\x18\f \x01(\v2\x19.beerproto.v1.PercentTypeR\bhumulene\x123\n" +
 	"\amyrcene\x18\r \x01(\v2\x19.beerproto.v1.PercentTypeR\amyrcene\x121\n" +
-	"\x06pinene\x18\x0e \x01(\v2\x19.beerproto.v1.PercentTypeR\x06pinene\"\x85\x01\n" +
+	"\x06pinene\x18\x0e \x01(\v2\x19.beerproto.v1.PercentTypeR\x06pinene\"\xc2\x01\n" +
 	"\x10HopInventoryType\x12,\n" +
 	"\x04mass\x18\x01 \x01(\v2\x16.beerproto.v1.MassTypeH\x00R\x04mass\x122\n" +
-	"\x06volume\x18\x02 \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volumeB\x0f\n" +
+	"\x06volume\x18\x02 \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volume\x12;\n" +
+	"\vbest_before\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"bestBeforeB\x0f\n" +
 	"\x06amount\x12\x05\xbaH\x02\b\x01*\xf0\x02\n" +
 	"\x16VarietyInformationType\x12(\n" +
 	"$VARIETY_INFORMATION_TYPE_UNSPECIFIED\x10\x00\x12\"\n" +
@@ -925,19 +937,20 @@ func file_beerproto_v1_hop_proto_rawDescGZIP() []byte {
 var file_beerproto_v1_hop_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_beerproto_v1_hop_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_beerproto_v1_hop_proto_goTypes = []any{
-	(VarietyInformationType)(0), // 0: beerproto.v1.VarietyInformationType
-	(HopVarietyBaseForm)(0),     // 1: beerproto.v1.HopVarietyBaseForm
-	(IBUMethodUnit)(0),          // 2: beerproto.v1.IBUMethodUnit
-	(*HopVarietyBase)(nil),      // 3: beerproto.v1.HopVarietyBase
-	(*VarietyInformation)(nil),  // 4: beerproto.v1.VarietyInformation
-	(*HopAdditionType)(nil),     // 5: beerproto.v1.HopAdditionType
-	(*IBUEstimateType)(nil),     // 6: beerproto.v1.IBUEstimateType
-	(*OilContentType)(nil),      // 7: beerproto.v1.OilContentType
-	(*HopInventoryType)(nil),    // 8: beerproto.v1.HopInventoryType
-	(*PercentType)(nil),         // 9: beerproto.v1.PercentType
-	(*TimingType)(nil),          // 10: beerproto.v1.TimingType
-	(*MassType)(nil),            // 11: beerproto.v1.MassType
-	(*VolumeType)(nil),          // 12: beerproto.v1.VolumeType
+	(VarietyInformationType)(0),   // 0: beerproto.v1.VarietyInformationType
+	(HopVarietyBaseForm)(0),       // 1: beerproto.v1.HopVarietyBaseForm
+	(IBUMethodUnit)(0),            // 2: beerproto.v1.IBUMethodUnit
+	(*HopVarietyBase)(nil),        // 3: beerproto.v1.HopVarietyBase
+	(*VarietyInformation)(nil),    // 4: beerproto.v1.VarietyInformation
+	(*HopAdditionType)(nil),       // 5: beerproto.v1.HopAdditionType
+	(*IBUEstimateType)(nil),       // 6: beerproto.v1.IBUEstimateType
+	(*OilContentType)(nil),        // 7: beerproto.v1.OilContentType
+	(*HopInventoryType)(nil),      // 8: beerproto.v1.HopInventoryType
+	(*PercentType)(nil),           // 9: beerproto.v1.PercentType
+	(*TimingType)(nil),            // 10: beerproto.v1.TimingType
+	(*MassType)(nil),              // 11: beerproto.v1.MassType
+	(*VolumeType)(nil),            // 12: beerproto.v1.VolumeType
+	(*timestamppb.Timestamp)(nil), // 13: google.protobuf.Timestamp
 }
 var file_beerproto_v1_hop_proto_depIdxs = []int32{
 	1,  // 0: beerproto.v1.HopVarietyBase.form:type_name -> beerproto.v1.HopVarietyBaseForm
@@ -969,11 +982,12 @@ var file_beerproto_v1_hop_proto_depIdxs = []int32{
 	9,  // 26: beerproto.v1.OilContentType.pinene:type_name -> beerproto.v1.PercentType
 	11, // 27: beerproto.v1.HopInventoryType.mass:type_name -> beerproto.v1.MassType
 	12, // 28: beerproto.v1.HopInventoryType.volume:type_name -> beerproto.v1.VolumeType
-	29, // [29:29] is the sub-list for method output_type
-	29, // [29:29] is the sub-list for method input_type
-	29, // [29:29] is the sub-list for extension type_name
-	29, // [29:29] is the sub-list for extension extendee
-	0,  // [0:29] is the sub-list for field type_name
+	13, // 29: beerproto.v1.HopInventoryType.best_before:type_name -> google.protobuf.Timestamp
+	30, // [30:30] is the sub-list for method output_type
+	30, // [30:30] is the sub-list for method input_type
+	30, // [30:30] is the sub-list for extension type_name
+	30, // [30:30] is the sub-list for extension extendee
+	0,  // [0:30] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_hop_proto_init() }

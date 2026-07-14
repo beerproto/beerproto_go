@@ -17,6 +17,7 @@ import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -674,7 +675,13 @@ type CultureInventoryType struct {
 	// Repitch generation for harvested/reused yeast: 0 = fresh from the
 	// manufacturer/lab, 1 = first repitch, etc. Compared against the library
 	// culture's max_reuse to warn when a slurry is past its recommended reuses.
-	Generation    int32 `protobuf:"varint,6,opt,name=generation,proto3" json:"generation,omitempty"`
+	Generation int32 `protobuf:"varint,6,opt,name=generation,proto3" json:"generation,omitempty"`
+	// Best-before / use-by date of this stock. Unset when unknown.
+	BestBefore *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=best_before,json=bestBefore,proto3" json:"best_before,omitempty"`
+	// Liquid yeast on hand counted in packs/vials (as opposed to the `liquid`
+	// pool measured by volume). Recipes commonly dose liquid yeast by pack, so
+	// this lets a pack-count requirement be confirmed and deducted.
+	LiquidPacks   *UnitType `protobuf:"bytes,8,opt,name=liquid_packs,json=liquidPacks,proto3" json:"liquid_packs,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -749,6 +756,20 @@ func (x *CultureInventoryType) GetGeneration() int32 {
 		return x.Generation
 	}
 	return 0
+}
+
+func (x *CultureInventoryType) GetBestBefore() *timestamppb.Timestamp {
+	if x != nil {
+		return x.BestBefore
+	}
+	return nil
+}
+
+func (x *CultureInventoryType) GetLiquidPacks() *UnitType {
+	if x != nil {
+		return x.LiquidPacks
+	}
+	return nil
 }
 
 // Zymocide, also known as killer yeast properties, is common among wine yeast. There are also some ale and brett yeasts that are immune to some zymocidic properties, these are known as killer neutral
@@ -832,7 +853,7 @@ var File_beerproto_v1_culture_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_culture_proto_rawDesc = "" +
 	"\n" +
-	"\x1abeerproto/v1/culture.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x19beerproto/v1/timing.proto\x1a\x1bbuf/validate/validate.proto\"\x8c\x02\n" +
+	"\x1abeerproto/v1/culture.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a\x19beerproto/v1/timing.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbuf/validate/validate.proto\"\x8c\x02\n" +
 	"\vCultureBase\x12\x1e\n" +
 	"\x04name\x18\x01 \x01(\tB\n" +
 	"\xbaH\a\xc8\x01\x01r\x02\x10\x03R\x04name\x12>\n" +
@@ -870,7 +891,7 @@ const file_beerproto_v1_culture_proto_rawDesc = "" +
 	"\x04unit\x18\t \x01(\v2\x16.beerproto.v1.UnitTypeH\x00R\x04unit\x122\n" +
 	"\x06volume\x18\n" +
 	" \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volumeB\x0f\n" +
-	"\x06amount\x12\x05\xbaH\x02\b\x01\"\xa1\x02\n" +
+	"\x06amount\x12\x05\xbaH\x02\b\x01\"\x99\x03\n" +
 	"\x14CultureInventoryType\x120\n" +
 	"\x06liquid\x18\x01 \x01(\v2\x18.beerproto.v1.VolumeTypeR\x06liquid\x12(\n" +
 	"\x03dry\x18\x02 \x01(\v2\x16.beerproto.v1.MassTypeR\x03dry\x12.\n" +
@@ -879,7 +900,10 @@ const file_beerproto_v1_culture_proto_rawDesc = "" +
 	"\x10manufacture_date\x18\x05 \x01(\tR\x0fmanufactureDate\x12\x1e\n" +
 	"\n" +
 	"generation\x18\x06 \x01(\x05R\n" +
-	"generation\"p\n" +
+	"generation\x12;\n" +
+	"\vbest_before\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"bestBefore\x129\n" +
+	"\fliquid_packs\x18\b \x01(\v2\x16.beerproto.v1.UnitTypeR\vliquidPacks\"p\n" +
 	"\bZymocide\x12\x10\n" +
 	"\x03no1\x18\x01 \x01(\bR\x03no1\x12\x10\n" +
 	"\x03no2\x18\x02 \x01(\bR\x03no2\x12\x12\n" +
@@ -939,21 +963,22 @@ func file_beerproto_v1_culture_proto_rawDescGZIP() []byte {
 var file_beerproto_v1_culture_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_beerproto_v1_culture_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_beerproto_v1_culture_proto_goTypes = []any{
-	(QualitativeRangeUnit)(0),    // 0: beerproto.v1.QualitativeRangeUnit
-	(CultureBaseForm)(0),         // 1: beerproto.v1.CultureBaseForm
-	(CultureBaseType)(0),         // 2: beerproto.v1.CultureBaseType
-	(*CultureBase)(nil),          // 3: beerproto.v1.CultureBase
-	(*CultureInformation)(nil),   // 4: beerproto.v1.CultureInformation
-	(*CultureAdditionType)(nil),  // 5: beerproto.v1.CultureAdditionType
-	(*CultureInventoryType)(nil), // 6: beerproto.v1.CultureInventoryType
-	(*Zymocide)(nil),             // 7: beerproto.v1.Zymocide
-	(*TemperatureRangeType)(nil), // 8: beerproto.v1.TemperatureRangeType
-	(*PercentType)(nil),          // 9: beerproto.v1.PercentType
-	(*PercentRangeType)(nil),     // 10: beerproto.v1.PercentRangeType
-	(*TimingType)(nil),           // 11: beerproto.v1.TimingType
-	(*MassType)(nil),             // 12: beerproto.v1.MassType
-	(*UnitType)(nil),             // 13: beerproto.v1.UnitType
-	(*VolumeType)(nil),           // 14: beerproto.v1.VolumeType
+	(QualitativeRangeUnit)(0),     // 0: beerproto.v1.QualitativeRangeUnit
+	(CultureBaseForm)(0),          // 1: beerproto.v1.CultureBaseForm
+	(CultureBaseType)(0),          // 2: beerproto.v1.CultureBaseType
+	(*CultureBase)(nil),           // 3: beerproto.v1.CultureBase
+	(*CultureInformation)(nil),    // 4: beerproto.v1.CultureInformation
+	(*CultureAdditionType)(nil),   // 5: beerproto.v1.CultureAdditionType
+	(*CultureInventoryType)(nil),  // 6: beerproto.v1.CultureInventoryType
+	(*Zymocide)(nil),              // 7: beerproto.v1.Zymocide
+	(*TemperatureRangeType)(nil),  // 8: beerproto.v1.TemperatureRangeType
+	(*PercentType)(nil),           // 9: beerproto.v1.PercentType
+	(*PercentRangeType)(nil),      // 10: beerproto.v1.PercentRangeType
+	(*TimingType)(nil),            // 11: beerproto.v1.TimingType
+	(*MassType)(nil),              // 12: beerproto.v1.MassType
+	(*UnitType)(nil),              // 13: beerproto.v1.UnitType
+	(*VolumeType)(nil),            // 14: beerproto.v1.VolumeType
+	(*timestamppb.Timestamp)(nil), // 15: google.protobuf.Timestamp
 }
 var file_beerproto_v1_culture_proto_depIdxs = []int32{
 	2,  // 0: beerproto.v1.CultureBase.type:type_name -> beerproto.v1.CultureBaseType
@@ -977,11 +1002,13 @@ var file_beerproto_v1_culture_proto_depIdxs = []int32{
 	12, // 18: beerproto.v1.CultureInventoryType.dry:type_name -> beerproto.v1.MassType
 	14, // 19: beerproto.v1.CultureInventoryType.slant:type_name -> beerproto.v1.VolumeType
 	14, // 20: beerproto.v1.CultureInventoryType.culture:type_name -> beerproto.v1.VolumeType
-	21, // [21:21] is the sub-list for method output_type
-	21, // [21:21] is the sub-list for method input_type
-	21, // [21:21] is the sub-list for extension type_name
-	21, // [21:21] is the sub-list for extension extendee
-	0,  // [0:21] is the sub-list for field type_name
+	15, // 21: beerproto.v1.CultureInventoryType.best_before:type_name -> google.protobuf.Timestamp
+	13, // 22: beerproto.v1.CultureInventoryType.liquid_packs:type_name -> beerproto.v1.UnitType
+	23, // [23:23] is the sub-list for method output_type
+	23, // [23:23] is the sub-list for method input_type
+	23, // [23:23] is the sub-list for extension type_name
+	23, // [23:23] is the sub-list for extension extendee
+	0,  // [0:23] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_culture_proto_init() }
