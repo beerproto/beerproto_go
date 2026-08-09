@@ -178,6 +178,8 @@ const (
 	GrainGroup_GRAIN_GROUP_SMOKED GrainGroup = 6
 	// adjunct
 	GrainGroup_GRAIN_GROUP_ADJUNCT GrainGroup = 7
+	// acidulated — malt soured with lactic acid, used to lower mash pH. Its own group because it sits nearly two pH units below every other speciality malt, so anything predicting mash pH from the group alone models it wildly sweet.
+	GrainGroup_GRAIN_GROUP_ACIDULATED GrainGroup = 8
 )
 
 // Enum value maps for GrainGroup.
@@ -191,6 +193,7 @@ var (
 		5: "GRAIN_GROUP_SPECIALTY",
 		6: "GRAIN_GROUP_SMOKED",
 		7: "GRAIN_GROUP_ADJUNCT",
+		8: "GRAIN_GROUP_ACIDULATED",
 	}
 	GrainGroup_value = map[string]int32{
 		"GRAIN_GROUP_UNSPECIFIED": 0,
@@ -201,6 +204,7 @@ var (
 		"GRAIN_GROUP_SPECIALTY":   5,
 		"GRAIN_GROUP_SMOKED":      6,
 		"GRAIN_GROUP_ADJUNCT":     7,
+		"GRAIN_GROUP_ACIDULATED":  8,
 	}
 )
 
@@ -996,7 +1000,7 @@ const file_beerproto_v1_fermentable_proto_rawDesc = "" +
 	"\x1bFERMENTABLE_BASE_TYPE_FRUIT\x10\x05\x12\x1f\n" +
 	"\x1bFERMENTABLE_BASE_TYPE_JUICE\x10\x06\x12\x1f\n" +
 	"\x1bFERMENTABLE_BASE_TYPE_HONEY\x10\a\x12\x1f\n" +
-	"\x1bFERMENTABLE_BASE_TYPE_OTHER\x10\b*\xd5\x01\n" +
+	"\x1bFERMENTABLE_BASE_TYPE_OTHER\x10\b*\xf1\x01\n" +
 	"\n" +
 	"GrainGroup\x12\x1b\n" +
 	"\x17GRAIN_GROUP_UNSPECIFIED\x10\x00\x12\x14\n" +
@@ -1006,7 +1010,8 @@ const file_beerproto_v1_fermentable_proto_rawDesc = "" +
 	"\x13GRAIN_GROUP_ROASTED\x10\x04\x12\x19\n" +
 	"\x15GRAIN_GROUP_SPECIALTY\x10\x05\x12\x16\n" +
 	"\x12GRAIN_GROUP_SMOKED\x10\x06\x12\x17\n" +
-	"\x13GRAIN_GROUP_ADJUNCT\x10\aB\xb1\x01\n" +
+	"\x13GRAIN_GROUP_ADJUNCT\x10\a\x12\x1a\n" +
+	"\x16GRAIN_GROUP_ACIDULATED\x10\bB\xb1\x01\n" +
 	"\x10com.beerproto.v1B\x10FermentableProtoP\x01Z:github.com/beerproto/beerproto_go/beerproto/v1;beerprotov1\xa2\x02\x03BXX\xaa\x02\fBeerproto.V1\xca\x02\fBeerproto\\V1\xe2\x02\x18Beerproto\\V1\\GPBMetadata\xea\x02\rBeerproto::V1b\x06proto3"
 
 var (
