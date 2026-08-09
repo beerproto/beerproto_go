@@ -441,7 +441,9 @@ type IngredientsType struct {
 	CultureAdditions []*CultureAdditionType `protobuf:"bytes,2,rep,name=culture_additions,json=cultureAdditions,proto3" json:"culture_additions,omitempty"`
 	// water_additions collects all the water items for use in a recipe
 	WaterAdditions []*WaterAdditionType `protobuf:"bytes,3,rep,name=water_additions,json=waterAdditions,proto3" json:"water_additions,omitempty"`
-	// fermentable_additions collects all the fermentable ingredients for use in a recipe
+	// fermentable_additions collects all the fermentable ingredients for use in a recipe.
+	// Not required: RecipeUnit covers beverages with nothing to ferment from a
+	// grist — a seltzer is carbonated water and minerals, and nothing else.
 	FermentableAdditions []*FermentableAdditionType `protobuf:"bytes,4,rep,name=fermentable_additions,json=fermentableAdditions,proto3" json:"fermentable_additions,omitempty"`
 	// hop_additions collects all the hops for use in a recipe
 	HopAdditions  []*HopAdditionType `protobuf:"bytes,5,rep,name=hop_additions,json=hopAdditions,proto3" json:"hop_additions,omitempty"`
@@ -610,12 +612,12 @@ const file_beerproto_v1_recipe_proto_rawDesc = "" +
 	"conversion\x121\n" +
 	"\x06lauter\x18\x02 \x01(\v2\x19.beerproto.v1.PercentTypeR\x06lauter\x12-\n" +
 	"\x04mash\x18\x03 \x01(\v2\x19.beerproto.v1.PercentTypeR\x04mash\x12?\n" +
-	"\tbrewhouse\x18\x04 \x01(\v2\x19.beerproto.v1.PercentTypeB\x06\xbaH\x03\xc8\x01\x01R\tbrewhouse\"\xb7\x03\n" +
+	"\tbrewhouse\x18\x04 \x01(\v2\x19.beerproto.v1.PercentTypeB\x06\xbaH\x03\xc8\x01\x01R\tbrewhouse\"\xad\x03\n" +
 	"\x0fIngredientsType\x12`\n" +
 	"\x17miscellaneous_additions\x18\x01 \x03(\v2'.beerproto.v1.MiscellaneousAdditionTypeR\x16miscellaneousAdditions\x12N\n" +
 	"\x11culture_additions\x18\x02 \x03(\v2!.beerproto.v1.CultureAdditionTypeR\x10cultureAdditions\x12H\n" +
-	"\x0fwater_additions\x18\x03 \x03(\v2\x1f.beerproto.v1.WaterAdditionTypeR\x0ewaterAdditions\x12d\n" +
-	"\x15fermentable_additions\x18\x04 \x03(\v2%.beerproto.v1.FermentableAdditionTypeB\b\xbaH\x05\x92\x01\x02\b\x01R\x14fermentableAdditions\x12B\n" +
+	"\x0fwater_additions\x18\x03 \x03(\v2\x1f.beerproto.v1.WaterAdditionTypeR\x0ewaterAdditions\x12Z\n" +
+	"\x15fermentable_additions\x18\x04 \x03(\v2%.beerproto.v1.FermentableAdditionTypeR\x14fermentableAdditions\x12B\n" +
 	"\rhop_additions\x18\x05 \x03(\v2\x1d.beerproto.v1.HopAdditionTypeR\fhopAdditions\"I\n" +
 	"\tTasteType\x12\x1c\n" +
 	"\x05notes\x18\x01 \x01(\tB\x06\xbaH\x03\xc8\x01\x01R\x05notes\x12\x1e\n" +
