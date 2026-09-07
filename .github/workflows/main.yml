@@ -7,6 +7,9 @@ on:
     branches: [master]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   Proto:
     runs-on: ubuntu-latest
@@ -35,11 +38,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: "master"
       - name: Create Release
-        uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v1.${{ github.run_number }}.0
-          body: CI Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Tag the commit the Push step just created, not the one we checked out.
+          git fetch origin master
+          gh release create "v1.${{ github.run_number }}.0" \
+            --target "$(git rev-parse origin/master)" \
+            --title "v1.${{ github.run_number }}.0" \
+            --notes "CI Release ${{ github.ref }}"
