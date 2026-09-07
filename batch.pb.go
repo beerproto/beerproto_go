@@ -1161,8 +1161,15 @@ type Measurements struct {
 	// boil_time. Drives the real boil-off rate.
 	BoilTime               *TimeType        `protobuf:"bytes,25,opt,name=boil_time,json=boilTime,proto3" json:"boil_time,omitempty"`
 	CarbonationTemperature *TemperatureType `protobuf:"bytes,26,opt,name=carbonation_temperature,json=carbonationTemperature,proto3" json:"carbonation_temperature,omitempty"`
-	unknownFields          protoimpl.UnknownFields
-	sizeCache              protoimpl.SizeCache
+	// Titratable acidity, off a titration rather than a meter.
+	//
+	// The counterpart to beer_ph for anything fermenting juice. pH decides
+	// whether sulfite can protect a cider; TA decides whether it is drinkable,
+	// and the two are not derivable from one another. Expect it empty on beer,
+	// where nothing is titrated.
+	TitratableAcidity *TitratableAcidityType `protobuf:"bytes,27,opt,name=titratable_acidity,json=titratableAcidity,proto3" json:"titratable_acidity,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *Measurements) Reset() {
@@ -1377,6 +1384,13 @@ func (x *Measurements) GetCarbonationTemperature() *TemperatureType {
 	return nil
 }
 
+func (x *Measurements) GetTitratableAcidity() *TitratableAcidityType {
+	if x != nil {
+		return x.TitratableAcidity
+	}
+	return nil
+}
+
 // The few predicted figures a recipe has nowhere to put.
 //
 // Most of what a batch predicts is already on RecipeType, which stores
@@ -1556,7 +1570,7 @@ const file_beerproto_v1_batch_proto_rawDesc = "" +
 	"\x05aroma\x18\x06 \x01(\x01R\x05aroma\"\xa1\x01\n" +
 	"\x13FermentationProfile\x12I\n" +
 	"\x12fermentation_start\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\x11fermentationStart\x12?\n" +
-	"\rbottling_date\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\fbottlingDate\"\xd9\r\n" +
+	"\rbottling_date\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\fbottlingDate\"\xad\x0e\n" +
 	"\fMeasurements\x129\n" +
 	"\vboil_volume\x18\x01 \x01(\v2\x18.beerproto.v1.VolumeTypeR\n" +
 	"boilVolume\x12@\n" +
@@ -1587,7 +1601,8 @@ const file_beerproto_v1_batch_proto_rawDesc = "" +
 	"\amash_ph\x18\x17 \x01(\v2\x19.beerproto.v1.AcidityTypeR\x06mashPh\x122\n" +
 	"\abeer_ph\x18\x18 \x01(\v2\x19.beerproto.v1.AcidityTypeR\x06beerPh\x123\n" +
 	"\tboil_time\x18\x19 \x01(\v2\x16.beerproto.v1.TimeTypeR\bboilTime\x12V\n" +
-	"\x17carbonation_temperature\x18\x1a \x01(\v2\x1d.beerproto.v1.TemperatureTypeR\x16carbonationTemperature\"\xc3\x02\n" +
+	"\x17carbonation_temperature\x18\x1a \x01(\v2\x1d.beerproto.v1.TemperatureTypeR\x16carbonationTemperature\x12R\n" +
+	"\x12titratable_acidity\x18\x1b \x01(\v2#.beerproto.v1.TitratableAcidityTypeR\x11titratableAcidity\"\xc3\x02\n" +
 	"\tEstimates\x12@\n" +
 	"\x0fpre_boil_volume\x18\x01 \x01(\v2\x18.beerproto.v1.VolumeTypeR\rpreBoilVolume\x12C\n" +
 	"\x10pre_boil_gravity\x18\x02 \x01(\v2\x19.beerproto.v1.GravityTypeR\x0epreBoilGravity\x12<\n" +
@@ -1665,7 +1680,8 @@ var file_beerproto_v1_batch_proto_goTypes = []any{
 	(*ColorType)(nil),                // 26: beerproto.v1.ColorType
 	(*BitternessType)(nil),           // 27: beerproto.v1.BitternessType
 	(*TimeType)(nil),                 // 28: beerproto.v1.TimeType
-	(MashPhModel)(0),                 // 29: beerproto.v1.MashPhModel
+	(*TitratableAcidityType)(nil),    // 29: beerproto.v1.TitratableAcidityType
+	(MashPhModel)(0),                 // 30: beerproto.v1.MashPhModel
 }
 var file_beerproto_v1_batch_proto_depIdxs = []int32{
 	15, // 0: beerproto.v1.Batch.date:type_name -> google.protobuf.Timestamp
@@ -1732,16 +1748,17 @@ var file_beerproto_v1_batch_proto_depIdxs = []int32{
 	18, // 61: beerproto.v1.Measurements.beer_ph:type_name -> beerproto.v1.AcidityType
 	28, // 62: beerproto.v1.Measurements.boil_time:type_name -> beerproto.v1.TimeType
 	25, // 63: beerproto.v1.Measurements.carbonation_temperature:type_name -> beerproto.v1.TemperatureType
-	19, // 64: beerproto.v1.Estimates.pre_boil_volume:type_name -> beerproto.v1.VolumeType
-	21, // 65: beerproto.v1.Estimates.pre_boil_gravity:type_name -> beerproto.v1.GravityType
-	27, // 66: beerproto.v1.Estimates.bitterness:type_name -> beerproto.v1.BitternessType
-	18, // 67: beerproto.v1.Estimates.mash_ph:type_name -> beerproto.v1.AcidityType
-	29, // 68: beerproto.v1.Estimates.mash_ph_model:type_name -> beerproto.v1.MashPhModel
-	69, // [69:69] is the sub-list for method output_type
-	69, // [69:69] is the sub-list for method input_type
-	69, // [69:69] is the sub-list for extension type_name
-	69, // [69:69] is the sub-list for extension extendee
-	0,  // [0:69] is the sub-list for field type_name
+	29, // 64: beerproto.v1.Measurements.titratable_acidity:type_name -> beerproto.v1.TitratableAcidityType
+	19, // 65: beerproto.v1.Estimates.pre_boil_volume:type_name -> beerproto.v1.VolumeType
+	21, // 66: beerproto.v1.Estimates.pre_boil_gravity:type_name -> beerproto.v1.GravityType
+	27, // 67: beerproto.v1.Estimates.bitterness:type_name -> beerproto.v1.BitternessType
+	18, // 68: beerproto.v1.Estimates.mash_ph:type_name -> beerproto.v1.AcidityType
+	30, // 69: beerproto.v1.Estimates.mash_ph_model:type_name -> beerproto.v1.MashPhModel
+	70, // [70:70] is the sub-list for method output_type
+	70, // [70:70] is the sub-list for method input_type
+	70, // [70:70] is the sub-list for extension type_name
+	70, // [70:70] is the sub-list for extension extendee
+	0,  // [0:70] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_batch_proto_init() }
