@@ -29,6 +29,140 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// *
+// An acid used to cut mash alkalinity or pull mash pH down to target.
+//
+// The concentration is part of the identity because it is what determines the
+// dose: 88% lactic and 10% phosphoric differ by more than tenfold in strength
+// per millilitre, so "lactic acid" alone is not enough to weigh anything out.
+// Neutralising power is NOT stored here — it is derived from each acid's molar
+// mass, solution strength and density.
+type AcidType int32
+
+const (
+	AcidType_ACID_TYPE_UNSPECIFIED AcidType = 0
+	// 88% w/w lactic acid — the homebrew standard.
+	AcidType_ACID_TYPE_LACTIC_88 AcidType = 1
+	// 80% w/w lactic acid.
+	AcidType_ACID_TYPE_LACTIC_80 AcidType = 2
+	// 85% w/w phosphoric acid. Flavour-neutral at mash pH but very strong; easy
+	// to overshoot on a small mash.
+	AcidType_ACID_TYPE_PHOSPHORIC_85 AcidType = 3
+	// 10% w/w phosphoric acid — dilute enough to dose a homebrew mash accurately.
+	AcidType_ACID_TYPE_PHOSPHORIC_10 AcidType = 4
+	// Acidulated (sauer) malt. Dosed by mass into the grist rather than by volume
+	// into the liquor, so it is measured in grams, not millilitres.
+	AcidType_ACID_TYPE_ACIDULATED_MALT AcidType = 5
+)
+
+// Enum value maps for AcidType.
+var (
+	AcidType_name = map[int32]string{
+		0: "ACID_TYPE_UNSPECIFIED",
+		1: "ACID_TYPE_LACTIC_88",
+		2: "ACID_TYPE_LACTIC_80",
+		3: "ACID_TYPE_PHOSPHORIC_85",
+		4: "ACID_TYPE_PHOSPHORIC_10",
+		5: "ACID_TYPE_ACIDULATED_MALT",
+	}
+	AcidType_value = map[string]int32{
+		"ACID_TYPE_UNSPECIFIED":     0,
+		"ACID_TYPE_LACTIC_88":       1,
+		"ACID_TYPE_LACTIC_80":       2,
+		"ACID_TYPE_PHOSPHORIC_85":   3,
+		"ACID_TYPE_PHOSPHORIC_10":   4,
+		"ACID_TYPE_ACIDULATED_MALT": 5,
+	}
+)
+
+func (x AcidType) Enum() *AcidType {
+	p := new(AcidType)
+	*p = x
+	return p
+}
+
+func (x AcidType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (AcidType) Descriptor() protoreflect.EnumDescriptor {
+	return file_beerproto_v1_water_proto_enumTypes[0].Descriptor()
+}
+
+func (AcidType) Type() protoreflect.EnumType {
+	return &file_beerproto_v1_water_proto_enumTypes[0]
+}
+
+func (x AcidType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use AcidType.Descriptor instead.
+func (AcidType) EnumDescriptor() ([]byte, []int) {
+	return file_beerproto_v1_water_proto_rawDescGZIP(), []int{0}
+}
+
+// *
+// How an acid dose for the mash is sized. A formula choice rather than a unit:
+// the two models disagree about how much acid a given pH move costs, and
+// neither is wrong so much as differently cautious. Sits alongside
+// IBUMethodUnit as a named method, so a figure derived one way can say so.
+type MashPhModel int32
+
+const (
+	MashPhModel_MASH_PH_MODEL_UNSPECIFIED MashPhModel = 0
+	// Sizes the dose against the grist's own titration curve, so a big grain
+	// bill costs more acid than a small one for the same move. A dose sized this
+	// way agrees with a mash pH prediction derived the same way.
+	MashPhModel_MASH_PH_MODEL_BUFFERED MashPhModel = 1
+	// Sizes the dose against the liquor's alkalinity alone, treating the acid as
+	// fully effective. Ignores the grist, so it asks for less — closer to the
+	// conservative figures most calculators quote, and a reasonable starting
+	// point for a brewer who would rather under-dose and correct.
+	MashPhModel_MASH_PH_MODEL_ALKALINITY MashPhModel = 2
+)
+
+// Enum value maps for MashPhModel.
+var (
+	MashPhModel_name = map[int32]string{
+		0: "MASH_PH_MODEL_UNSPECIFIED",
+		1: "MASH_PH_MODEL_BUFFERED",
+		2: "MASH_PH_MODEL_ALKALINITY",
+	}
+	MashPhModel_value = map[string]int32{
+		"MASH_PH_MODEL_UNSPECIFIED": 0,
+		"MASH_PH_MODEL_BUFFERED":    1,
+		"MASH_PH_MODEL_ALKALINITY":  2,
+	}
+)
+
+func (x MashPhModel) Enum() *MashPhModel {
+	p := new(MashPhModel)
+	*p = x
+	return p
+}
+
+func (x MashPhModel) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (MashPhModel) Descriptor() protoreflect.EnumDescriptor {
+	return file_beerproto_v1_water_proto_enumTypes[1].Descriptor()
+}
+
+func (MashPhModel) Type() protoreflect.EnumType {
+	return &file_beerproto_v1_water_proto_enumTypes[1]
+}
+
+func (x MashPhModel) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use MashPhModel.Descriptor instead.
+func (MashPhModel) EnumDescriptor() ([]byte, []int) {
+	return file_beerproto_v1_water_proto_rawDescGZIP(), []int{1}
+}
+
 // WaterBase provides unique properties to identify individual records of  brewing water
 type WaterBase struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
@@ -356,7 +490,18 @@ const file_beerproto_v1_water_proto_rawDesc = "" +
 	"\x04base\x18\x01 \x01(\v2\x17.beerproto.v1.WaterBaseB\x06\xbaH\x03\xc8\x01\x01R\x04base\x12\x1b\n" +
 	"\x02id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x120\n" +
 	"\x06amount\x18\x03 \x01(\v2\x18.beerproto.v1.VolumeTypeR\x06amount\x128\n" +
-	"\x06timing\x18\x04 \x01(\v2\x18.beerproto.v1.TimingTypeB\x06\xbaH\x03\xc8\x01\x01R\x06timingB\xab\x01\n" +
+	"\x06timing\x18\x04 \x01(\v2\x18.beerproto.v1.TimingTypeB\x06\xbaH\x03\xc8\x01\x01R\x06timing*\xb0\x01\n" +
+	"\bAcidType\x12\x19\n" +
+	"\x15ACID_TYPE_UNSPECIFIED\x10\x00\x12\x17\n" +
+	"\x13ACID_TYPE_LACTIC_88\x10\x01\x12\x17\n" +
+	"\x13ACID_TYPE_LACTIC_80\x10\x02\x12\x1b\n" +
+	"\x17ACID_TYPE_PHOSPHORIC_85\x10\x03\x12\x1b\n" +
+	"\x17ACID_TYPE_PHOSPHORIC_10\x10\x04\x12\x1d\n" +
+	"\x19ACID_TYPE_ACIDULATED_MALT\x10\x05*f\n" +
+	"\vMashPhModel\x12\x1d\n" +
+	"\x19MASH_PH_MODEL_UNSPECIFIED\x10\x00\x12\x1a\n" +
+	"\x16MASH_PH_MODEL_BUFFERED\x10\x01\x12\x1c\n" +
+	"\x18MASH_PH_MODEL_ALKALINITY\x10\x02B\xab\x01\n" +
 	"\x10com.beerproto.v1B\n" +
 	"WaterProtoP\x01Z:github.com/beerproto/beerproto_go/beerproto/v1;beerprotov1\xa2\x02\x03BXX\xaa\x02\fBeerproto.V1\xca\x02\fBeerproto\\V1\xe2\x02\x18Beerproto\\V1\\GPBMetadata\xea\x02\rBeerproto::V1b\x06proto3"
 
@@ -372,34 +517,37 @@ func file_beerproto_v1_water_proto_rawDescGZIP() []byte {
 	return file_beerproto_v1_water_proto_rawDescData
 }
 
+var file_beerproto_v1_water_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_beerproto_v1_water_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_beerproto_v1_water_proto_goTypes = []any{
-	(*WaterBase)(nil),         // 0: beerproto.v1.WaterBase
-	(*WaterType)(nil),         // 1: beerproto.v1.WaterType
-	(*WaterAdditionType)(nil), // 2: beerproto.v1.WaterAdditionType
-	(*ConcentrationType)(nil), // 3: beerproto.v1.ConcentrationType
-	(*AcidityType)(nil),       // 4: beerproto.v1.AcidityType
-	(*VolumeType)(nil),        // 5: beerproto.v1.VolumeType
-	(*TimingType)(nil),        // 6: beerproto.v1.TimingType
+	(AcidType)(0),             // 0: beerproto.v1.AcidType
+	(MashPhModel)(0),          // 1: beerproto.v1.MashPhModel
+	(*WaterBase)(nil),         // 2: beerproto.v1.WaterBase
+	(*WaterType)(nil),         // 3: beerproto.v1.WaterType
+	(*WaterAdditionType)(nil), // 4: beerproto.v1.WaterAdditionType
+	(*ConcentrationType)(nil), // 5: beerproto.v1.ConcentrationType
+	(*AcidityType)(nil),       // 6: beerproto.v1.AcidityType
+	(*VolumeType)(nil),        // 7: beerproto.v1.VolumeType
+	(*TimingType)(nil),        // 8: beerproto.v1.TimingType
 }
 var file_beerproto_v1_water_proto_depIdxs = []int32{
-	3,  // 0: beerproto.v1.WaterBase.calcium:type_name -> beerproto.v1.ConcentrationType
-	3,  // 1: beerproto.v1.WaterBase.nitrite:type_name -> beerproto.v1.ConcentrationType
-	3,  // 2: beerproto.v1.WaterBase.chloride:type_name -> beerproto.v1.ConcentrationType
-	3,  // 3: beerproto.v1.WaterBase.potassium:type_name -> beerproto.v1.ConcentrationType
-	3,  // 4: beerproto.v1.WaterBase.carbonate:type_name -> beerproto.v1.ConcentrationType
-	3,  // 5: beerproto.v1.WaterBase.iron:type_name -> beerproto.v1.ConcentrationType
-	3,  // 6: beerproto.v1.WaterBase.flouride:type_name -> beerproto.v1.ConcentrationType
-	3,  // 7: beerproto.v1.WaterBase.sulfate:type_name -> beerproto.v1.ConcentrationType
-	3,  // 8: beerproto.v1.WaterBase.magnesium:type_name -> beerproto.v1.ConcentrationType
-	3,  // 9: beerproto.v1.WaterBase.bicarbonate:type_name -> beerproto.v1.ConcentrationType
-	3,  // 10: beerproto.v1.WaterBase.nitrate:type_name -> beerproto.v1.ConcentrationType
-	3,  // 11: beerproto.v1.WaterBase.sodium:type_name -> beerproto.v1.ConcentrationType
-	0,  // 12: beerproto.v1.WaterType.base:type_name -> beerproto.v1.WaterBase
-	4,  // 13: beerproto.v1.WaterType.ph:type_name -> beerproto.v1.AcidityType
-	0,  // 14: beerproto.v1.WaterAdditionType.base:type_name -> beerproto.v1.WaterBase
-	5,  // 15: beerproto.v1.WaterAdditionType.amount:type_name -> beerproto.v1.VolumeType
-	6,  // 16: beerproto.v1.WaterAdditionType.timing:type_name -> beerproto.v1.TimingType
+	5,  // 0: beerproto.v1.WaterBase.calcium:type_name -> beerproto.v1.ConcentrationType
+	5,  // 1: beerproto.v1.WaterBase.nitrite:type_name -> beerproto.v1.ConcentrationType
+	5,  // 2: beerproto.v1.WaterBase.chloride:type_name -> beerproto.v1.ConcentrationType
+	5,  // 3: beerproto.v1.WaterBase.potassium:type_name -> beerproto.v1.ConcentrationType
+	5,  // 4: beerproto.v1.WaterBase.carbonate:type_name -> beerproto.v1.ConcentrationType
+	5,  // 5: beerproto.v1.WaterBase.iron:type_name -> beerproto.v1.ConcentrationType
+	5,  // 6: beerproto.v1.WaterBase.flouride:type_name -> beerproto.v1.ConcentrationType
+	5,  // 7: beerproto.v1.WaterBase.sulfate:type_name -> beerproto.v1.ConcentrationType
+	5,  // 8: beerproto.v1.WaterBase.magnesium:type_name -> beerproto.v1.ConcentrationType
+	5,  // 9: beerproto.v1.WaterBase.bicarbonate:type_name -> beerproto.v1.ConcentrationType
+	5,  // 10: beerproto.v1.WaterBase.nitrate:type_name -> beerproto.v1.ConcentrationType
+	5,  // 11: beerproto.v1.WaterBase.sodium:type_name -> beerproto.v1.ConcentrationType
+	2,  // 12: beerproto.v1.WaterType.base:type_name -> beerproto.v1.WaterBase
+	6,  // 13: beerproto.v1.WaterType.ph:type_name -> beerproto.v1.AcidityType
+	2,  // 14: beerproto.v1.WaterAdditionType.base:type_name -> beerproto.v1.WaterBase
+	7,  // 15: beerproto.v1.WaterAdditionType.amount:type_name -> beerproto.v1.VolumeType
+	8,  // 16: beerproto.v1.WaterAdditionType.timing:type_name -> beerproto.v1.TimingType
 	17, // [17:17] is the sub-list for method output_type
 	17, // [17:17] is the sub-list for method input_type
 	17, // [17:17] is the sub-list for extension type_name
@@ -419,13 +567,14 @@ func file_beerproto_v1_water_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_beerproto_v1_water_proto_rawDesc), len(file_beerproto_v1_water_proto_rawDesc)),
-			NumEnums:      0,
+			NumEnums:      2,
 			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_beerproto_v1_water_proto_goTypes,
 		DependencyIndexes: file_beerproto_v1_water_proto_depIdxs,
+		EnumInfos:         file_beerproto_v1_water_proto_enumTypes,
 		MessageInfos:      file_beerproto_v1_water_proto_msgTypes,
 	}.Build()
 	File_beerproto_v1_water_proto = out.File
