@@ -29,6 +29,77 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// The shape of wine being made, for the sake of the acidity it is aimed at.
+//
+// Titratable acidity is the one target where wines genuinely disagree with
+// each other: reds sit around 5-7 g/L as tartaric and whites 6-9, which is far
+// enough apart that a single band spanning both can only say a juice is out of
+// range for every wine, never that it is wrong for this one.
+//
+// Deliberately *not* a subdivision of StyleCategories, where a red/white split
+// would sit at the wrong level (that enum names beverage classes), would leave
+// existing WINE styles ambiguous, and would still say nothing about a recipe
+// with no style attached — which is most of them. It is recorded per batch
+// instead, beside WaterAdjustmentStrategyType, because it is the same kind of
+// thing: a choice about what this batch is aiming at rather than a fact about
+// what it is.
+//
+// UNSPECIFIED is a usable state, not a missing one: a winemaker who has not
+// said gets judged against a band spanning every arm below, which is what the
+// app did before this field existed.
+type WineStyleType int32
+
+const (
+	WineStyleType_WINE_STYLE_TYPE_UNSPECIFIED WineStyleType = 0
+	WineStyleType_WINE_STYLE_TYPE_RED         WineStyleType = 1
+	WineStyleType_WINE_STYLE_TYPE_WHITE       WineStyleType = 2
+	// Short skin contact, and an acidity aimed nearer a white than a red.
+	WineStyleType_WINE_STYLE_TYPE_ROSE WineStyleType = 3
+)
+
+// Enum value maps for WineStyleType.
+var (
+	WineStyleType_name = map[int32]string{
+		0: "WINE_STYLE_TYPE_UNSPECIFIED",
+		1: "WINE_STYLE_TYPE_RED",
+		2: "WINE_STYLE_TYPE_WHITE",
+		3: "WINE_STYLE_TYPE_ROSE",
+	}
+	WineStyleType_value = map[string]int32{
+		"WINE_STYLE_TYPE_UNSPECIFIED": 0,
+		"WINE_STYLE_TYPE_RED":         1,
+		"WINE_STYLE_TYPE_WHITE":       2,
+		"WINE_STYLE_TYPE_ROSE":        3,
+	}
+)
+
+func (x WineStyleType) Enum() *WineStyleType {
+	p := new(WineStyleType)
+	*p = x
+	return p
+}
+
+func (x WineStyleType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (WineStyleType) Descriptor() protoreflect.EnumDescriptor {
+	return file_beerproto_v1_batch_proto_enumTypes[0].Descriptor()
+}
+
+func (WineStyleType) Type() protoreflect.EnumType {
+	return &file_beerproto_v1_batch_proto_enumTypes[0]
+}
+
+func (x WineStyleType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use WineStyleType.Descriptor instead.
+func (WineStyleType) EnumDescriptor() ([]byte, []int) {
+	return file_beerproto_v1_batch_proto_rawDescGZIP(), []int{0}
+}
+
 type BatchStatusType int32
 
 const (
@@ -74,11 +145,11 @@ func (x BatchStatusType) String() string {
 }
 
 func (BatchStatusType) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_batch_proto_enumTypes[0].Descriptor()
+	return file_beerproto_v1_batch_proto_enumTypes[1].Descriptor()
 }
 
 func (BatchStatusType) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_batch_proto_enumTypes[0]
+	return &file_beerproto_v1_batch_proto_enumTypes[1]
 }
 
 func (x BatchStatusType) Number() protoreflect.EnumNumber {
@@ -87,7 +158,7 @@ func (x BatchStatusType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use BatchStatusType.Descriptor instead.
 func (BatchStatusType) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_batch_proto_rawDescGZIP(), []int{0}
+	return file_beerproto_v1_batch_proto_rawDescGZIP(), []int{1}
 }
 
 type WaterAdjustmentStrategyType int32
@@ -126,11 +197,11 @@ func (x WaterAdjustmentStrategyType) String() string {
 }
 
 func (WaterAdjustmentStrategyType) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_batch_proto_enumTypes[1].Descriptor()
+	return file_beerproto_v1_batch_proto_enumTypes[2].Descriptor()
 }
 
 func (WaterAdjustmentStrategyType) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_batch_proto_enumTypes[1]
+	return &file_beerproto_v1_batch_proto_enumTypes[2]
 }
 
 func (x WaterAdjustmentStrategyType) Number() protoreflect.EnumNumber {
@@ -139,7 +210,7 @@ func (x WaterAdjustmentStrategyType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use WaterAdjustmentStrategyType.Descriptor instead.
 func (WaterAdjustmentStrategyType) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_batch_proto_rawDescGZIP(), []int{1}
+	return file_beerproto_v1_batch_proto_rawDescGZIP(), []int{2}
 }
 
 type MashAcidBasis int32
@@ -177,11 +248,11 @@ func (x MashAcidBasis) String() string {
 }
 
 func (MashAcidBasis) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_batch_proto_enumTypes[2].Descriptor()
+	return file_beerproto_v1_batch_proto_enumTypes[3].Descriptor()
 }
 
 func (MashAcidBasis) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_batch_proto_enumTypes[2]
+	return &file_beerproto_v1_batch_proto_enumTypes[3]
 }
 
 func (x MashAcidBasis) Number() protoreflect.EnumNumber {
@@ -190,7 +261,7 @@ func (x MashAcidBasis) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use MashAcidBasis.Descriptor instead.
 func (MashAcidBasis) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_batch_proto_rawDescGZIP(), []int{2}
+	return file_beerproto_v1_batch_proto_rawDescGZIP(), []int{3}
 }
 
 type GrowthModel int32
@@ -232,11 +303,11 @@ func (x GrowthModel) String() string {
 }
 
 func (GrowthModel) Descriptor() protoreflect.EnumDescriptor {
-	return file_beerproto_v1_batch_proto_enumTypes[3].Descriptor()
+	return file_beerproto_v1_batch_proto_enumTypes[4].Descriptor()
 }
 
 func (GrowthModel) Type() protoreflect.EnumType {
-	return &file_beerproto_v1_batch_proto_enumTypes[3]
+	return &file_beerproto_v1_batch_proto_enumTypes[4]
 }
 
 func (x GrowthModel) Number() protoreflect.EnumNumber {
@@ -245,7 +316,7 @@ func (x GrowthModel) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use GrowthModel.Descriptor instead.
 func (GrowthModel) EnumDescriptor() ([]byte, []int) {
-	return file_beerproto_v1_batch_proto_rawDescGZIP(), []int{3}
+	return file_beerproto_v1_batch_proto_rawDescGZIP(), []int{4}
 }
 
 type Batch struct {
@@ -270,10 +341,13 @@ type Batch struct {
 	FermentationProfile     *FermentationProfile        `protobuf:"bytes,12,opt,name=fermentation_profile,json=fermentationProfile,proto3" json:"fermentation_profile,omitempty"`
 	Measurements            *Measurements               `protobuf:"bytes,13,opt,name=measurements,proto3" json:"measurements,omitempty"`
 	// What the recipe predicted, frozen at Brew. See Estimates.
-	Estimates     *Estimates `protobuf:"bytes,14,opt,name=estimates,proto3" json:"estimates,omitempty"`
-	Logs          []*Log     `protobuf:"bytes,15,rep,name=logs,proto3" json:"logs,omitempty"`
-	Notes         string     `protobuf:"bytes,16,opt,name=notes,proto3" json:"notes,omitempty"`
-	Rating        float64    `protobuf:"fixed64,17,opt,name=rating,proto3" json:"rating,omitempty"`
+	Estimates *Estimates `protobuf:"bytes,14,opt,name=estimates,proto3" json:"estimates,omitempty"`
+	Logs      []*Log     `protobuf:"bytes,15,rep,name=logs,proto3" json:"logs,omitempty"`
+	Notes     string     `protobuf:"bytes,16,opt,name=notes,proto3" json:"notes,omitempty"`
+	Rating    float64    `protobuf:"fixed64,17,opt,name=rating,proto3" json:"rating,omitempty"`
+	// Which acidity target a wine is being made to. Empty for anything that is
+	// not wine.
+	WineStyle     WineStyleType `protobuf:"varint,18,opt,name=wine_style,json=wineStyle,proto3,enum=beerproto.v1.WineStyleType" json:"wine_style,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -425,6 +499,13 @@ func (x *Batch) GetRating() float64 {
 		return x.Rating
 	}
 	return 0
+}
+
+func (x *Batch) GetWineStyle() WineStyleType {
+	if x != nil {
+		return x.WineStyle
+	}
+	return WineStyleType_WINE_STYLE_TYPE_UNSPECIFIED
 }
 
 // An acid dose the brewer has committed to for this batch's mash.
@@ -1492,7 +1573,7 @@ var File_beerproto_v1_batch_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_batch_proto_rawDesc = "" +
 	"\n" +
-	"\x18beerproto/v1/batch.proto\x12\fbeerproto.v1\x1a\x1cbeerproto/v1/equipment.proto\x1a$beerproto/v1/measureable_units.proto\x1a\x18beerproto/v1/water.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xa9\x06\n" +
+	"\x18beerproto/v1/batch.proto\x12\fbeerproto.v1\x1a\x1cbeerproto/v1/equipment.proto\x1a$beerproto/v1/measureable_units.proto\x1a\x18beerproto/v1/water.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xe5\x06\n" +
 	"\x05Batch\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1b\n" +
 	"\trecipe_id\x18\x02 \x01(\tR\brecipeId\x12\x12\n" +
@@ -1511,7 +1592,9 @@ const file_beerproto_v1_batch_proto_rawDesc = "" +
 	"\testimates\x18\x0e \x01(\v2\x17.beerproto.v1.EstimatesR\testimates\x12%\n" +
 	"\x04logs\x18\x0f \x03(\v2\x11.beerproto.v1.LogR\x04logs\x12\x14\n" +
 	"\x05notes\x18\x10 \x01(\tR\x05notes\x12\x16\n" +
-	"\x06rating\x18\x11 \x01(\x01R\x06rating\"\xf1\x02\n" +
+	"\x06rating\x18\x11 \x01(\x01R\x06rating\x12:\n" +
+	"\n" +
+	"wine_style\x18\x12 \x01(\x0e2\x1b.beerproto.v1.WineStyleTypeR\twineStyle\"\xf1\x02\n" +
 	"\x10MashAcidAddition\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12*\n" +
 	"\x04acid\x18\x02 \x01(\x0e2\x16.beerproto.v1.AcidTypeR\x04acid\x12\x16\n" +
@@ -1610,7 +1693,12 @@ const file_beerproto_v1_batch_proto_rawDesc = "" +
 	"bitterness\x18\x03 \x01(\v2\x1c.beerproto.v1.BitternessTypeR\n" +
 	"bitterness\x122\n" +
 	"\amash_ph\x18\x04 \x01(\v2\x19.beerproto.v1.AcidityTypeR\x06mashPh\x12=\n" +
-	"\rmash_ph_model\x18\x05 \x01(\x0e2\x19.beerproto.v1.MashPhModelR\vmashPhModel*\xfa\x01\n" +
+	"\rmash_ph_model\x18\x05 \x01(\x0e2\x19.beerproto.v1.MashPhModelR\vmashPhModel*~\n" +
+	"\rWineStyleType\x12\x1f\n" +
+	"\x1bWINE_STYLE_TYPE_UNSPECIFIED\x10\x00\x12\x17\n" +
+	"\x13WINE_STYLE_TYPE_RED\x10\x01\x12\x19\n" +
+	"\x15WINE_STYLE_TYPE_WHITE\x10\x02\x12\x18\n" +
+	"\x14WINE_STYLE_TYPE_ROSE\x10\x03*\xfa\x01\n" +
 	"\x0fBatchStatusType\x12!\n" +
 	"\x1dBATCH_STATUS_TYPE_UNSPECIFIED\x10\x00\x12\x1e\n" +
 	"\x1aBATCH_STATUS_TYPE_PLANNING\x10\x01\x12\x1d\n" +
@@ -1648,117 +1736,119 @@ func file_beerproto_v1_batch_proto_rawDescGZIP() []byte {
 	return file_beerproto_v1_batch_proto_rawDescData
 }
 
-var file_beerproto_v1_batch_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
+var file_beerproto_v1_batch_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
 var file_beerproto_v1_batch_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_beerproto_v1_batch_proto_goTypes = []any{
-	(BatchStatusType)(0),             // 0: beerproto.v1.BatchStatusType
-	(WaterAdjustmentStrategyType)(0), // 1: beerproto.v1.WaterAdjustmentStrategyType
-	(MashAcidBasis)(0),               // 2: beerproto.v1.MashAcidBasis
-	(GrowthModel)(0),                 // 3: beerproto.v1.GrowthModel
-	(*Batch)(nil),                    // 4: beerproto.v1.Batch
-	(*MashAcidAddition)(nil),         // 5: beerproto.v1.MashAcidAddition
-	(*Starter)(nil),                  // 6: beerproto.v1.Starter
-	(*StarterStep)(nil),              // 7: beerproto.v1.StarterStep
-	(*StepRate)(nil),                 // 8: beerproto.v1.StepRate
-	(*CulturePitchRate)(nil),         // 9: beerproto.v1.CulturePitchRate
-	(*Log)(nil),                      // 10: beerproto.v1.Log
-	(*Taste)(nil),                    // 11: beerproto.v1.Taste
-	(*FermentationProfile)(nil),      // 12: beerproto.v1.FermentationProfile
-	(*Measurements)(nil),             // 13: beerproto.v1.Measurements
-	(*Estimates)(nil),                // 14: beerproto.v1.Estimates
-	(*timestamppb.Timestamp)(nil),    // 15: google.protobuf.Timestamp
-	(*EquipmentType)(nil),            // 16: beerproto.v1.EquipmentType
-	(AcidType)(0),                    // 17: beerproto.v1.AcidType
-	(*AcidityType)(nil),              // 18: beerproto.v1.AcidityType
-	(*VolumeType)(nil),               // 19: beerproto.v1.VolumeType
-	(*PitchRateType)(nil),            // 20: beerproto.v1.PitchRateType
-	(*GravityType)(nil),              // 21: beerproto.v1.GravityType
-	(*MassType)(nil),                 // 22: beerproto.v1.MassType
-	(*CellCountType)(nil),            // 23: beerproto.v1.CellCountType
-	(*PercentType)(nil),              // 24: beerproto.v1.PercentType
-	(*TemperatureType)(nil),          // 25: beerproto.v1.TemperatureType
-	(*ColorType)(nil),                // 26: beerproto.v1.ColorType
-	(*BitternessType)(nil),           // 27: beerproto.v1.BitternessType
-	(*TimeType)(nil),                 // 28: beerproto.v1.TimeType
-	(*TitratableAcidityType)(nil),    // 29: beerproto.v1.TitratableAcidityType
-	(MashPhModel)(0),                 // 30: beerproto.v1.MashPhModel
+	(WineStyleType)(0),               // 0: beerproto.v1.WineStyleType
+	(BatchStatusType)(0),             // 1: beerproto.v1.BatchStatusType
+	(WaterAdjustmentStrategyType)(0), // 2: beerproto.v1.WaterAdjustmentStrategyType
+	(MashAcidBasis)(0),               // 3: beerproto.v1.MashAcidBasis
+	(GrowthModel)(0),                 // 4: beerproto.v1.GrowthModel
+	(*Batch)(nil),                    // 5: beerproto.v1.Batch
+	(*MashAcidAddition)(nil),         // 6: beerproto.v1.MashAcidAddition
+	(*Starter)(nil),                  // 7: beerproto.v1.Starter
+	(*StarterStep)(nil),              // 8: beerproto.v1.StarterStep
+	(*StepRate)(nil),                 // 9: beerproto.v1.StepRate
+	(*CulturePitchRate)(nil),         // 10: beerproto.v1.CulturePitchRate
+	(*Log)(nil),                      // 11: beerproto.v1.Log
+	(*Taste)(nil),                    // 12: beerproto.v1.Taste
+	(*FermentationProfile)(nil),      // 13: beerproto.v1.FermentationProfile
+	(*Measurements)(nil),             // 14: beerproto.v1.Measurements
+	(*Estimates)(nil),                // 15: beerproto.v1.Estimates
+	(*timestamppb.Timestamp)(nil),    // 16: google.protobuf.Timestamp
+	(*EquipmentType)(nil),            // 17: beerproto.v1.EquipmentType
+	(AcidType)(0),                    // 18: beerproto.v1.AcidType
+	(*AcidityType)(nil),              // 19: beerproto.v1.AcidityType
+	(*VolumeType)(nil),               // 20: beerproto.v1.VolumeType
+	(*PitchRateType)(nil),            // 21: beerproto.v1.PitchRateType
+	(*GravityType)(nil),              // 22: beerproto.v1.GravityType
+	(*MassType)(nil),                 // 23: beerproto.v1.MassType
+	(*CellCountType)(nil),            // 24: beerproto.v1.CellCountType
+	(*PercentType)(nil),              // 25: beerproto.v1.PercentType
+	(*TemperatureType)(nil),          // 26: beerproto.v1.TemperatureType
+	(*ColorType)(nil),                // 27: beerproto.v1.ColorType
+	(*BitternessType)(nil),           // 28: beerproto.v1.BitternessType
+	(*TimeType)(nil),                 // 29: beerproto.v1.TimeType
+	(*TitratableAcidityType)(nil),    // 30: beerproto.v1.TitratableAcidityType
+	(MashPhModel)(0),                 // 31: beerproto.v1.MashPhModel
 }
 var file_beerproto_v1_batch_proto_depIdxs = []int32{
-	15, // 0: beerproto.v1.Batch.date:type_name -> google.protobuf.Timestamp
-	0,  // 1: beerproto.v1.Batch.status:type_name -> beerproto.v1.BatchStatusType
-	16, // 2: beerproto.v1.Batch.equipment:type_name -> beerproto.v1.EquipmentType
-	6,  // 3: beerproto.v1.Batch.starters:type_name -> beerproto.v1.Starter
-	1,  // 4: beerproto.v1.Batch.water_adjustment_strategy:type_name -> beerproto.v1.WaterAdjustmentStrategyType
-	5,  // 5: beerproto.v1.Batch.mash_acid_additions:type_name -> beerproto.v1.MashAcidAddition
-	12, // 6: beerproto.v1.Batch.fermentation_profile:type_name -> beerproto.v1.FermentationProfile
-	13, // 7: beerproto.v1.Batch.measurements:type_name -> beerproto.v1.Measurements
-	14, // 8: beerproto.v1.Batch.estimates:type_name -> beerproto.v1.Estimates
-	10, // 9: beerproto.v1.Batch.logs:type_name -> beerproto.v1.Log
-	17, // 10: beerproto.v1.MashAcidAddition.acid:type_name -> beerproto.v1.AcidType
-	18, // 11: beerproto.v1.MashAcidAddition.target_ph:type_name -> beerproto.v1.AcidityType
-	18, // 12: beerproto.v1.MashAcidAddition.from_ph:type_name -> beerproto.v1.AcidityType
-	2,  // 13: beerproto.v1.MashAcidAddition.basis:type_name -> beerproto.v1.MashAcidBasis
-	19, // 14: beerproto.v1.MashAcidAddition.volume:type_name -> beerproto.v1.VolumeType
-	15, // 15: beerproto.v1.MashAcidAddition.confirmed:type_name -> google.protobuf.Timestamp
-	7,  // 16: beerproto.v1.Starter.steps:type_name -> beerproto.v1.StarterStep
-	20, // 17: beerproto.v1.Starter.pitch_rate:type_name -> beerproto.v1.PitchRateType
-	15, // 18: beerproto.v1.Starter.yeast_date:type_name -> google.protobuf.Timestamp
-	9,  // 19: beerproto.v1.Starter.pitch:type_name -> beerproto.v1.CulturePitchRate
-	19, // 20: beerproto.v1.StarterStep.starter_size:type_name -> beerproto.v1.VolumeType
-	21, // 21: beerproto.v1.StarterStep.gravity:type_name -> beerproto.v1.GravityType
-	3,  // 22: beerproto.v1.StarterStep.model:type_name -> beerproto.v1.GrowthModel
-	22, // 23: beerproto.v1.StepRate.dme:type_name -> beerproto.v1.MassType
-	23, // 24: beerproto.v1.StepRate.ending_count:type_name -> beerproto.v1.CellCountType
-	20, // 25: beerproto.v1.StepRate.pitch_rate:type_name -> beerproto.v1.PitchRateType
-	23, // 26: beerproto.v1.CulturePitchRate.target_pitch_rate_cells:type_name -> beerproto.v1.CellCountType
-	23, // 27: beerproto.v1.CulturePitchRate.cells_available:type_name -> beerproto.v1.CellCountType
-	23, // 28: beerproto.v1.CulturePitchRate.difference:type_name -> beerproto.v1.CellCountType
-	20, // 29: beerproto.v1.CulturePitchRate.pitch_rate_as_is:type_name -> beerproto.v1.PitchRateType
-	24, // 30: beerproto.v1.CulturePitchRate.viability:type_name -> beerproto.v1.PercentType
-	15, // 31: beerproto.v1.Log.date:type_name -> google.protobuf.Timestamp
-	0,  // 32: beerproto.v1.Log.status:type_name -> beerproto.v1.BatchStatusType
-	21, // 33: beerproto.v1.Log.gravity:type_name -> beerproto.v1.GravityType
-	25, // 34: beerproto.v1.Log.temperature:type_name -> beerproto.v1.TemperatureType
-	11, // 35: beerproto.v1.Log.taste:type_name -> beerproto.v1.Taste
-	15, // 36: beerproto.v1.FermentationProfile.fermentation_start:type_name -> google.protobuf.Timestamp
-	15, // 37: beerproto.v1.FermentationProfile.bottling_date:type_name -> google.protobuf.Timestamp
-	19, // 38: beerproto.v1.Measurements.boil_volume:type_name -> beerproto.v1.VolumeType
-	19, // 39: beerproto.v1.Measurements.pre_boil_volume:type_name -> beerproto.v1.VolumeType
-	19, // 40: beerproto.v1.Measurements.post_boil_kettle_volume:type_name -> beerproto.v1.VolumeType
-	19, // 41: beerproto.v1.Measurements.batch_volume:type_name -> beerproto.v1.VolumeType
-	19, // 42: beerproto.v1.Measurements.fermenter_volume:type_name -> beerproto.v1.VolumeType
-	19, // 43: beerproto.v1.Measurements.fermenter_topup:type_name -> beerproto.v1.VolumeType
-	19, // 44: beerproto.v1.Measurements.bottling_volume:type_name -> beerproto.v1.VolumeType
-	19, // 45: beerproto.v1.Measurements.packaging_volume:type_name -> beerproto.v1.VolumeType
-	19, // 46: beerproto.v1.Measurements.boil_off_per_hour:type_name -> beerproto.v1.VolumeType
-	21, // 47: beerproto.v1.Measurements.first_wort_gravity:type_name -> beerproto.v1.GravityType
-	21, // 48: beerproto.v1.Measurements.pre_boil_gravity:type_name -> beerproto.v1.GravityType
-	21, // 49: beerproto.v1.Measurements.post_boil_gravity:type_name -> beerproto.v1.GravityType
-	21, // 50: beerproto.v1.Measurements.original_gravity:type_name -> beerproto.v1.GravityType
-	21, // 51: beerproto.v1.Measurements.final_gravity:type_name -> beerproto.v1.GravityType
-	24, // 52: beerproto.v1.Measurements.conversion_efficiency:type_name -> beerproto.v1.PercentType
-	24, // 53: beerproto.v1.Measurements.lauter_efficiency:type_name -> beerproto.v1.PercentType
-	24, // 54: beerproto.v1.Measurements.mash_efficiency:type_name -> beerproto.v1.PercentType
-	24, // 55: beerproto.v1.Measurements.brewhouse_efficiency:type_name -> beerproto.v1.PercentType
-	24, // 56: beerproto.v1.Measurements.alcohol_by_volume:type_name -> beerproto.v1.PercentType
-	24, // 57: beerproto.v1.Measurements.attenuation:type_name -> beerproto.v1.PercentType
-	26, // 58: beerproto.v1.Measurements.color:type_name -> beerproto.v1.ColorType
-	27, // 59: beerproto.v1.Measurements.bitterness:type_name -> beerproto.v1.BitternessType
-	18, // 60: beerproto.v1.Measurements.mash_ph:type_name -> beerproto.v1.AcidityType
-	18, // 61: beerproto.v1.Measurements.beer_ph:type_name -> beerproto.v1.AcidityType
-	28, // 62: beerproto.v1.Measurements.boil_time:type_name -> beerproto.v1.TimeType
-	25, // 63: beerproto.v1.Measurements.carbonation_temperature:type_name -> beerproto.v1.TemperatureType
-	29, // 64: beerproto.v1.Measurements.titratable_acidity:type_name -> beerproto.v1.TitratableAcidityType
-	19, // 65: beerproto.v1.Estimates.pre_boil_volume:type_name -> beerproto.v1.VolumeType
-	21, // 66: beerproto.v1.Estimates.pre_boil_gravity:type_name -> beerproto.v1.GravityType
-	27, // 67: beerproto.v1.Estimates.bitterness:type_name -> beerproto.v1.BitternessType
-	18, // 68: beerproto.v1.Estimates.mash_ph:type_name -> beerproto.v1.AcidityType
-	30, // 69: beerproto.v1.Estimates.mash_ph_model:type_name -> beerproto.v1.MashPhModel
-	70, // [70:70] is the sub-list for method output_type
-	70, // [70:70] is the sub-list for method input_type
-	70, // [70:70] is the sub-list for extension type_name
-	70, // [70:70] is the sub-list for extension extendee
-	0,  // [0:70] is the sub-list for field type_name
+	16, // 0: beerproto.v1.Batch.date:type_name -> google.protobuf.Timestamp
+	1,  // 1: beerproto.v1.Batch.status:type_name -> beerproto.v1.BatchStatusType
+	17, // 2: beerproto.v1.Batch.equipment:type_name -> beerproto.v1.EquipmentType
+	7,  // 3: beerproto.v1.Batch.starters:type_name -> beerproto.v1.Starter
+	2,  // 4: beerproto.v1.Batch.water_adjustment_strategy:type_name -> beerproto.v1.WaterAdjustmentStrategyType
+	6,  // 5: beerproto.v1.Batch.mash_acid_additions:type_name -> beerproto.v1.MashAcidAddition
+	13, // 6: beerproto.v1.Batch.fermentation_profile:type_name -> beerproto.v1.FermentationProfile
+	14, // 7: beerproto.v1.Batch.measurements:type_name -> beerproto.v1.Measurements
+	15, // 8: beerproto.v1.Batch.estimates:type_name -> beerproto.v1.Estimates
+	11, // 9: beerproto.v1.Batch.logs:type_name -> beerproto.v1.Log
+	0,  // 10: beerproto.v1.Batch.wine_style:type_name -> beerproto.v1.WineStyleType
+	18, // 11: beerproto.v1.MashAcidAddition.acid:type_name -> beerproto.v1.AcidType
+	19, // 12: beerproto.v1.MashAcidAddition.target_ph:type_name -> beerproto.v1.AcidityType
+	19, // 13: beerproto.v1.MashAcidAddition.from_ph:type_name -> beerproto.v1.AcidityType
+	3,  // 14: beerproto.v1.MashAcidAddition.basis:type_name -> beerproto.v1.MashAcidBasis
+	20, // 15: beerproto.v1.MashAcidAddition.volume:type_name -> beerproto.v1.VolumeType
+	16, // 16: beerproto.v1.MashAcidAddition.confirmed:type_name -> google.protobuf.Timestamp
+	8,  // 17: beerproto.v1.Starter.steps:type_name -> beerproto.v1.StarterStep
+	21, // 18: beerproto.v1.Starter.pitch_rate:type_name -> beerproto.v1.PitchRateType
+	16, // 19: beerproto.v1.Starter.yeast_date:type_name -> google.protobuf.Timestamp
+	10, // 20: beerproto.v1.Starter.pitch:type_name -> beerproto.v1.CulturePitchRate
+	20, // 21: beerproto.v1.StarterStep.starter_size:type_name -> beerproto.v1.VolumeType
+	22, // 22: beerproto.v1.StarterStep.gravity:type_name -> beerproto.v1.GravityType
+	4,  // 23: beerproto.v1.StarterStep.model:type_name -> beerproto.v1.GrowthModel
+	23, // 24: beerproto.v1.StepRate.dme:type_name -> beerproto.v1.MassType
+	24, // 25: beerproto.v1.StepRate.ending_count:type_name -> beerproto.v1.CellCountType
+	21, // 26: beerproto.v1.StepRate.pitch_rate:type_name -> beerproto.v1.PitchRateType
+	24, // 27: beerproto.v1.CulturePitchRate.target_pitch_rate_cells:type_name -> beerproto.v1.CellCountType
+	24, // 28: beerproto.v1.CulturePitchRate.cells_available:type_name -> beerproto.v1.CellCountType
+	24, // 29: beerproto.v1.CulturePitchRate.difference:type_name -> beerproto.v1.CellCountType
+	21, // 30: beerproto.v1.CulturePitchRate.pitch_rate_as_is:type_name -> beerproto.v1.PitchRateType
+	25, // 31: beerproto.v1.CulturePitchRate.viability:type_name -> beerproto.v1.PercentType
+	16, // 32: beerproto.v1.Log.date:type_name -> google.protobuf.Timestamp
+	1,  // 33: beerproto.v1.Log.status:type_name -> beerproto.v1.BatchStatusType
+	22, // 34: beerproto.v1.Log.gravity:type_name -> beerproto.v1.GravityType
+	26, // 35: beerproto.v1.Log.temperature:type_name -> beerproto.v1.TemperatureType
+	12, // 36: beerproto.v1.Log.taste:type_name -> beerproto.v1.Taste
+	16, // 37: beerproto.v1.FermentationProfile.fermentation_start:type_name -> google.protobuf.Timestamp
+	16, // 38: beerproto.v1.FermentationProfile.bottling_date:type_name -> google.protobuf.Timestamp
+	20, // 39: beerproto.v1.Measurements.boil_volume:type_name -> beerproto.v1.VolumeType
+	20, // 40: beerproto.v1.Measurements.pre_boil_volume:type_name -> beerproto.v1.VolumeType
+	20, // 41: beerproto.v1.Measurements.post_boil_kettle_volume:type_name -> beerproto.v1.VolumeType
+	20, // 42: beerproto.v1.Measurements.batch_volume:type_name -> beerproto.v1.VolumeType
+	20, // 43: beerproto.v1.Measurements.fermenter_volume:type_name -> beerproto.v1.VolumeType
+	20, // 44: beerproto.v1.Measurements.fermenter_topup:type_name -> beerproto.v1.VolumeType
+	20, // 45: beerproto.v1.Measurements.bottling_volume:type_name -> beerproto.v1.VolumeType
+	20, // 46: beerproto.v1.Measurements.packaging_volume:type_name -> beerproto.v1.VolumeType
+	20, // 47: beerproto.v1.Measurements.boil_off_per_hour:type_name -> beerproto.v1.VolumeType
+	22, // 48: beerproto.v1.Measurements.first_wort_gravity:type_name -> beerproto.v1.GravityType
+	22, // 49: beerproto.v1.Measurements.pre_boil_gravity:type_name -> beerproto.v1.GravityType
+	22, // 50: beerproto.v1.Measurements.post_boil_gravity:type_name -> beerproto.v1.GravityType
+	22, // 51: beerproto.v1.Measurements.original_gravity:type_name -> beerproto.v1.GravityType
+	22, // 52: beerproto.v1.Measurements.final_gravity:type_name -> beerproto.v1.GravityType
+	25, // 53: beerproto.v1.Measurements.conversion_efficiency:type_name -> beerproto.v1.PercentType
+	25, // 54: beerproto.v1.Measurements.lauter_efficiency:type_name -> beerproto.v1.PercentType
+	25, // 55: beerproto.v1.Measurements.mash_efficiency:type_name -> beerproto.v1.PercentType
+	25, // 56: beerproto.v1.Measurements.brewhouse_efficiency:type_name -> beerproto.v1.PercentType
+	25, // 57: beerproto.v1.Measurements.alcohol_by_volume:type_name -> beerproto.v1.PercentType
+	25, // 58: beerproto.v1.Measurements.attenuation:type_name -> beerproto.v1.PercentType
+	27, // 59: beerproto.v1.Measurements.color:type_name -> beerproto.v1.ColorType
+	28, // 60: beerproto.v1.Measurements.bitterness:type_name -> beerproto.v1.BitternessType
+	19, // 61: beerproto.v1.Measurements.mash_ph:type_name -> beerproto.v1.AcidityType
+	19, // 62: beerproto.v1.Measurements.beer_ph:type_name -> beerproto.v1.AcidityType
+	29, // 63: beerproto.v1.Measurements.boil_time:type_name -> beerproto.v1.TimeType
+	26, // 64: beerproto.v1.Measurements.carbonation_temperature:type_name -> beerproto.v1.TemperatureType
+	30, // 65: beerproto.v1.Measurements.titratable_acidity:type_name -> beerproto.v1.TitratableAcidityType
+	20, // 66: beerproto.v1.Estimates.pre_boil_volume:type_name -> beerproto.v1.VolumeType
+	22, // 67: beerproto.v1.Estimates.pre_boil_gravity:type_name -> beerproto.v1.GravityType
+	28, // 68: beerproto.v1.Estimates.bitterness:type_name -> beerproto.v1.BitternessType
+	19, // 69: beerproto.v1.Estimates.mash_ph:type_name -> beerproto.v1.AcidityType
+	31, // 70: beerproto.v1.Estimates.mash_ph_model:type_name -> beerproto.v1.MashPhModel
+	71, // [71:71] is the sub-list for method output_type
+	71, // [71:71] is the sub-list for method input_type
+	71, // [71:71] is the sub-list for extension type_name
+	71, // [71:71] is the sub-list for extension extendee
+	0,  // [0:71] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_batch_proto_init() }
@@ -1774,7 +1864,7 @@ func file_beerproto_v1_batch_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_beerproto_v1_batch_proto_rawDesc), len(file_beerproto_v1_batch_proto_rawDesc)),
-			NumEnums:      4,
+			NumEnums:      5,
 			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,
