@@ -63,6 +63,10 @@ const (
 	VolumeUnit_VOLUME_UNIT_IGAL VolumeUnit = 14
 	// ibbl
 	VolumeUnit_VOLUME_UNIT_IBBL VolumeUnit = 15
+	// hl -- hectolitre (100 l). The unit commercial breweries quote batch and
+	// vessel sizes in, and the rung above the litre on the metric magnitude
+	// ladder.
+	VolumeUnit_VOLUME_UNIT_HL VolumeUnit = 16
 )
 
 // Enum value maps for VolumeUnit.
@@ -84,6 +88,7 @@ var (
 		13: "VOLUME_UNIT_IQT",
 		14: "VOLUME_UNIT_IGAL",
 		15: "VOLUME_UNIT_IBBL",
+		16: "VOLUME_UNIT_HL",
 	}
 	VolumeUnit_value = map[string]int32{
 		"VOLUME_UNIT_UNSPECIFIED": 0,
@@ -102,6 +107,7 @@ var (
 		"VOLUME_UNIT_IQT":         13,
 		"VOLUME_UNIT_IGAL":        14,
 		"VOLUME_UNIT_IBBL":        15,
+		"VOLUME_UNIT_HL":          16,
 	}
 )
 
@@ -146,6 +152,15 @@ const (
 	MassUnit_MASS_UNIT_LB MassUnit = 4
 	// oz
 	MassUnit_MASS_UNIT_OZ MassUnit = 5
+	// t -- metric tonne (1000 kg), the rung above the kilogram on the metric
+	// magnitude ladder.
+	MassUnit_MASS_UNIT_TONNE MassUnit = 6
+	// ton -- US short ton (2000 lb), the rung above the pound for US customary.
+	MassUnit_MASS_UNIT_SHORT_TON MassUnit = 7
+	// long ton -- UK long ton (2240 lb), the rung above the pound for British
+	// imperial. Distinct from MASS_UNIT_SHORT_TON: the two differ by 12%, so a
+	// single "ton" would be ambiguous between the two customary systems.
+	MassUnit_MASS_UNIT_LONG_TON MassUnit = 8
 )
 
 // Enum value maps for MassUnit.
@@ -157,6 +172,9 @@ var (
 		3: "MASS_UNIT_KG",
 		4: "MASS_UNIT_LB",
 		5: "MASS_UNIT_OZ",
+		6: "MASS_UNIT_TONNE",
+		7: "MASS_UNIT_SHORT_TON",
+		8: "MASS_UNIT_LONG_TON",
 	}
 	MassUnit_value = map[string]int32{
 		"MASS_UNIT_UNSPECIFIED": 0,
@@ -165,6 +183,9 @@ var (
 		"MASS_UNIT_KG":          3,
 		"MASS_UNIT_LB":          4,
 		"MASS_UNIT_OZ":          5,
+		"MASS_UNIT_TONNE":       6,
+		"MASS_UNIT_SHORT_TON":   7,
+		"MASS_UNIT_LONG_TON":    8,
 	}
 )
 
@@ -3870,7 +3891,7 @@ const file_beerproto_v1_measureable_units_proto_rawDesc = "" +
 	"\x04unit\x18\x02 \x01(\x0e2 .beerproto.v1.EnzymeActivityUnitB\x06\xbaH\x03\xc8\x01\x01R\x04unit\"|\n" +
 	"\x0eEnzymeActivity\x12,\n" +
 	"\x04kind\x18\x01 \x01(\x0e2\x18.beerproto.v1.EnzymeTypeR\x04kind\x12<\n" +
-	"\bactivity\x18\x02 \x01(\v2 .beerproto.v1.EnzymeActivityTypeR\bactivity*\xe5\x02\n" +
+	"\bactivity\x18\x02 \x01(\v2 .beerproto.v1.EnzymeActivityTypeR\bactivity*\xf9\x02\n" +
 	"\n" +
 	"VolumeUnit\x12\x1b\n" +
 	"\x17VOLUME_UNIT_UNSPECIFIED\x10\x00\x12\x12\n" +
@@ -3889,14 +3910,18 @@ const file_beerproto_v1_measureable_units_proto_rawDesc = "" +
 	"\x0fVOLUME_UNIT_IPT\x10\f\x12\x13\n" +
 	"\x0fVOLUME_UNIT_IQT\x10\r\x12\x14\n" +
 	"\x10VOLUME_UNIT_IGAL\x10\x0e\x12\x14\n" +
-	"\x10VOLUME_UNIT_IBBL\x10\x0f*~\n" +
+	"\x10VOLUME_UNIT_IBBL\x10\x0f\x12\x12\n" +
+	"\x0eVOLUME_UNIT_HL\x10\x10*\xc4\x01\n" +
 	"\bMassUnit\x12\x19\n" +
 	"\x15MASS_UNIT_UNSPECIFIED\x10\x00\x12\x10\n" +
 	"\fMASS_UNIT_MG\x10\x01\x12\x0f\n" +
 	"\vMASS_UNIT_G\x10\x02\x12\x10\n" +
 	"\fMASS_UNIT_KG\x10\x03\x12\x10\n" +
 	"\fMASS_UNIT_LB\x10\x04\x12\x10\n" +
-	"\fMASS_UNIT_OZ\x10\x05*\x85\x01\n" +
+	"\fMASS_UNIT_OZ\x10\x05\x12\x13\n" +
+	"\x0fMASS_UNIT_TONNE\x10\x06\x12\x17\n" +
+	"\x13MASS_UNIT_SHORT_TON\x10\a\x12\x16\n" +
+	"\x12MASS_UNIT_LONG_TON\x10\b*\x85\x01\n" +
 	"\rCellCountUnit\x12\x1f\n" +
 	"\x1bCELL_COUNT_UNIT_UNSPECIFIED\x10\x00\x12\x19\n" +
 	"\x15CELL_COUNT_UNIT_CELLS\x10\x01\x12\x1b\n" +
