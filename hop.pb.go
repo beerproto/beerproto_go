@@ -753,7 +753,24 @@ type HopInventoryType struct {
 	//	*HopInventoryType_Volume
 	Amount isHopInventoryType_Amount `protobuf_oneof:"amount"`
 	// Best-before / use-by date of this stock. Unset when unknown.
-	BestBefore    *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=best_before,json=bestBefore,proto3" json:"best_before,omitempty"`
+	BestBefore *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=best_before,json=bestBefore,proto3" json:"best_before,omitempty"`
+	// The measured alpha acid of *this stock* (percent), overriding the
+	// variety's label figure on HopVarietyBase.
+	//
+	// Alpha acid is assayed per lot, and it drives IBU — so two packs of one
+	// variety that assay differently make different beer, and a bitterness
+	// computed from the label figure describes a hop the brewery does not have.
+	// Unset means this stock assays as the variety says, which is the honest
+	// default for a pack that arrived without a spec sheet. A zero is treated
+	// the same way: no hop anyone brews with assays at no alpha.
+	//
+	// Mirrors FermentableInventoryType.lot_potential, which is the same idea for
+	// a sack of malt.
+	AlphaAcid *PercentType `protobuf:"bytes,4,opt,name=alpha_acid,json=alphaAcid,proto3" json:"alpha_acid,omitempty"`
+	// The measured alpha loss of *this stock* over six months of storage
+	// (percent), overriding the variety's figure. Falls back the same way as
+	// alpha_acid.
+	PercentLost   *PercentType `protobuf:"bytes,5,opt,name=percent_lost,json=percentLost,proto3" json:"percent_lost,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -816,6 +833,20 @@ func (x *HopInventoryType) GetVolume() *VolumeType {
 func (x *HopInventoryType) GetBestBefore() *timestamppb.Timestamp {
 	if x != nil {
 		return x.BestBefore
+	}
+	return nil
+}
+
+func (x *HopInventoryType) GetAlphaAcid() *PercentType {
+	if x != nil {
+		return x.AlphaAcid
+	}
+	return nil
+}
+
+func (x *HopInventoryType) GetPercentLost() *PercentType {
+	if x != nil {
+		return x.PercentLost
 	}
 	return nil
 }
@@ -890,12 +921,15 @@ const file_beerproto_v1_hop_proto_rawDesc = "" +
 	"\vxanthohumol\x18\v \x01(\v2\x19.beerproto.v1.PercentTypeR\vxanthohumol\x125\n" +
 	"\bhumulene\x18\f \x01(\v2\x19.beerproto.v1.PercentTypeR\bhumulene\x123\n" +
 	"\amyrcene\x18\r \x01(\v2\x19.beerproto.v1.PercentTypeR\amyrcene\x121\n" +
-	"\x06pinene\x18\x0e \x01(\v2\x19.beerproto.v1.PercentTypeR\x06pinene\"\xc2\x01\n" +
+	"\x06pinene\x18\x0e \x01(\v2\x19.beerproto.v1.PercentTypeR\x06pinene\"\xba\x02\n" +
 	"\x10HopInventoryType\x12,\n" +
 	"\x04mass\x18\x01 \x01(\v2\x16.beerproto.v1.MassTypeH\x00R\x04mass\x122\n" +
 	"\x06volume\x18\x02 \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volume\x12;\n" +
 	"\vbest_before\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
-	"bestBeforeB\x0f\n" +
+	"bestBefore\x128\n" +
+	"\n" +
+	"alpha_acid\x18\x04 \x01(\v2\x19.beerproto.v1.PercentTypeR\talphaAcid\x12<\n" +
+	"\fpercent_lost\x18\x05 \x01(\v2\x19.beerproto.v1.PercentTypeR\vpercentLostB\x0f\n" +
 	"\x06amount\x12\x05\xbaH\x02\b\x01*\xf0\x02\n" +
 	"\x16VarietyInformationType\x12(\n" +
 	"$VARIETY_INFORMATION_TYPE_UNSPECIFIED\x10\x00\x12\"\n" +
@@ -983,11 +1017,13 @@ var file_beerproto_v1_hop_proto_depIdxs = []int32{
 	11, // 27: beerproto.v1.HopInventoryType.mass:type_name -> beerproto.v1.MassType
 	12, // 28: beerproto.v1.HopInventoryType.volume:type_name -> beerproto.v1.VolumeType
 	13, // 29: beerproto.v1.HopInventoryType.best_before:type_name -> google.protobuf.Timestamp
-	30, // [30:30] is the sub-list for method output_type
-	30, // [30:30] is the sub-list for method input_type
-	30, // [30:30] is the sub-list for extension type_name
-	30, // [30:30] is the sub-list for extension extendee
-	0,  // [0:30] is the sub-list for field type_name
+	9,  // 30: beerproto.v1.HopInventoryType.alpha_acid:type_name -> beerproto.v1.PercentType
+	9,  // 31: beerproto.v1.HopInventoryType.percent_lost:type_name -> beerproto.v1.PercentType
+	32, // [32:32] is the sub-list for method output_type
+	32, // [32:32] is the sub-list for method input_type
+	32, // [32:32] is the sub-list for extension type_name
+	32, // [32:32] is the sub-list for extension extendee
+	0,  // [0:32] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_hop_proto_init() }
