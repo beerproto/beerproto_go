@@ -745,32 +745,17 @@ func (x *OilContentType) GetPinene() *PercentType {
 	return nil
 }
 
+// HopInventoryType is the stock of a hop variety held on hand, as the lots it
+// was received in.
+//
+// It carries no total. How much is on hand is the sum of the lots' amounts, and
+// the soonest best-before and the blended alpha are derived from the lots the
+// same way. Every lot of one variety is held in the same kind — by weight or by
+// volume — so the lots add up without conversion.
 type HopInventoryType struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Types that are valid to be assigned to Amount:
-	//
-	//	*HopInventoryType_Mass
-	//	*HopInventoryType_Volume
-	Amount isHopInventoryType_Amount `protobuf_oneof:"amount"`
-	// Best-before / use-by date of this stock. Unset when unknown.
-	BestBefore *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=best_before,json=bestBefore,proto3" json:"best_before,omitempty"`
-	// The measured alpha acid of *this stock* (percent), overriding the
-	// variety's label figure on HopVarietyBase.
-	//
-	// Alpha acid is assayed per lot, and it drives IBU — so two packs of one
-	// variety that assay differently make different beer, and a bitterness
-	// computed from the label figure describes a hop the brewery does not have.
-	// Unset means this stock assays as the variety says, which is the honest
-	// default for a pack that arrived without a spec sheet. A zero is treated
-	// the same way: no hop anyone brews with assays at no alpha.
-	//
-	// Mirrors FermentableInventoryType.lot_potential, which is the same idea for
-	// a sack of malt.
-	AlphaAcid *PercentType `protobuf:"bytes,4,opt,name=alpha_acid,json=alphaAcid,proto3" json:"alpha_acid,omitempty"`
-	// The measured alpha loss of *this stock* over six months of storage
-	// (percent), overriding the variety's figure. Falls back the same way as
-	// alpha_acid.
-	PercentLost   *PercentType `protobuf:"bytes,5,opt,name=percent_lost,json=percentLost,proto3" json:"percent_lost,omitempty"`
+	// The individual receipts this stock is made of.
+	Lots          []*HopLotType `protobuf:"bytes,6,rep,name=lots,proto3" json:"lots,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -805,67 +790,175 @@ func (*HopInventoryType) Descriptor() ([]byte, []int) {
 	return file_beerproto_v1_hop_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *HopInventoryType) GetAmount() isHopInventoryType_Amount {
+func (x *HopInventoryType) GetLots() []*HopLotType {
+	if x != nil {
+		return x.Lots
+	}
+	return nil
+}
+
+// HopLotType is one physical receipt of hop stock: a vacuum pack, a single
+// order line.
+//
+// Alpha acid is assayed per lot and drives IBU, so two packs of one variety that
+// assay differently make different beer. Keeping them as separate lots is what
+// stops a bitterness figure being computed for a blended hop the brewery does
+// not have.
+type HopLotType struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Stable identity, so a stock movement can name the lot it drew from.
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// The supplier's own lot or batch number, as printed on the pack. Free text:
+	// every hop merchant numbers differently.
+	LotCode string `protobuf:"bytes,2,opt,name=lot_code,json=lotCode,proto3" json:"lot_code,omitempty"`
+	// When this stock arrived.
+	ReceivedOn *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=received_on,json=receivedOn,proto3" json:"received_on,omitempty"`
+	Note       string                 `protobuf:"bytes,4,opt,name=note,proto3" json:"note,omitempty"`
+	// How much of this lot is on hand.
+	//
+	// Types that are valid to be assigned to Amount:
+	//
+	//	*HopLotType_Mass
+	//	*HopLotType_Volume
+	Amount isHopLotType_Amount `protobuf_oneof:"amount"`
+	// Best-before / use-by date of this lot. Unset when unknown.
+	BestBefore *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=best_before,json=bestBefore,proto3" json:"best_before,omitempty"`
+	// The measured alpha acid of this lot (percent), overriding the variety's
+	// label figure on HopVarietyBase.
+	//
+	// Unset means this lot assays as the variety says, which is the honest
+	// default for a pack that arrived without a spec sheet. A zero is treated the
+	// same way: no hop anyone brews with assays at no alpha.
+	//
+	// Mirrors FermentableLotType.lot_potential, which is the same idea for a sack
+	// of malt.
+	AlphaAcid *PercentType `protobuf:"bytes,8,opt,name=alpha_acid,json=alphaAcid,proto3" json:"alpha_acid,omitempty"`
+	// The measured alpha loss of this lot over six months of storage (percent),
+	// overriding the variety's figure. Falls back the same way as alpha_acid.
+	PercentLost   *PercentType `protobuf:"bytes,9,opt,name=percent_lost,json=percentLost,proto3" json:"percent_lost,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HopLotType) Reset() {
+	*x = HopLotType{}
+	mi := &file_beerproto_v1_hop_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HopLotType) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HopLotType) ProtoMessage() {}
+
+func (x *HopLotType) ProtoReflect() protoreflect.Message {
+	mi := &file_beerproto_v1_hop_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HopLotType.ProtoReflect.Descriptor instead.
+func (*HopLotType) Descriptor() ([]byte, []int) {
+	return file_beerproto_v1_hop_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *HopLotType) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *HopLotType) GetLotCode() string {
+	if x != nil {
+		return x.LotCode
+	}
+	return ""
+}
+
+func (x *HopLotType) GetReceivedOn() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ReceivedOn
+	}
+	return nil
+}
+
+func (x *HopLotType) GetNote() string {
+	if x != nil {
+		return x.Note
+	}
+	return ""
+}
+
+func (x *HopLotType) GetAmount() isHopLotType_Amount {
 	if x != nil {
 		return x.Amount
 	}
 	return nil
 }
 
-func (x *HopInventoryType) GetMass() *MassType {
+func (x *HopLotType) GetMass() *MassType {
 	if x != nil {
-		if x, ok := x.Amount.(*HopInventoryType_Mass); ok {
+		if x, ok := x.Amount.(*HopLotType_Mass); ok {
 			return x.Mass
 		}
 	}
 	return nil
 }
 
-func (x *HopInventoryType) GetVolume() *VolumeType {
+func (x *HopLotType) GetVolume() *VolumeType {
 	if x != nil {
-		if x, ok := x.Amount.(*HopInventoryType_Volume); ok {
+		if x, ok := x.Amount.(*HopLotType_Volume); ok {
 			return x.Volume
 		}
 	}
 	return nil
 }
 
-func (x *HopInventoryType) GetBestBefore() *timestamppb.Timestamp {
+func (x *HopLotType) GetBestBefore() *timestamppb.Timestamp {
 	if x != nil {
 		return x.BestBefore
 	}
 	return nil
 }
 
-func (x *HopInventoryType) GetAlphaAcid() *PercentType {
+func (x *HopLotType) GetAlphaAcid() *PercentType {
 	if x != nil {
 		return x.AlphaAcid
 	}
 	return nil
 }
 
-func (x *HopInventoryType) GetPercentLost() *PercentType {
+func (x *HopLotType) GetPercentLost() *PercentType {
 	if x != nil {
 		return x.PercentLost
 	}
 	return nil
 }
 
-type isHopInventoryType_Amount interface {
-	isHopInventoryType_Amount()
+type isHopLotType_Amount interface {
+	isHopLotType_Amount()
 }
 
-type HopInventoryType_Mass struct {
-	Mass *MassType `protobuf:"bytes,1,opt,name=mass,proto3,oneof"`
+type HopLotType_Mass struct {
+	Mass *MassType `protobuf:"bytes,5,opt,name=mass,proto3,oneof"`
 }
 
-type HopInventoryType_Volume struct {
-	Volume *VolumeType `protobuf:"bytes,2,opt,name=volume,proto3,oneof"`
+type HopLotType_Volume struct {
+	Volume *VolumeType `protobuf:"bytes,6,opt,name=volume,proto3,oneof"`
 }
 
-func (*HopInventoryType_Mass) isHopInventoryType_Amount() {}
+func (*HopLotType_Mass) isHopLotType_Amount() {}
 
-func (*HopInventoryType_Volume) isHopInventoryType_Amount() {}
+func (*HopLotType_Volume) isHopLotType_Amount() {}
 
 var File_beerproto_v1_hop_proto protoreflect.FileDescriptor
 
@@ -921,15 +1014,23 @@ const file_beerproto_v1_hop_proto_rawDesc = "" +
 	"\vxanthohumol\x18\v \x01(\v2\x19.beerproto.v1.PercentTypeR\vxanthohumol\x125\n" +
 	"\bhumulene\x18\f \x01(\v2\x19.beerproto.v1.PercentTypeR\bhumulene\x123\n" +
 	"\amyrcene\x18\r \x01(\v2\x19.beerproto.v1.PercentTypeR\amyrcene\x121\n" +
-	"\x06pinene\x18\x0e \x01(\v2\x19.beerproto.v1.PercentTypeR\x06pinene\"\xba\x02\n" +
+	"\x06pinene\x18\x0e \x01(\v2\x19.beerproto.v1.PercentTypeR\x06pinene\"@\n" +
 	"\x10HopInventoryType\x12,\n" +
-	"\x04mass\x18\x01 \x01(\v2\x16.beerproto.v1.MassTypeH\x00R\x04mass\x122\n" +
-	"\x06volume\x18\x02 \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volume\x12;\n" +
-	"\vbest_before\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"\x04lots\x18\x06 \x03(\v2\x18.beerproto.v1.HopLotTypeR\x04lots\"\xb0\x03\n" +
+	"\n" +
+	"HopLotType\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
+	"\blot_code\x18\x02 \x01(\tR\alotCode\x12;\n" +
+	"\vreceived_on\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"receivedOn\x12\x12\n" +
+	"\x04note\x18\x04 \x01(\tR\x04note\x12,\n" +
+	"\x04mass\x18\x05 \x01(\v2\x16.beerproto.v1.MassTypeH\x00R\x04mass\x122\n" +
+	"\x06volume\x18\x06 \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volume\x12;\n" +
+	"\vbest_before\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\n" +
 	"bestBefore\x128\n" +
 	"\n" +
-	"alpha_acid\x18\x04 \x01(\v2\x19.beerproto.v1.PercentTypeR\talphaAcid\x12<\n" +
-	"\fpercent_lost\x18\x05 \x01(\v2\x19.beerproto.v1.PercentTypeR\vpercentLostB\x0f\n" +
+	"alpha_acid\x18\b \x01(\v2\x19.beerproto.v1.PercentTypeR\talphaAcid\x12<\n" +
+	"\fpercent_lost\x18\t \x01(\v2\x19.beerproto.v1.PercentTypeR\vpercentLostB\x0f\n" +
 	"\x06amount\x12\x05\xbaH\x02\b\x01*\xf0\x02\n" +
 	"\x16VarietyInformationType\x12(\n" +
 	"$VARIETY_INFORMATION_TYPE_UNSPECIFIED\x10\x00\x12\"\n" +
@@ -969,7 +1070,7 @@ func file_beerproto_v1_hop_proto_rawDescGZIP() []byte {
 }
 
 var file_beerproto_v1_hop_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_beerproto_v1_hop_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_beerproto_v1_hop_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_beerproto_v1_hop_proto_goTypes = []any{
 	(VarietyInformationType)(0),   // 0: beerproto.v1.VarietyInformationType
 	(HopVarietyBaseForm)(0),       // 1: beerproto.v1.HopVarietyBaseForm
@@ -980,50 +1081,53 @@ var file_beerproto_v1_hop_proto_goTypes = []any{
 	(*IBUEstimateType)(nil),       // 6: beerproto.v1.IBUEstimateType
 	(*OilContentType)(nil),        // 7: beerproto.v1.OilContentType
 	(*HopInventoryType)(nil),      // 8: beerproto.v1.HopInventoryType
-	(*PercentType)(nil),           // 9: beerproto.v1.PercentType
-	(*TimingType)(nil),            // 10: beerproto.v1.TimingType
-	(*MassType)(nil),              // 11: beerproto.v1.MassType
-	(*VolumeType)(nil),            // 12: beerproto.v1.VolumeType
-	(*timestamppb.Timestamp)(nil), // 13: google.protobuf.Timestamp
+	(*HopLotType)(nil),            // 9: beerproto.v1.HopLotType
+	(*PercentType)(nil),           // 10: beerproto.v1.PercentType
+	(*TimingType)(nil),            // 11: beerproto.v1.TimingType
+	(*MassType)(nil),              // 12: beerproto.v1.MassType
+	(*VolumeType)(nil),            // 13: beerproto.v1.VolumeType
+	(*timestamppb.Timestamp)(nil), // 14: google.protobuf.Timestamp
 }
 var file_beerproto_v1_hop_proto_depIdxs = []int32{
 	1,  // 0: beerproto.v1.HopVarietyBase.form:type_name -> beerproto.v1.HopVarietyBaseForm
-	9,  // 1: beerproto.v1.HopVarietyBase.alpha_acid:type_name -> beerproto.v1.PercentType
-	9,  // 2: beerproto.v1.HopVarietyBase.beta_acid:type_name -> beerproto.v1.PercentType
-	9,  // 3: beerproto.v1.HopVarietyBase.percent_lost:type_name -> beerproto.v1.PercentType
+	10, // 1: beerproto.v1.HopVarietyBase.alpha_acid:type_name -> beerproto.v1.PercentType
+	10, // 2: beerproto.v1.HopVarietyBase.beta_acid:type_name -> beerproto.v1.PercentType
+	10, // 3: beerproto.v1.HopVarietyBase.percent_lost:type_name -> beerproto.v1.PercentType
 	3,  // 4: beerproto.v1.VarietyInformation.base:type_name -> beerproto.v1.HopVarietyBase
 	8,  // 5: beerproto.v1.VarietyInformation.inventory:type_name -> beerproto.v1.HopInventoryType
 	0,  // 6: beerproto.v1.VarietyInformation.type:type_name -> beerproto.v1.VarietyInformationType
 	7,  // 7: beerproto.v1.VarietyInformation.oil_content:type_name -> beerproto.v1.OilContentType
-	9,  // 8: beerproto.v1.VarietyInformation.percent_lost:type_name -> beerproto.v1.PercentType
+	10, // 8: beerproto.v1.VarietyInformation.percent_lost:type_name -> beerproto.v1.PercentType
 	3,  // 9: beerproto.v1.HopAdditionType.base:type_name -> beerproto.v1.HopVarietyBase
-	10, // 10: beerproto.v1.HopAdditionType.timing:type_name -> beerproto.v1.TimingType
-	11, // 11: beerproto.v1.HopAdditionType.mass:type_name -> beerproto.v1.MassType
-	12, // 12: beerproto.v1.HopAdditionType.volume:type_name -> beerproto.v1.VolumeType
+	11, // 10: beerproto.v1.HopAdditionType.timing:type_name -> beerproto.v1.TimingType
+	12, // 11: beerproto.v1.HopAdditionType.mass:type_name -> beerproto.v1.MassType
+	13, // 12: beerproto.v1.HopAdditionType.volume:type_name -> beerproto.v1.VolumeType
 	2,  // 13: beerproto.v1.IBUEstimateType.method:type_name -> beerproto.v1.IBUMethodUnit
-	9,  // 14: beerproto.v1.OilContentType.polyphenols:type_name -> beerproto.v1.PercentType
-	9,  // 15: beerproto.v1.OilContentType.farnesene:type_name -> beerproto.v1.PercentType
-	9,  // 16: beerproto.v1.OilContentType.limonene:type_name -> beerproto.v1.PercentType
-	9,  // 17: beerproto.v1.OilContentType.nerol:type_name -> beerproto.v1.PercentType
-	9,  // 18: beerproto.v1.OilContentType.geraniol:type_name -> beerproto.v1.PercentType
-	9,  // 19: beerproto.v1.OilContentType.b_pinene:type_name -> beerproto.v1.PercentType
-	9,  // 20: beerproto.v1.OilContentType.linalool:type_name -> beerproto.v1.PercentType
-	9,  // 21: beerproto.v1.OilContentType.caryophyllene:type_name -> beerproto.v1.PercentType
-	9,  // 22: beerproto.v1.OilContentType.cohumulone:type_name -> beerproto.v1.PercentType
-	9,  // 23: beerproto.v1.OilContentType.xanthohumol:type_name -> beerproto.v1.PercentType
-	9,  // 24: beerproto.v1.OilContentType.humulene:type_name -> beerproto.v1.PercentType
-	9,  // 25: beerproto.v1.OilContentType.myrcene:type_name -> beerproto.v1.PercentType
-	9,  // 26: beerproto.v1.OilContentType.pinene:type_name -> beerproto.v1.PercentType
-	11, // 27: beerproto.v1.HopInventoryType.mass:type_name -> beerproto.v1.MassType
-	12, // 28: beerproto.v1.HopInventoryType.volume:type_name -> beerproto.v1.VolumeType
-	13, // 29: beerproto.v1.HopInventoryType.best_before:type_name -> google.protobuf.Timestamp
-	9,  // 30: beerproto.v1.HopInventoryType.alpha_acid:type_name -> beerproto.v1.PercentType
-	9,  // 31: beerproto.v1.HopInventoryType.percent_lost:type_name -> beerproto.v1.PercentType
-	32, // [32:32] is the sub-list for method output_type
-	32, // [32:32] is the sub-list for method input_type
-	32, // [32:32] is the sub-list for extension type_name
-	32, // [32:32] is the sub-list for extension extendee
-	0,  // [0:32] is the sub-list for field type_name
+	10, // 14: beerproto.v1.OilContentType.polyphenols:type_name -> beerproto.v1.PercentType
+	10, // 15: beerproto.v1.OilContentType.farnesene:type_name -> beerproto.v1.PercentType
+	10, // 16: beerproto.v1.OilContentType.limonene:type_name -> beerproto.v1.PercentType
+	10, // 17: beerproto.v1.OilContentType.nerol:type_name -> beerproto.v1.PercentType
+	10, // 18: beerproto.v1.OilContentType.geraniol:type_name -> beerproto.v1.PercentType
+	10, // 19: beerproto.v1.OilContentType.b_pinene:type_name -> beerproto.v1.PercentType
+	10, // 20: beerproto.v1.OilContentType.linalool:type_name -> beerproto.v1.PercentType
+	10, // 21: beerproto.v1.OilContentType.caryophyllene:type_name -> beerproto.v1.PercentType
+	10, // 22: beerproto.v1.OilContentType.cohumulone:type_name -> beerproto.v1.PercentType
+	10, // 23: beerproto.v1.OilContentType.xanthohumol:type_name -> beerproto.v1.PercentType
+	10, // 24: beerproto.v1.OilContentType.humulene:type_name -> beerproto.v1.PercentType
+	10, // 25: beerproto.v1.OilContentType.myrcene:type_name -> beerproto.v1.PercentType
+	10, // 26: beerproto.v1.OilContentType.pinene:type_name -> beerproto.v1.PercentType
+	9,  // 27: beerproto.v1.HopInventoryType.lots:type_name -> beerproto.v1.HopLotType
+	14, // 28: beerproto.v1.HopLotType.received_on:type_name -> google.protobuf.Timestamp
+	12, // 29: beerproto.v1.HopLotType.mass:type_name -> beerproto.v1.MassType
+	13, // 30: beerproto.v1.HopLotType.volume:type_name -> beerproto.v1.VolumeType
+	14, // 31: beerproto.v1.HopLotType.best_before:type_name -> google.protobuf.Timestamp
+	10, // 32: beerproto.v1.HopLotType.alpha_acid:type_name -> beerproto.v1.PercentType
+	10, // 33: beerproto.v1.HopLotType.percent_lost:type_name -> beerproto.v1.PercentType
+	34, // [34:34] is the sub-list for method output_type
+	34, // [34:34] is the sub-list for method input_type
+	34, // [34:34] is the sub-list for extension type_name
+	34, // [34:34] is the sub-list for extension extendee
+	0,  // [0:34] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_hop_proto_init() }
@@ -1037,9 +1141,9 @@ func file_beerproto_v1_hop_proto_init() {
 		(*HopAdditionType_Mass)(nil),
 		(*HopAdditionType_Volume)(nil),
 	}
-	file_beerproto_v1_hop_proto_msgTypes[5].OneofWrappers = []any{
-		(*HopInventoryType_Mass)(nil),
-		(*HopInventoryType_Volume)(nil),
+	file_beerproto_v1_hop_proto_msgTypes[6].OneofWrappers = []any{
+		(*HopLotType_Mass)(nil),
+		(*HopLotType_Volume)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -1047,7 +1151,7 @@ func file_beerproto_v1_hop_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_beerproto_v1_hop_proto_rawDesc), len(file_beerproto_v1_hop_proto_rawDesc)),
 			NumEnums:      3,
-			NumMessages:   6,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

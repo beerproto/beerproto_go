@@ -372,16 +372,17 @@ func (*MiscellaneousAdditionType_Unit) isMiscellaneousAdditionType_Amount() {}
 
 func (*MiscellaneousAdditionType_Volume) isMiscellaneousAdditionType_Amount() {}
 
+// MiscellaneousInventoryType is the stock of a miscellaneous ingredient held on
+// hand, as the lots it was received in.
+//
+// It carries no total. How much is on hand is the sum of the lots' amounts, and
+// the soonest best-before is derived from the lots the same way. Every lot of
+// one ingredient is held in the same kind — by weight, by volume or as a count
+// — so the lots add up without conversion.
 type MiscellaneousInventoryType struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Types that are valid to be assigned to Amount:
-	//
-	//	*MiscellaneousInventoryType_Mass
-	//	*MiscellaneousInventoryType_Unit
-	//	*MiscellaneousInventoryType_Volume
-	Amount isMiscellaneousInventoryType_Amount `protobuf_oneof:"amount"`
-	// Best-before / use-by date of this stock. Unset when unknown.
-	BestBefore    *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=best_before,json=bestBefore,proto3" json:"best_before,omitempty"`
+	// The individual receipts this stock is made of.
+	Lots          []*MiscellaneousLotType `protobuf:"bytes,5,rep,name=lots,proto3" json:"lots,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -416,68 +417,158 @@ func (*MiscellaneousInventoryType) Descriptor() ([]byte, []int) {
 	return file_beerproto_v1_misc_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *MiscellaneousInventoryType) GetAmount() isMiscellaneousInventoryType_Amount {
+func (x *MiscellaneousInventoryType) GetLots() []*MiscellaneousLotType {
+	if x != nil {
+		return x.Lots
+	}
+	return nil
+}
+
+// MiscellaneousLotType is one physical receipt of a miscellaneous ingredient: a
+// tub, a bottle, a box of tablets.
+type MiscellaneousLotType struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Stable identity, so a stock movement can name the lot it drew from.
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// The supplier's own lot or batch number, as printed on the pack. Free text.
+	LotCode string `protobuf:"bytes,2,opt,name=lot_code,json=lotCode,proto3" json:"lot_code,omitempty"`
+	// When this stock arrived.
+	ReceivedOn *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=received_on,json=receivedOn,proto3" json:"received_on,omitempty"`
+	Note       string                 `protobuf:"bytes,4,opt,name=note,proto3" json:"note,omitempty"`
+	// How much of this lot is on hand.
+	//
+	// Types that are valid to be assigned to Amount:
+	//
+	//	*MiscellaneousLotType_Mass
+	//	*MiscellaneousLotType_Unit
+	//	*MiscellaneousLotType_Volume
+	Amount isMiscellaneousLotType_Amount `protobuf_oneof:"amount"`
+	// Best-before / use-by date of this lot. Unset when unknown.
+	BestBefore    *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=best_before,json=bestBefore,proto3" json:"best_before,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MiscellaneousLotType) Reset() {
+	*x = MiscellaneousLotType{}
+	mi := &file_beerproto_v1_misc_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MiscellaneousLotType) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MiscellaneousLotType) ProtoMessage() {}
+
+func (x *MiscellaneousLotType) ProtoReflect() protoreflect.Message {
+	mi := &file_beerproto_v1_misc_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MiscellaneousLotType.ProtoReflect.Descriptor instead.
+func (*MiscellaneousLotType) Descriptor() ([]byte, []int) {
+	return file_beerproto_v1_misc_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *MiscellaneousLotType) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *MiscellaneousLotType) GetLotCode() string {
+	if x != nil {
+		return x.LotCode
+	}
+	return ""
+}
+
+func (x *MiscellaneousLotType) GetReceivedOn() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ReceivedOn
+	}
+	return nil
+}
+
+func (x *MiscellaneousLotType) GetNote() string {
+	if x != nil {
+		return x.Note
+	}
+	return ""
+}
+
+func (x *MiscellaneousLotType) GetAmount() isMiscellaneousLotType_Amount {
 	if x != nil {
 		return x.Amount
 	}
 	return nil
 }
 
-func (x *MiscellaneousInventoryType) GetMass() *MassType {
+func (x *MiscellaneousLotType) GetMass() *MassType {
 	if x != nil {
-		if x, ok := x.Amount.(*MiscellaneousInventoryType_Mass); ok {
+		if x, ok := x.Amount.(*MiscellaneousLotType_Mass); ok {
 			return x.Mass
 		}
 	}
 	return nil
 }
 
-func (x *MiscellaneousInventoryType) GetUnit() *UnitType {
+func (x *MiscellaneousLotType) GetUnit() *UnitType {
 	if x != nil {
-		if x, ok := x.Amount.(*MiscellaneousInventoryType_Unit); ok {
+		if x, ok := x.Amount.(*MiscellaneousLotType_Unit); ok {
 			return x.Unit
 		}
 	}
 	return nil
 }
 
-func (x *MiscellaneousInventoryType) GetVolume() *VolumeType {
+func (x *MiscellaneousLotType) GetVolume() *VolumeType {
 	if x != nil {
-		if x, ok := x.Amount.(*MiscellaneousInventoryType_Volume); ok {
+		if x, ok := x.Amount.(*MiscellaneousLotType_Volume); ok {
 			return x.Volume
 		}
 	}
 	return nil
 }
 
-func (x *MiscellaneousInventoryType) GetBestBefore() *timestamppb.Timestamp {
+func (x *MiscellaneousLotType) GetBestBefore() *timestamppb.Timestamp {
 	if x != nil {
 		return x.BestBefore
 	}
 	return nil
 }
 
-type isMiscellaneousInventoryType_Amount interface {
-	isMiscellaneousInventoryType_Amount()
+type isMiscellaneousLotType_Amount interface {
+	isMiscellaneousLotType_Amount()
 }
 
-type MiscellaneousInventoryType_Mass struct {
-	Mass *MassType `protobuf:"bytes,1,opt,name=mass,proto3,oneof"`
+type MiscellaneousLotType_Mass struct {
+	Mass *MassType `protobuf:"bytes,5,opt,name=mass,proto3,oneof"`
 }
 
-type MiscellaneousInventoryType_Unit struct {
-	Unit *UnitType `protobuf:"bytes,2,opt,name=unit,proto3,oneof"`
+type MiscellaneousLotType_Unit struct {
+	Unit *UnitType `protobuf:"bytes,6,opt,name=unit,proto3,oneof"`
 }
 
-type MiscellaneousInventoryType_Volume struct {
-	Volume *VolumeType `protobuf:"bytes,3,opt,name=volume,proto3,oneof"`
+type MiscellaneousLotType_Volume struct {
+	Volume *VolumeType `protobuf:"bytes,7,opt,name=volume,proto3,oneof"`
 }
 
-func (*MiscellaneousInventoryType_Mass) isMiscellaneousInventoryType_Amount() {}
+func (*MiscellaneousLotType_Mass) isMiscellaneousLotType_Amount() {}
 
-func (*MiscellaneousInventoryType_Unit) isMiscellaneousInventoryType_Amount() {}
+func (*MiscellaneousLotType_Unit) isMiscellaneousLotType_Amount() {}
 
-func (*MiscellaneousInventoryType_Volume) isMiscellaneousInventoryType_Amount() {}
+func (*MiscellaneousLotType_Volume) isMiscellaneousLotType_Amount() {}
 
 var File_beerproto_v1_misc_proto protoreflect.FileDescriptor
 
@@ -504,12 +595,19 @@ const file_beerproto_v1_misc_proto_rawDesc = "" +
 	"\x04mass\x18\x04 \x01(\v2\x16.beerproto.v1.MassTypeH\x00R\x04mass\x12,\n" +
 	"\x04unit\x18\x05 \x01(\v2\x16.beerproto.v1.UnitTypeH\x00R\x04unit\x122\n" +
 	"\x06volume\x18\x06 \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volumeB\x0f\n" +
-	"\x06amount\x12\x05\xbaH\x02\b\x01\"\xfa\x01\n" +
-	"\x1aMiscellaneousInventoryType\x12,\n" +
-	"\x04mass\x18\x01 \x01(\v2\x16.beerproto.v1.MassTypeH\x00R\x04mass\x12,\n" +
-	"\x04unit\x18\x02 \x01(\v2\x16.beerproto.v1.UnitTypeH\x00R\x04unit\x122\n" +
-	"\x06volume\x18\x03 \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volume\x12;\n" +
-	"\vbest_before\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"\x06amount\x12\x05\xbaH\x02\b\x01\"T\n" +
+	"\x1aMiscellaneousInventoryType\x126\n" +
+	"\x04lots\x18\x05 \x03(\v2\".beerproto.v1.MiscellaneousLotTypeR\x04lots\"\xf0\x02\n" +
+	"\x14MiscellaneousLotType\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
+	"\blot_code\x18\x02 \x01(\tR\alotCode\x12;\n" +
+	"\vreceived_on\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"receivedOn\x12\x12\n" +
+	"\x04note\x18\x04 \x01(\tR\x04note\x12,\n" +
+	"\x04mass\x18\x05 \x01(\v2\x16.beerproto.v1.MassTypeH\x00R\x04mass\x12,\n" +
+	"\x04unit\x18\x06 \x01(\v2\x16.beerproto.v1.UnitTypeH\x00R\x04unit\x122\n" +
+	"\x06volume\x18\a \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volume\x12;\n" +
+	"\vbest_before\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\n" +
 	"bestBeforeB\x0f\n" +
 	"\x06amount\x12\x05\xbaH\x02\b\x01*\xbb\x02\n" +
 	"\x15MiscellaneousBaseType\x12'\n" +
@@ -536,37 +634,40 @@ func file_beerproto_v1_misc_proto_rawDescGZIP() []byte {
 }
 
 var file_beerproto_v1_misc_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_beerproto_v1_misc_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_beerproto_v1_misc_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_beerproto_v1_misc_proto_goTypes = []any{
 	(MiscellaneousBaseType)(0),         // 0: beerproto.v1.MiscellaneousBaseType
 	(*MiscellaneousBase)(nil),          // 1: beerproto.v1.MiscellaneousBase
 	(*MiscellaneousType)(nil),          // 2: beerproto.v1.MiscellaneousType
 	(*MiscellaneousAdditionType)(nil),  // 3: beerproto.v1.MiscellaneousAdditionType
 	(*MiscellaneousInventoryType)(nil), // 4: beerproto.v1.MiscellaneousInventoryType
-	(*TimingType)(nil),                 // 5: beerproto.v1.TimingType
-	(*MassType)(nil),                   // 6: beerproto.v1.MassType
-	(*UnitType)(nil),                   // 7: beerproto.v1.UnitType
-	(*VolumeType)(nil),                 // 8: beerproto.v1.VolumeType
-	(*timestamppb.Timestamp)(nil),      // 9: google.protobuf.Timestamp
+	(*MiscellaneousLotType)(nil),       // 5: beerproto.v1.MiscellaneousLotType
+	(*TimingType)(nil),                 // 6: beerproto.v1.TimingType
+	(*MassType)(nil),                   // 7: beerproto.v1.MassType
+	(*UnitType)(nil),                   // 8: beerproto.v1.UnitType
+	(*VolumeType)(nil),                 // 9: beerproto.v1.VolumeType
+	(*timestamppb.Timestamp)(nil),      // 10: google.protobuf.Timestamp
 }
 var file_beerproto_v1_misc_proto_depIdxs = []int32{
 	0,  // 0: beerproto.v1.MiscellaneousBase.type:type_name -> beerproto.v1.MiscellaneousBaseType
 	1,  // 1: beerproto.v1.MiscellaneousType.base:type_name -> beerproto.v1.MiscellaneousBase
 	4,  // 2: beerproto.v1.MiscellaneousType.inventory:type_name -> beerproto.v1.MiscellaneousInventoryType
 	1,  // 3: beerproto.v1.MiscellaneousAdditionType.base:type_name -> beerproto.v1.MiscellaneousBase
-	5,  // 4: beerproto.v1.MiscellaneousAdditionType.timing:type_name -> beerproto.v1.TimingType
-	6,  // 5: beerproto.v1.MiscellaneousAdditionType.mass:type_name -> beerproto.v1.MassType
-	7,  // 6: beerproto.v1.MiscellaneousAdditionType.unit:type_name -> beerproto.v1.UnitType
-	8,  // 7: beerproto.v1.MiscellaneousAdditionType.volume:type_name -> beerproto.v1.VolumeType
-	6,  // 8: beerproto.v1.MiscellaneousInventoryType.mass:type_name -> beerproto.v1.MassType
-	7,  // 9: beerproto.v1.MiscellaneousInventoryType.unit:type_name -> beerproto.v1.UnitType
-	8,  // 10: beerproto.v1.MiscellaneousInventoryType.volume:type_name -> beerproto.v1.VolumeType
-	9,  // 11: beerproto.v1.MiscellaneousInventoryType.best_before:type_name -> google.protobuf.Timestamp
-	12, // [12:12] is the sub-list for method output_type
-	12, // [12:12] is the sub-list for method input_type
-	12, // [12:12] is the sub-list for extension type_name
-	12, // [12:12] is the sub-list for extension extendee
-	0,  // [0:12] is the sub-list for field type_name
+	6,  // 4: beerproto.v1.MiscellaneousAdditionType.timing:type_name -> beerproto.v1.TimingType
+	7,  // 5: beerproto.v1.MiscellaneousAdditionType.mass:type_name -> beerproto.v1.MassType
+	8,  // 6: beerproto.v1.MiscellaneousAdditionType.unit:type_name -> beerproto.v1.UnitType
+	9,  // 7: beerproto.v1.MiscellaneousAdditionType.volume:type_name -> beerproto.v1.VolumeType
+	5,  // 8: beerproto.v1.MiscellaneousInventoryType.lots:type_name -> beerproto.v1.MiscellaneousLotType
+	10, // 9: beerproto.v1.MiscellaneousLotType.received_on:type_name -> google.protobuf.Timestamp
+	7,  // 10: beerproto.v1.MiscellaneousLotType.mass:type_name -> beerproto.v1.MassType
+	8,  // 11: beerproto.v1.MiscellaneousLotType.unit:type_name -> beerproto.v1.UnitType
+	9,  // 12: beerproto.v1.MiscellaneousLotType.volume:type_name -> beerproto.v1.VolumeType
+	10, // 13: beerproto.v1.MiscellaneousLotType.best_before:type_name -> google.protobuf.Timestamp
+	14, // [14:14] is the sub-list for method output_type
+	14, // [14:14] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_misc_proto_init() }
@@ -581,10 +682,10 @@ func file_beerproto_v1_misc_proto_init() {
 		(*MiscellaneousAdditionType_Unit)(nil),
 		(*MiscellaneousAdditionType_Volume)(nil),
 	}
-	file_beerproto_v1_misc_proto_msgTypes[3].OneofWrappers = []any{
-		(*MiscellaneousInventoryType_Mass)(nil),
-		(*MiscellaneousInventoryType_Unit)(nil),
-		(*MiscellaneousInventoryType_Volume)(nil),
+	file_beerproto_v1_misc_proto_msgTypes[4].OneofWrappers = []any{
+		(*MiscellaneousLotType_Mass)(nil),
+		(*MiscellaneousLotType_Unit)(nil),
+		(*MiscellaneousLotType_Volume)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -592,7 +693,7 @@ func file_beerproto_v1_misc_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_beerproto_v1_misc_proto_rawDesc), len(file_beerproto_v1_misc_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   4,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
