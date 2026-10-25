@@ -17,6 +17,7 @@ import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -261,8 +262,11 @@ type PackagingVesselType struct {
 	TargetCarbonation *CarbonationType `protobuf:"bytes,11,opt,name=target_carbonation,json=targetCarbonation,proto3" json:"target_carbonation,omitempty"`
 	Notes             string           `protobuf:"bytes,12,opt,name=notes,proto3" json:"notes,omitempty"`
 	CarbonationStep   CarbonationStep  `protobuf:"varint,13,opt,name=carbonation_step,json=carbonationStep,proto3,enum=beerproto.v1.CarbonationStep" json:"carbonation_step,omitempty"`
-	unknownFields     protoimpl.UnknownFields
-	sizeCache         protoimpl.SizeCache
+	// When this vessel's beer is best drunk by. Unset when the brewer gave no
+	// date. As each inventory lot's best_before.
+	BestBefore    *timestamppb.Timestamp `protobuf:"bytes,14,opt,name=best_before,json=bestBefore,proto3" json:"best_before,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PackagingVesselType) Reset() {
@@ -386,11 +390,18 @@ func (x *PackagingVesselType) GetCarbonationStep() CarbonationStep {
 	return CarbonationStep_CARBONATION_STEP_UNSPECIFIED
 }
 
+func (x *PackagingVesselType) GetBestBefore() *timestamppb.Timestamp {
+	if x != nil {
+		return x.BestBefore
+	}
+	return nil
+}
+
 var File_beerproto_v1_packaging_vessel_proto protoreflect.FileDescriptor
 
 const file_beerproto_v1_packaging_vessel_proto_rawDesc = "" +
 	"\n" +
-	"#beerproto/v1/packaging_vessel.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a$beerproto/v1/packaging_graphic.proto\x1a\x1bbuf/validate/validate.proto\"\xb6\x02\n" +
+	"#beerproto/v1/packaging_vessel.proto\x12\fbeerproto.v1\x1a$beerproto/v1/measureable_units.proto\x1a$beerproto/v1/packaging_graphic.proto\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xb6\x02\n" +
 	"\x13PackagingVesselBase\x12\x1e\n" +
 	"\x04name\x18\x01 \x01(\tB\n" +
 	"\xbaH\a\xc8\x01\x01r\x02\x10\x03R\x04name\x125\n" +
@@ -398,7 +409,7 @@ const file_beerproto_v1_packaging_vessel_proto_rawDesc = "" +
 	"\rvessel_volume\x18\x03 \x01(\v2\x18.beerproto.v1.VolumeTypeR\fvesselVolume\x12'\n" +
 	"\x0fvessel_quantity\x18\x04 \x01(\x05R\x0evesselQuantity\x12 \n" +
 	"\vdescription\x18\x05 \x01(\tR\vdescription\x12>\n" +
-	"\bgraphics\x18\x06 \x03(\v2\".beerproto.v1.PackagingGraphicTypeR\bgraphics\"\xe7\x05\n" +
+	"\bgraphics\x18\x06 \x03(\v2\".beerproto.v1.PackagingGraphicTypeR\bgraphics\"\xa4\x06\n" +
 	"\x13PackagingVesselType\x125\n" +
 	"\x04base\x18\x01 \x01(\v2!.beerproto.v1.PackagingVesselBaseR\x04base\x12\x1b\n" +
 	"\x02id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x12!\n" +
@@ -414,7 +425,9 @@ const file_beerproto_v1_packaging_vessel_proto_rawDesc = "" +
 	" \x01(\v2\x1d.beerproto.v1.TemperatureTypeR\x0eendTemperature\x12L\n" +
 	"\x12target_carbonation\x18\v \x01(\v2\x1d.beerproto.v1.CarbonationTypeR\x11targetCarbonation\x12\x14\n" +
 	"\x05notes\x18\f \x01(\tR\x05notes\x12H\n" +
-	"\x10carbonation_step\x18\r \x01(\x0e2\x1d.beerproto.v1.CarbonationStepR\x0fcarbonationStep*\x9f\x02\n" +
+	"\x10carbonation_step\x18\r \x01(\x0e2\x1d.beerproto.v1.CarbonationStepR\x0fcarbonationStep\x12;\n" +
+	"\vbest_before\x18\x0e \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"bestBefore*\x9f\x02\n" +
 	"\x13PackagingVesselUnit\x12%\n" +
 	"!PACKAGING_VESSEL_UNIT_UNSPECIFIED\x10\x00\x12\x1d\n" +
 	"\x19PACKAGING_VESSEL_UNIT_KEG\x10\x01\x12 \n" +
@@ -447,17 +460,18 @@ func file_beerproto_v1_packaging_vessel_proto_rawDescGZIP() []byte {
 var file_beerproto_v1_packaging_vessel_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_beerproto_v1_packaging_vessel_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_beerproto_v1_packaging_vessel_proto_goTypes = []any{
-	(PackagingVesselUnit)(0),     // 0: beerproto.v1.PackagingVesselUnit
-	(CarbonationStep)(0),         // 1: beerproto.v1.CarbonationStep
-	(*PackagingVesselBase)(nil),  // 2: beerproto.v1.PackagingVesselBase
-	(*PackagingVesselType)(nil),  // 3: beerproto.v1.PackagingVesselType
-	(*VolumeType)(nil),           // 4: beerproto.v1.VolumeType
-	(*PackagingGraphicType)(nil), // 5: beerproto.v1.PackagingGraphicType
-	(*TimeType)(nil),             // 6: beerproto.v1.TimeType
-	(*GravityType)(nil),          // 7: beerproto.v1.GravityType
-	(*AcidityType)(nil),          // 8: beerproto.v1.AcidityType
-	(*TemperatureType)(nil),      // 9: beerproto.v1.TemperatureType
-	(*CarbonationType)(nil),      // 10: beerproto.v1.CarbonationType
+	(PackagingVesselUnit)(0),      // 0: beerproto.v1.PackagingVesselUnit
+	(CarbonationStep)(0),          // 1: beerproto.v1.CarbonationStep
+	(*PackagingVesselBase)(nil),   // 2: beerproto.v1.PackagingVesselBase
+	(*PackagingVesselType)(nil),   // 3: beerproto.v1.PackagingVesselType
+	(*VolumeType)(nil),            // 4: beerproto.v1.VolumeType
+	(*PackagingGraphicType)(nil),  // 5: beerproto.v1.PackagingGraphicType
+	(*TimeType)(nil),              // 6: beerproto.v1.TimeType
+	(*GravityType)(nil),           // 7: beerproto.v1.GravityType
+	(*AcidityType)(nil),           // 8: beerproto.v1.AcidityType
+	(*TemperatureType)(nil),       // 9: beerproto.v1.TemperatureType
+	(*CarbonationType)(nil),       // 10: beerproto.v1.CarbonationType
+	(*timestamppb.Timestamp)(nil), // 11: google.protobuf.Timestamp
 }
 var file_beerproto_v1_packaging_vessel_proto_depIdxs = []int32{
 	0,  // 0: beerproto.v1.PackagingVesselBase.type:type_name -> beerproto.v1.PackagingVesselUnit
@@ -473,11 +487,12 @@ var file_beerproto_v1_packaging_vessel_proto_depIdxs = []int32{
 	9,  // 10: beerproto.v1.PackagingVesselType.end_temperature:type_name -> beerproto.v1.TemperatureType
 	10, // 11: beerproto.v1.PackagingVesselType.target_carbonation:type_name -> beerproto.v1.CarbonationType
 	1,  // 12: beerproto.v1.PackagingVesselType.carbonation_step:type_name -> beerproto.v1.CarbonationStep
-	13, // [13:13] is the sub-list for method output_type
-	13, // [13:13] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	11, // 13: beerproto.v1.PackagingVesselType.best_before:type_name -> google.protobuf.Timestamp
+	14, // [14:14] is the sub-list for method output_type
+	14, // [14:14] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_packaging_vessel_proto_init() }
