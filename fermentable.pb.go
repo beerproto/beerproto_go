@@ -877,7 +877,11 @@ type FermentableLotType struct {
 	// How this lot is milled — affects staling rate and mash efficiency.
 	Crush GrainCrush `protobuf:"varint,9,opt,name=crush,proto3,enum=beerproto.v1.GrainCrush" json:"crush,omitempty"`
 	// Measured moisture content of this lot (percent). Informational.
-	Moisture      *PercentType `protobuf:"bytes,10,opt,name=moisture,proto3" json:"moisture,omitempty"`
+	Moisture *PercentType `protobuf:"bytes,10,opt,name=moisture,proto3" json:"moisture,omitempty"`
+	// The measured colour of this lot, from its certificate of analysis. When
+	// set, overrides the library colour, as lot_potential does the yield, so a
+	// sack that kilned darker than the maltster's spec is accounted for.
+	Color         *ColorType `protobuf:"bytes,11,opt,name=color,proto3" json:"color,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -993,6 +997,13 @@ func (x *FermentableLotType) GetMoisture() *PercentType {
 	return nil
 }
 
+func (x *FermentableLotType) GetColor() *ColorType {
+	if x != nil {
+		return x.Color
+	}
+	return nil
+}
+
 type isFermentableLotType_Amount interface {
 	isFermentableLotType_Amount()
 }
@@ -1074,7 +1085,7 @@ const file_beerproto_v1_fermentable_proto_rawDesc = "" +
 	"\x16fine_coarse_difference\x18\x03 \x01(\v2\x19.beerproto.v1.PercentTypeR\x14fineCoarseDifference\x127\n" +
 	"\tpotential\x18\x04 \x01(\v2\x19.beerproto.v1.GravityTypeR\tpotential\"P\n" +
 	"\x18FermentableInventoryType\x124\n" +
-	"\x04lots\x18\a \x03(\v2 .beerproto.v1.FermentableLotTypeR\x04lots\"\xe7\x03\n" +
+	"\x04lots\x18\a \x03(\v2 .beerproto.v1.FermentableLotTypeR\x04lots\"\x96\x04\n" +
 	"\x12FermentableLotType\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
 	"\blot_code\x18\x02 \x01(\tR\alotCode\x12;\n" +
@@ -1088,7 +1099,8 @@ const file_beerproto_v1_fermentable_proto_rawDesc = "" +
 	"\rlot_potential\x18\b \x01(\v2\x19.beerproto.v1.GravityTypeR\flotPotential\x12.\n" +
 	"\x05crush\x18\t \x01(\x0e2\x18.beerproto.v1.GrainCrushR\x05crush\x125\n" +
 	"\bmoisture\x18\n" +
-	" \x01(\v2\x19.beerproto.v1.PercentTypeR\bmoistureB\x0f\n" +
+	" \x01(\v2\x19.beerproto.v1.PercentTypeR\bmoisture\x12-\n" +
+	"\x05color\x18\v \x01(\v2\x17.beerproto.v1.ColorTypeR\x05colorB\x0f\n" +
 	"\x06amount\x12\x05\xbaH\x02\b\x01*\x8a\x01\n" +
 	"\n" +
 	"GrainCrush\x12\x1b\n" +
@@ -1203,11 +1215,12 @@ var file_beerproto_v1_fermentable_proto_depIdxs = []int32{
 	20, // 41: beerproto.v1.FermentableLotType.lot_potential:type_name -> beerproto.v1.GravityType
 	0,  // 42: beerproto.v1.FermentableLotType.crush:type_name -> beerproto.v1.GrainCrush
 	13, // 43: beerproto.v1.FermentableLotType.moisture:type_name -> beerproto.v1.PercentType
-	44, // [44:44] is the sub-list for method output_type
-	44, // [44:44] is the sub-list for method input_type
-	44, // [44:44] is the sub-list for extension type_name
-	44, // [44:44] is the sub-list for extension extendee
-	0,  // [0:44] is the sub-list for field type_name
+	9,  // 44: beerproto.v1.FermentableLotType.color:type_name -> beerproto.v1.ColorType
+	45, // [45:45] is the sub-list for method output_type
+	45, // [45:45] is the sub-list for method input_type
+	45, // [45:45] is the sub-list for extension type_name
+	45, // [45:45] is the sub-list for extension extendee
+	0,  // [0:45] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_fermentable_proto_init() }
