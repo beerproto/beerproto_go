@@ -1,0 +1,18 @@
+# The Go generator for beerproto's schema, kept in this repo beside
+# the google.golang.org/protobuf runtime in go.mod that its output must agree with.
+#
+# .github/workflows/main.yml runs this from the beerproto checkout in ./proto,
+# so `out` is relative to that directory.
+version: v2
+managed:
+  enabled: true
+  override:
+    - file_option: go_package_prefix
+      value: github.com/beerproto/beerproto_go
+      module: buf.build/beerproto/beerproto
+
+plugins:
+  - remote: buf.build/protocolbuffers/go
+    out: gen
+    opt:
+      - paths=source_relative

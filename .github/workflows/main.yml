@@ -26,8 +26,10 @@ jobs:
       - uses: bufbuild/buf-action@v1
         with:
           setup_only: true
+      # With this repo's template, not beerproto's, so the generator is versioned
+      # beside the runtime it writes code for.
       - name: Buf generate
-        run: buf generate beerprotoapis --template=buf.gen.go.yaml
+        run: buf generate beerprotoapis --template=../buf.gen.go.yaml
         working-directory: ./proto
       - name: Move beer file
         run: mv ./proto/gen/beerproto/v1/* ./
