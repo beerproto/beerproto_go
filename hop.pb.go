@@ -453,7 +453,12 @@ type HopAdditionType struct {
 	//
 	//	*HopAdditionType_Mass
 	//	*HopAdditionType_Volume
-	Amount        isHopAdditionType_Amount `protobuf_oneof:"amount"`
+	Amount isHopAdditionType_Amount `protobuf_oneof:"amount"`
+	// What one canonical unit of this addition cost -- per gram, millilitre or
+	// counted unit, whichever its amount is in. Set from the stock it was drawn
+	// from, so a brewed batch's cost is what was paid for that stock and does not
+	// move when prices change. Unset when unknown.
+	UnitPrice     *PriceType `protobuf:"bytes,6,opt,name=unit_price,json=unitPrice,proto3" json:"unit_price,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -530,6 +535,13 @@ func (x *HopAdditionType) GetVolume() *VolumeType {
 		if x, ok := x.Amount.(*HopAdditionType_Volume); ok {
 			return x.Volume
 		}
+	}
+	return nil
+}
+
+func (x *HopAdditionType) GetUnitPrice() *PriceType {
+	if x != nil {
+		return x.UnitPrice
 	}
 	return nil
 }
@@ -835,7 +847,11 @@ type HopLotType struct {
 	AlphaAcid *PercentType `protobuf:"bytes,8,opt,name=alpha_acid,json=alphaAcid,proto3" json:"alpha_acid,omitempty"`
 	// The measured alpha loss of this lot over six months of storage (percent),
 	// overriding the variety's figure. Falls back the same way as alpha_acid.
-	PercentLost   *PercentType `protobuf:"bytes,9,opt,name=percent_lost,json=percentLost,proto3" json:"percent_lost,omitempty"`
+	PercentLost *PercentType `protobuf:"bytes,9,opt,name=percent_lost,json=percentLost,proto3" json:"percent_lost,omitempty"`
+	// What one canonical unit of this lot cost -- per gram, millilitre or counted
+	// unit, whichever its amount is held in. Unset when the price was not
+	// recorded, which is not the same as free.
+	UnitPrice     *PriceType `protobuf:"bytes,10,opt,name=unit_price,json=unitPrice,proto3" json:"unit_price,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -944,6 +960,13 @@ func (x *HopLotType) GetPercentLost() *PercentType {
 	return nil
 }
 
+func (x *HopLotType) GetUnitPrice() *PriceType {
+	if x != nil {
+		return x.UnitPrice
+	}
+	return nil
+}
+
 type isHopLotType_Amount interface {
 	isHopLotType_Amount()
 }
@@ -987,13 +1010,15 @@ const file_beerproto_v1_hop_proto_rawDesc = "" +
 	"oilContent\x12<\n" +
 	"\fpercent_lost\x18\x06 \x01(\v2\x19.beerproto.v1.PercentTypeR\vpercentLost\x12 \n" +
 	"\vsubstitutes\x18\a \x01(\tR\vsubstitutes\x12\x14\n" +
-	"\x05notes\x18\b \x01(\tR\x05notes\"\x95\x02\n" +
+	"\x05notes\x18\b \x01(\tR\x05notes\"\xcd\x02\n" +
 	"\x0fHopAdditionType\x128\n" +
 	"\x04base\x18\x01 \x01(\v2\x1c.beerproto.v1.HopVarietyBaseB\x06\xbaH\x03\xc8\x01\x01R\x04base\x12\x1b\n" +
 	"\x02id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x128\n" +
 	"\x06timing\x18\x03 \x01(\v2\x18.beerproto.v1.TimingTypeB\x06\xbaH\x03\xc8\x01\x01R\x06timing\x12,\n" +
 	"\x04mass\x18\x04 \x01(\v2\x16.beerproto.v1.MassTypeH\x00R\x04mass\x122\n" +
-	"\x06volume\x18\x05 \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volumeB\x0f\n" +
+	"\x06volume\x18\x05 \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volume\x126\n" +
+	"\n" +
+	"unit_price\x18\x06 \x01(\v2\x17.beerproto.v1.PriceTypeR\tunitPriceB\x0f\n" +
 	"\x06amount\x12\x05\xbaH\x02\b\x01\"F\n" +
 	"\x0fIBUEstimateType\x123\n" +
 	"\x06method\x18\x01 \x01(\x0e2\x1b.beerproto.v1.IBUMethodUnitR\x06method\"\x9c\x06\n" +
@@ -1016,7 +1041,7 @@ const file_beerproto_v1_hop_proto_rawDesc = "" +
 	"\amyrcene\x18\r \x01(\v2\x19.beerproto.v1.PercentTypeR\amyrcene\x121\n" +
 	"\x06pinene\x18\x0e \x01(\v2\x19.beerproto.v1.PercentTypeR\x06pinene\"@\n" +
 	"\x10HopInventoryType\x12,\n" +
-	"\x04lots\x18\x06 \x03(\v2\x18.beerproto.v1.HopLotTypeR\x04lots\"\xb0\x03\n" +
+	"\x04lots\x18\x06 \x03(\v2\x18.beerproto.v1.HopLotTypeR\x04lots\"\xe8\x03\n" +
 	"\n" +
 	"HopLotType\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
@@ -1030,7 +1055,10 @@ const file_beerproto_v1_hop_proto_rawDesc = "" +
 	"bestBefore\x128\n" +
 	"\n" +
 	"alpha_acid\x18\b \x01(\v2\x19.beerproto.v1.PercentTypeR\talphaAcid\x12<\n" +
-	"\fpercent_lost\x18\t \x01(\v2\x19.beerproto.v1.PercentTypeR\vpercentLostB\x0f\n" +
+	"\fpercent_lost\x18\t \x01(\v2\x19.beerproto.v1.PercentTypeR\vpercentLost\x126\n" +
+	"\n" +
+	"unit_price\x18\n" +
+	" \x01(\v2\x17.beerproto.v1.PriceTypeR\tunitPriceB\x0f\n" +
 	"\x06amount\x12\x05\xbaH\x02\b\x01*\xf0\x02\n" +
 	"\x16VarietyInformationType\x12(\n" +
 	"$VARIETY_INFORMATION_TYPE_UNSPECIFIED\x10\x00\x12\"\n" +
@@ -1086,7 +1114,8 @@ var file_beerproto_v1_hop_proto_goTypes = []any{
 	(*TimingType)(nil),            // 11: beerproto.v1.TimingType
 	(*MassType)(nil),              // 12: beerproto.v1.MassType
 	(*VolumeType)(nil),            // 13: beerproto.v1.VolumeType
-	(*timestamppb.Timestamp)(nil), // 14: google.protobuf.Timestamp
+	(*PriceType)(nil),             // 14: beerproto.v1.PriceType
+	(*timestamppb.Timestamp)(nil), // 15: google.protobuf.Timestamp
 }
 var file_beerproto_v1_hop_proto_depIdxs = []int32{
 	1,  // 0: beerproto.v1.HopVarietyBase.form:type_name -> beerproto.v1.HopVarietyBaseForm
@@ -1102,32 +1131,34 @@ var file_beerproto_v1_hop_proto_depIdxs = []int32{
 	11, // 10: beerproto.v1.HopAdditionType.timing:type_name -> beerproto.v1.TimingType
 	12, // 11: beerproto.v1.HopAdditionType.mass:type_name -> beerproto.v1.MassType
 	13, // 12: beerproto.v1.HopAdditionType.volume:type_name -> beerproto.v1.VolumeType
-	2,  // 13: beerproto.v1.IBUEstimateType.method:type_name -> beerproto.v1.IBUMethodUnit
-	10, // 14: beerproto.v1.OilContentType.polyphenols:type_name -> beerproto.v1.PercentType
-	10, // 15: beerproto.v1.OilContentType.farnesene:type_name -> beerproto.v1.PercentType
-	10, // 16: beerproto.v1.OilContentType.limonene:type_name -> beerproto.v1.PercentType
-	10, // 17: beerproto.v1.OilContentType.nerol:type_name -> beerproto.v1.PercentType
-	10, // 18: beerproto.v1.OilContentType.geraniol:type_name -> beerproto.v1.PercentType
-	10, // 19: beerproto.v1.OilContentType.b_pinene:type_name -> beerproto.v1.PercentType
-	10, // 20: beerproto.v1.OilContentType.linalool:type_name -> beerproto.v1.PercentType
-	10, // 21: beerproto.v1.OilContentType.caryophyllene:type_name -> beerproto.v1.PercentType
-	10, // 22: beerproto.v1.OilContentType.cohumulone:type_name -> beerproto.v1.PercentType
-	10, // 23: beerproto.v1.OilContentType.xanthohumol:type_name -> beerproto.v1.PercentType
-	10, // 24: beerproto.v1.OilContentType.humulene:type_name -> beerproto.v1.PercentType
-	10, // 25: beerproto.v1.OilContentType.myrcene:type_name -> beerproto.v1.PercentType
-	10, // 26: beerproto.v1.OilContentType.pinene:type_name -> beerproto.v1.PercentType
-	9,  // 27: beerproto.v1.HopInventoryType.lots:type_name -> beerproto.v1.HopLotType
-	14, // 28: beerproto.v1.HopLotType.received_on:type_name -> google.protobuf.Timestamp
-	12, // 29: beerproto.v1.HopLotType.mass:type_name -> beerproto.v1.MassType
-	13, // 30: beerproto.v1.HopLotType.volume:type_name -> beerproto.v1.VolumeType
-	14, // 31: beerproto.v1.HopLotType.best_before:type_name -> google.protobuf.Timestamp
-	10, // 32: beerproto.v1.HopLotType.alpha_acid:type_name -> beerproto.v1.PercentType
-	10, // 33: beerproto.v1.HopLotType.percent_lost:type_name -> beerproto.v1.PercentType
-	34, // [34:34] is the sub-list for method output_type
-	34, // [34:34] is the sub-list for method input_type
-	34, // [34:34] is the sub-list for extension type_name
-	34, // [34:34] is the sub-list for extension extendee
-	0,  // [0:34] is the sub-list for field type_name
+	14, // 13: beerproto.v1.HopAdditionType.unit_price:type_name -> beerproto.v1.PriceType
+	2,  // 14: beerproto.v1.IBUEstimateType.method:type_name -> beerproto.v1.IBUMethodUnit
+	10, // 15: beerproto.v1.OilContentType.polyphenols:type_name -> beerproto.v1.PercentType
+	10, // 16: beerproto.v1.OilContentType.farnesene:type_name -> beerproto.v1.PercentType
+	10, // 17: beerproto.v1.OilContentType.limonene:type_name -> beerproto.v1.PercentType
+	10, // 18: beerproto.v1.OilContentType.nerol:type_name -> beerproto.v1.PercentType
+	10, // 19: beerproto.v1.OilContentType.geraniol:type_name -> beerproto.v1.PercentType
+	10, // 20: beerproto.v1.OilContentType.b_pinene:type_name -> beerproto.v1.PercentType
+	10, // 21: beerproto.v1.OilContentType.linalool:type_name -> beerproto.v1.PercentType
+	10, // 22: beerproto.v1.OilContentType.caryophyllene:type_name -> beerproto.v1.PercentType
+	10, // 23: beerproto.v1.OilContentType.cohumulone:type_name -> beerproto.v1.PercentType
+	10, // 24: beerproto.v1.OilContentType.xanthohumol:type_name -> beerproto.v1.PercentType
+	10, // 25: beerproto.v1.OilContentType.humulene:type_name -> beerproto.v1.PercentType
+	10, // 26: beerproto.v1.OilContentType.myrcene:type_name -> beerproto.v1.PercentType
+	10, // 27: beerproto.v1.OilContentType.pinene:type_name -> beerproto.v1.PercentType
+	9,  // 28: beerproto.v1.HopInventoryType.lots:type_name -> beerproto.v1.HopLotType
+	15, // 29: beerproto.v1.HopLotType.received_on:type_name -> google.protobuf.Timestamp
+	12, // 30: beerproto.v1.HopLotType.mass:type_name -> beerproto.v1.MassType
+	13, // 31: beerproto.v1.HopLotType.volume:type_name -> beerproto.v1.VolumeType
+	15, // 32: beerproto.v1.HopLotType.best_before:type_name -> google.protobuf.Timestamp
+	10, // 33: beerproto.v1.HopLotType.alpha_acid:type_name -> beerproto.v1.PercentType
+	10, // 34: beerproto.v1.HopLotType.percent_lost:type_name -> beerproto.v1.PercentType
+	14, // 35: beerproto.v1.HopLotType.unit_price:type_name -> beerproto.v1.PriceType
+	36, // [36:36] is the sub-list for method output_type
+	36, // [36:36] is the sub-list for method input_type
+	36, // [36:36] is the sub-list for extension type_name
+	36, // [36:36] is the sub-list for extension extendee
+	0,  // [0:36] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_hop_proto_init() }

@@ -522,7 +522,12 @@ type CultureAdditionType struct {
 	//	*CultureAdditionType_Mass
 	//	*CultureAdditionType_Unit
 	//	*CultureAdditionType_Volume
-	Amount        isCultureAdditionType_Amount `protobuf_oneof:"amount"`
+	Amount isCultureAdditionType_Amount `protobuf_oneof:"amount"`
+	// What one canonical unit of this addition cost -- per gram, millilitre or
+	// counted unit, whichever its amount is in. Set from the stock it was drawn
+	// from, so a brewed batch's cost is what was paid for that stock and does not
+	// move when prices change. Unset when unknown.
+	UnitPrice     *PriceType `protobuf:"bytes,11,opt,name=unit_price,json=unitPrice,proto3" json:"unit_price,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -640,6 +645,13 @@ func (x *CultureAdditionType) GetVolume() *VolumeType {
 	return nil
 }
 
+func (x *CultureAdditionType) GetUnitPrice() *PriceType {
+	if x != nil {
+		return x.UnitPrice
+	}
+	return nil
+}
+
 type isCultureAdditionType_Amount interface {
 	isCultureAdditionType_Amount()
 }
@@ -750,7 +762,11 @@ type CultureLotType struct {
 	// culture's max_reuse to warn when a slurry is past its recommended reuses.
 	Generation int32 `protobuf:"varint,11,opt,name=generation,proto3" json:"generation,omitempty"`
 	// Best-before / use-by date of this lot. Unset when unknown.
-	BestBefore    *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=best_before,json=bestBefore,proto3" json:"best_before,omitempty"`
+	BestBefore *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=best_before,json=bestBefore,proto3" json:"best_before,omitempty"`
+	// What one canonical unit of this lot cost -- per gram, millilitre or counted
+	// unit, whichever its amount is held in. Unset when the price was not
+	// recorded, which is not the same as free.
+	UnitPrice     *PriceType `protobuf:"bytes,13,opt,name=unit_price,json=unitPrice,proto3" json:"unit_price,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -882,6 +898,13 @@ func (x *CultureLotType) GetGeneration() int32 {
 func (x *CultureLotType) GetBestBefore() *timestamppb.Timestamp {
 	if x != nil {
 		return x.BestBefore
+	}
+	return nil
+}
+
+func (x *CultureLotType) GetUnitPrice() *PriceType {
+	if x != nil {
+		return x.UnitPrice
 	}
 	return nil
 }
@@ -1030,7 +1053,7 @@ const file_beerproto_v1_culture_proto_rawDesc = "" +
 	"\x11attenuation_range\x18\f \x01(\v2\x1e.beerproto.v1.PercentRangeTypeR\x10attenuationRange\x12\x1b\n" +
 	"\tmax_reuse\x18\r \x01(\x05R\bmaxReuse\x12\x10\n" +
 	"\x03pof\x18\x0e \x01(\bR\x03pof\x122\n" +
-	"\bzymocide\x18\x0f \x01(\v2\x16.beerproto.v1.ZymocideR\bzymocide\"\x83\x04\n" +
+	"\bzymocide\x18\x0f \x01(\v2\x16.beerproto.v1.ZymocideR\bzymocide\"\xbb\x04\n" +
 	"\x13CultureAdditionType\x125\n" +
 	"\x04base\x18\x01 \x01(\v2\x19.beerproto.v1.CultureBaseB\x06\xbaH\x03\xc8\x01\x01R\x04base\x12\x1b\n" +
 	"\x02id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x12.\n" +
@@ -1042,10 +1065,12 @@ const file_beerproto_v1_culture_proto_rawDesc = "" +
 	"\x04mass\x18\b \x01(\v2\x16.beerproto.v1.MassTypeH\x00R\x04mass\x12,\n" +
 	"\x04unit\x18\t \x01(\v2\x16.beerproto.v1.UnitTypeH\x00R\x04unit\x122\n" +
 	"\x06volume\x18\n" +
-	" \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volumeB\x0f\n" +
+	" \x01(\v2\x18.beerproto.v1.VolumeTypeH\x00R\x06volume\x126\n" +
+	"\n" +
+	"unit_price\x18\v \x01(\v2\x17.beerproto.v1.PriceTypeR\tunitPriceB\x0f\n" +
 	"\x06amount\x12\x05\xbaH\x02\b\x01\"H\n" +
 	"\x14CultureInventoryType\x120\n" +
-	"\x04lots\x18\t \x03(\v2\x1c.beerproto.v1.CultureLotTypeR\x04lots\"\xaa\x04\n" +
+	"\x04lots\x18\t \x03(\v2\x1c.beerproto.v1.CultureLotTypeR\x04lots\"\xe2\x04\n" +
 	"\x0eCultureLotType\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
 	"\blot_code\x18\x02 \x01(\tR\alotCode\x12;\n" +
@@ -1063,7 +1088,9 @@ const file_beerproto_v1_culture_proto_rawDesc = "" +
 	"generation\x18\v \x01(\x05R\n" +
 	"generation\x12;\n" +
 	"\vbest_before\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\n" +
-	"bestBeforeB\x0f\n" +
+	"bestBefore\x126\n" +
+	"\n" +
+	"unit_price\x18\r \x01(\v2\x17.beerproto.v1.PriceTypeR\tunitPriceB\x0f\n" +
 	"\x06amount\x12\x05\xbaH\x02\b\x01\"p\n" +
 	"\bZymocide\x12\x10\n" +
 	"\x03no1\x18\x01 \x01(\bR\x03no1\x12\x10\n" +
@@ -1140,7 +1167,8 @@ var file_beerproto_v1_culture_proto_goTypes = []any{
 	(*MassType)(nil),              // 13: beerproto.v1.MassType
 	(*UnitType)(nil),              // 14: beerproto.v1.UnitType
 	(*VolumeType)(nil),            // 15: beerproto.v1.VolumeType
-	(*timestamppb.Timestamp)(nil), // 16: google.protobuf.Timestamp
+	(*PriceType)(nil),             // 16: beerproto.v1.PriceType
+	(*timestamppb.Timestamp)(nil), // 17: google.protobuf.Timestamp
 }
 var file_beerproto_v1_culture_proto_depIdxs = []int32{
 	2,  // 0: beerproto.v1.CultureBase.type:type_name -> beerproto.v1.CultureBaseType
@@ -1160,19 +1188,21 @@ var file_beerproto_v1_culture_proto_depIdxs = []int32{
 	13, // 14: beerproto.v1.CultureAdditionType.mass:type_name -> beerproto.v1.MassType
 	14, // 15: beerproto.v1.CultureAdditionType.unit:type_name -> beerproto.v1.UnitType
 	15, // 16: beerproto.v1.CultureAdditionType.volume:type_name -> beerproto.v1.VolumeType
-	7,  // 17: beerproto.v1.CultureInventoryType.lots:type_name -> beerproto.v1.CultureLotType
-	16, // 18: beerproto.v1.CultureLotType.received_on:type_name -> google.protobuf.Timestamp
-	13, // 19: beerproto.v1.CultureLotType.dry:type_name -> beerproto.v1.MassType
-	15, // 20: beerproto.v1.CultureLotType.liquid:type_name -> beerproto.v1.VolumeType
-	14, // 21: beerproto.v1.CultureLotType.liquid_packs:type_name -> beerproto.v1.UnitType
-	15, // 22: beerproto.v1.CultureLotType.slant:type_name -> beerproto.v1.VolumeType
-	15, // 23: beerproto.v1.CultureLotType.culture:type_name -> beerproto.v1.VolumeType
-	16, // 24: beerproto.v1.CultureLotType.best_before:type_name -> google.protobuf.Timestamp
-	25, // [25:25] is the sub-list for method output_type
-	25, // [25:25] is the sub-list for method input_type
-	25, // [25:25] is the sub-list for extension type_name
-	25, // [25:25] is the sub-list for extension extendee
-	0,  // [0:25] is the sub-list for field type_name
+	16, // 17: beerproto.v1.CultureAdditionType.unit_price:type_name -> beerproto.v1.PriceType
+	7,  // 18: beerproto.v1.CultureInventoryType.lots:type_name -> beerproto.v1.CultureLotType
+	17, // 19: beerproto.v1.CultureLotType.received_on:type_name -> google.protobuf.Timestamp
+	13, // 20: beerproto.v1.CultureLotType.dry:type_name -> beerproto.v1.MassType
+	15, // 21: beerproto.v1.CultureLotType.liquid:type_name -> beerproto.v1.VolumeType
+	14, // 22: beerproto.v1.CultureLotType.liquid_packs:type_name -> beerproto.v1.UnitType
+	15, // 23: beerproto.v1.CultureLotType.slant:type_name -> beerproto.v1.VolumeType
+	15, // 24: beerproto.v1.CultureLotType.culture:type_name -> beerproto.v1.VolumeType
+	17, // 25: beerproto.v1.CultureLotType.best_before:type_name -> google.protobuf.Timestamp
+	16, // 26: beerproto.v1.CultureLotType.unit_price:type_name -> beerproto.v1.PriceType
+	27, // [27:27] is the sub-list for method output_type
+	27, // [27:27] is the sub-list for method input_type
+	27, // [27:27] is the sub-list for extension type_name
+	27, // [27:27] is the sub-list for extension extendee
+	0,  // [0:27] is the sub-list for field type_name
 }
 
 func init() { file_beerproto_v1_culture_proto_init() }
